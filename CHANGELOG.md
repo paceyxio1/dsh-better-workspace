@@ -3,6 +3,42 @@
 > 倒序排列,新版本条目在最上面。条目格式:`## vX.Y.Z — YYYY-MM-DD` + 类型(feat / fix / docs / chore)+ 要点 + 相关链接。
 > 纪律见 AGENTS.md「变更记录纪律」:发版前先更新本文件并随版本提交;事故复盘、复现与真机验证记录也记在这里。
 
+## v0.36.2 — 2026-10-23
+
+**类型**:feat / 搜索全量会话 + 区头按钮重组(用户验收反馈三点)。
+
+- **搜索展示匹配项目的全部会话**:根因是 `searchSessionNode` 把会话树剪成「仅匹配项」——按**名称**匹配到的工作区(其会话标题不含关键词)整棵会话树被剪成 `null`,表现即「项目无法展开对话列表」。现搜索命中工作区即渲染其**完整会话记录**(分组强制展开,恢复「搜索时强制全展开」不变量),并顺带修复配额在搜索下未 bypass 的漂移(`limitSessionsForRender(full, searching ? 0 : sessionLimit, …)`)。会话子分组行在搜索下照旧强制展开。
+- **「新建分组」区头按钮退役**(用户决策):按钮、拖拽投放区(`over.kind 'newgroup'`)、`GroupNewDialog` 及其容器树 helper(`newGroupTreeOf`/`wsFolderNodesOf`/`sessGroupNodesOf`)、`newGroupLabel`/`newGroupLayers`/`defaultNewGroupLayer`/`pickerKindOf`/`targetListOf`(后者自 v0.17 起已是死代码)、14 个 `group.new.*` 词典键 × 21 门、`.bw-gn-*`/`.bw-newgroup-btn` 样式一并删除。名称分组回归纯标题投影;`folders` 声明袋保留(旧快照声明照常渲染、空声明组仍可右键删除)。
+- **新增两个区头按钮**(坐原按钮位):**定位当前会话**(目标图标,无当前会话时禁用)——展开当前会话的全部祖先(磁盘链工作区行、项目组 bin 路径各级、名称层 idPath 前缀链、会话子分组、未分组块)再按 `data-row-key` 滚动到该行;**收起全部**(上箭图标,空树禁用)——调用新 store action `collapseAllTree` 一次 dispatch 折叠整棵树:全部工作区会话列表、名称分组、项目组 bin、会话子分组、两个未分组块;调用方走渲染树收集键(压缩链/磁盘子层不漏)。
+- 词典:删 14 键(`group.new.*`),新增 3 键(`action.reveal` / `action.collapseAll` / `pgroup.newChild.hint`——后者补新建子分组对话框被牵连的 hint),21 门全量对齐。
+- 冒烟 66 不变:重写区头按钮测试为「退役 + 双按钮」断言、新增 collapseAllTree store 语义 eval、搜索全量断言(pruner 不得复活、配额 bypass)、更新 v0.21.0 配额断言;删 GroupNewDialog 模块级组件测试(组件已删)。
+- 已知限制:搜索态下「定位」仅当当前会话行已渲染时滚动(搜索结果不含该会话则只写展开态,不清搜索词)。
+
+## v0.36.1 — 2026-10-23
+
+**类型**:feat / 项目组拖拽排序与层级管理(用户验收反馈两点)。
+
+- **项目组拖拽排序**:项目组行现在是拖拽源(drag.kind 'pgroup',HTML5 原生,无需一帧 arm——bin 恒为真实行,不存在压缩把源行挪走的问题)。拖到**同层另一组行的上/下半区** = 同级排序(行上显示 before/after 半区高亮,FolderRow 新增 dropHalf);拖到**别的层级的组行** = 先改挂到目标父级、再按半区定位,一次手势完成「嵌套 + 排序」;拖到树的根空白处 = 嵌套组升回顶层(重键 + 末尾追加)。**拖进自己的子树被拒**(拖 'a' 到 'a/b' 上不高亮、不接管)。
+- **手动顺序存储**:视图 store 新增 `projectGroupOrder` 扁平列表(与 `projectGroups` 袋同生命周期:declare/assign 新建组追加到末尾、remove 连带子孙摘条、rename 重键自身与子孙条目)。每层的显示序 = 该层同级路径在列表中的相对顺序,**不在列表里的组回退按名称拼音排序**——旧快照无此键零迁移,拖过的组保持位置,事后新建的组自然排到未拖过的组后面。新 action `reorderProjectGroup(path, anchor, half)`(anchor '' = 顶层末尾追加;跨父级调用 no-op,UI 侧先 rename 再 re-anchor)。
+- **组右键菜单层级操作**:新增「新建子分组…」(在本组之下声明空子组,随后拖工作区进去)与「移动到上层分组…」(输入上层组名——可以是全新名字即「新增一层」、`/` 多级、留空 = 升到顶层;成员与子孙随重键迁移;**移入自己或自己的子树被拒绝**并 inline 报错)。菜单序:重命名 / 新建子分组 / 移动到上层分组 / 删除 / 自定义外观。
+- 词典:新增 6 键(`menu.newChildPgroup` / `menu.reparentPgroup` / `pgroup.newChild.title` / `pgroup.reparent.title|hint|self`),21 门全量对齐。
+- 冒烟 65 → **66**:顺序列表语义(追加/摘条/重键/前后定位/未登记回退/跨父级 no-op/嵌套只动本级)、applyProjectGroups 顺序感知排序、组行拖拽与半区高亮/根空白升层/自树拒绝的结构断言、两个新对话框与循环守卫断言。
+
+## v0.36.0 — 2026-10-23
+
+**类型**:feat / 项目组层级(工作区之上的归类层)。
+
+- **项目组(project groups)**:在工作区树之上新增一层**存储驱动的归类层**——把工作区手动归入命名的「项目组」,同类项目收进一个组。与名称层(标题 `/` 投影)根本不同:**入组/出组/跨组只写视图 store,绝不改写工作区标题**;组可任意拖入拖出,组名与工作区命名完全解耦。
+- **数据模型**:视图 store 新键 `projectGroups`(本地持久化,不进跨端同步)——`{ "组路径": [workspaceId…] }`;路径用 `/` 分隔即多级嵌套(`客户端/招标`);空数组声明空组(与 `folders` 箱同款语义);不在任何桶里的工作区留在根层。动作:`assignProjectGroup`(单一归属:先摘再加;本次被清空的桶自清理,但**预先声明的空组不被误删**、有声明后代时保留中间层)、`declareProjectGroup`、`removeProjectGroup`(带子声明分支,成员随桶删除回到根层)、`renameProjectGroup`(重键桶+后代,并入已有组时原有成员在前)。
+- **树构建**:`applyProjectGroups` 在 buildTree + 单链压缩**之后**包裹根层——pg 节点(`pg: true`、`idPath 'pg//…'`)从不经过 compressTree,天然避开链合并吃掉组身份;只重分配根层工作区(**磁盘嵌套子级不参与**:磁盘层是文件系统事实),组内成员按 leaf 平铺(名称前缀保留在标题里,组是纯 bin);组排在名称分组之前;存在任一项目组时,未分配工作区包进可折叠「未分组」块(新键 `projectRootOpen`,镜像会话未分组桶)。
+- **归属操作**:工作区行右键「移动到项目组…」(组名输入框复用 GroupDialog, datalist 提示已有组,`/ ` 建多级,留空=移出)+ 已在组中时「移出项目组」;拖工作区行**到组行上**=入组(纯 store 写)、**到别的工作区行上**=跨组入对方的组(与名称前缀改写可同一次 drop 叠加)、拖到根空白处=出组(镜像会话的 way-out);组行右键=重命名/删除(删除确认文案区分空组/非空组,非空组成员回未分组)/自定义外观(`pgroup:` 键命名空间,与同名名称分组互不干扰);外观对话框对 pgroup 开放图标网格。
+- **两个表面同树**:对话空态的工作区选择器(HeroWorkspacePicker)读同一 store 键,侧栏与选择器即时同步;选择器内组行折叠为本地态。
+- **身份隔离**:`findTreeNode` 跳过 pg 子树(同名「web」名称分组与项目组路径并列时,名称层查找绝不解析进 bin);磁盘层子级(`renderLevelRows`)以 `allowPg=false` 渲染,行内不出现项目组菜单项、拖拽源不带 pg 归属(`__bwNoPg` 载荷)。
+- **归档筛选**:`仅显示已归档` 下,成员全部无可见归档会话的组整行不渲染(与名称分组同款 countVisibleAt 规则);呼吸灯(folderPulseOf/subHasCurrent)对折叠组行照常外冒。
+- 词典:新增 10 键(`menu.moveToPgroup` / `menu.moveOutPgroup` / `menu.renamePgroup` / `menu.deletePgroup` / `pgroup.move.title|hint` / `pgroup.rename.title` / `pgroup.delete.title|empty|full`),zh/en/19 门第三方语言全量对齐(冒烟逐门键集断言)。
+- 冒烟 62 → **65**:store 袋语义(action 逐行为 eval:单一归属/自清理/声明保留/删除解绑/重命名并序/旧快照容错)、`applyProjectGroups` 树行为(重分配/嵌套/排序/未分配/同名名称分组共存/空组声明)、渲染+菜单+拖拽+对话框结构断言;另更新 v0.18.0 根容器断言以覆盖工作区 way-out。
+- 已知限制(v1):组内不渲染名称前缀子层(标题里的 `/` 分组在 bin 内平铺,重命名对话框仍见全名);空态选择器内组不可折叠记忆随弹层关闭;项目组不进跨端手动同步(与折叠状态同类,每端本地)。
+
 ## v0.35.1 — 2026-10-22
 
 **类型**:fix / 用户验收反馈(工作区行内「⋯」退役收尾)。

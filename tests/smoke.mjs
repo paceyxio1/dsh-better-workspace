@@ -669,8 +669,10 @@ test('session reorder: host action preferred, browser-local order as the fallbac
   assert.deepEqual(reorderIds(undefined, 'a', undefined), ['a'], 'a missing list is tolerated')
 
   // Store action: hydration replaces state wholesale, so a state persisted
-  // before this key existed must still accept the write.
-  const storeStart = text.indexOf('const createViewStore = () => storeKit.defineStore({')
+  // before this key existed must still accept the write. The slice starts at
+  // declaredPathOf: the pg actions normalize through it and the pg order
+  // helpers (pgParentPathOf et al.) live between it and the store.
+  const storeStart = text.indexOf('const declaredPathOf =')
   const storeEnd = text.indexOf('/* ========================= title cache store')
   assert.ok(storeStart !== -1 && storeEnd !== -1 && storeStart < storeEnd, 'view store not found')
   const def = new Function('storeKit', text.slice(storeStart, storeEnd) + '\nreturn createViewStore()')({ defineStore: (d) => d })
@@ -1080,8 +1082,13 @@ test('issue round: exports fix, icon pick, ungrouped fold, tri-state, quota (v0.
   assert.match(text, /row\.blank \|\| row\.running \|\| row\.subagents > 0 \|\| row\.pinned/)
   assert.match(text, /const SESSION_ATTENTION_WINDOW = 50/)
   assert.match(text, /row\.pending \|\| row\.completed \|\| row\.id === currentId/)
-  assert.match(text, /limitSessionsForRender\(full, sessionLimit, limitLifted\[workspace\.workspaceId\], currentId\)/)
+  assert.match(text, /limitSessionsForRender\(full, searching \? 0 : sessionLimit, limitLifted\[workspace\.workspaceId\], currentId\)/)
   assert.match(text, /t\('sessions\.expand', \{ n: limited\.hidden \}\)/)
+  // v0.36.2: search renders the FULL session record under a matched
+  // workspace — the pruner (searchSessionNode) is gone, a title-matched
+  // project no longer shows zero sessions.
+  assert.doesNotMatch(text, /const searchSessionNode|searchSessionNode\(/, 'the session pruner must not come back')
+  assert.match(text, /for \(const s of node\.sessions\) out\.push\(renderSessionRow\(s, depth, workspaceId\)\)/)
 })
 
 /**
@@ -1110,30 +1117,43 @@ test('group move: one shared menu entry on every row kind, one dialog for both e
   assert.match(text, /function GroupDialog\(\{ title, hint, initial, targets, groupPaths, onConfirm, onClose, t \}\)/)
 })
 
-test('group move: the header "New group" button doubles as the drop slot', () => {
+test('group move: the retired header "New group" button (v0.36.2) and its two successors', () => {
   const text = read('src/client.js')
-  // v0.17.0: the button is an ICON now and its label tracks the live layers.
-  assert.match(text, /'aria-label': newGroupLabel\(\)/, 'header button is labelled by the live layers')
-  assert.match(text, /const newGroupLabel = \(\) => \(workspaceSlash && sessionSlash \? t\('group\.new\.both'\)/, 'both layers live -> "session or workspace"')
-  assert.match(text, /\}, icon\('IconFolderOpen16', 16\)\) : null,/, 'rendered as an icon button')
-  // The button exists only while at least one name layer is ON.
-  assert.match(text, /\(workspaceSlash \|\| sessionSlash\) \? E\('button', \{/, 'header button follows the switches')
-  assert.match(text, /const groupDropTarget = \(\) => drag !== null && drag\.over && drag\.over\.kind === 'newgroup'/)
-  // The slot refuses rows whose layer is off — while hovering AND on drop.
-  assert.match(text, /if \(drag\.kind === 'workspace' && !workspaceSlash\) return/, 'hover refused on a disk-only workspace layer')
-  assert.match(text, /if \(\(drag\.kind === 'workspace' && !workspaceSlash\) \|\| \(drag\.kind === 'session' && !sessionSlash\)\) \{/, 'drop refused on a disabled layer')
-  assert.match(text, /over: \{ kind: 'newgroup' \}/, 'drag over the button marks the new-group target')
-  // The datalist source is snapshotted when the dialog opens, never walked
-  // during render: collectGroupPaths covers every workspace + session title,
-  // so a render-time call would redo that walk on every store tick.
-  assert.match(text, /groupPaths: collectGroupPaths\(target\.kind\)/, 'menu / drop snapshot the datalist source')
-  assert.match(text, /const pickerKindOf = \(\) => workspaceSlash && sessionSlash \? undefined/, 'picker kind still narrows to the enabled layers (drag path)')
-  // v0.17.0: the header click opens the NEW-group dialog, not the move picker.
-  assert.match(text, /setDialog\(\{ kind: 'group-new', layer: defaultNewGroupLayer\(\) \}\)/, 'header opens the new-group dialog')
-  assert.match(text, /const defaultNewGroupLayer = \(\) => \(workspaceSlash && !sessionSlash \? 'workspace' : 'session'\)/, 'a disk-only host defaults to the session layer')
-  assert.match(text, /const pickerKindOf = \(\) => workspaceSlash && sessionSlash \? undefined : \(workspaceSlash \? 'workspace' : 'session'\)/, 'picker narrows to the enabled layers')
-  assert.match(text, /groupPaths: dialog\.groupPaths \|\| \[\]/, 'render reads the snapshot instead of re-walking')
-  assert.match(text, /\.bw-drop-into-strong\{outline:2px solid var\(--dsw-alias-brand-primary/, 'drop highlight')
+  // v0.36.2 retirement (user decision): the header new-group button and its
+  // whole cluster went away — button, drop slot, dialog, container-tree
+  // helpers, picker narrowing, and the 14 group.new.* dictionary keys.
+  assert.doesNotMatch(text, /bw-newgroup-btn/, 'the header button must stay retired')
+  assert.doesNotMatch(text, /function GroupNewDialog/, 'the dialog must stay retired')
+  assert.doesNotMatch(text, /newGroupLabel|newGroupLayers|defaultNewGroupLayer|newGroupTreeOf|wsFolderNodesOf|sessGroupNodesOf/, 'helpers stay retired')
+  assert.doesNotMatch(text, /const groupDropEvents|const groupDropTarget|over: \{ kind: 'newgroup' \}/, 'the drop slot stays retired')
+  assert.doesNotMatch(text, /pickerKindOf|targetListOf/, 'dead picker helpers stay retired')
+  assert.doesNotMatch(text, /kind: 'group-new'/, 'no opener remains')
+  assert.doesNotMatch(text, /'group\.new/, 'the 21×14 dictionary keys are gone')
+  assert.doesNotMatch(text, /bw-gn-/, 'the dialog styles are gone')
+  // Its successors: REVEAL (locate the current session: expand every ancestor
+  // and scroll it into view) and COLLAPSE-ALL (fold the whole tree in one
+  // dispatch). Both live where the old button sat, before the search field.
+  assert.match(text, /'aria-label': t\('action\.reveal'\)/, 'reveal button is labelled')
+  assert.match(text, /'aria-label': t\('action\.collapseAll'\)/, 'collapse-all button is labelled')
+  assert.match(text, /onClick: revealCurrent,/, 'reveal wiring')
+  assert.match(text, /onClick: collapseEntireTree,/, 'collapse-all wiring')
+  assert.match(text, /disabled: currentId === undefined \|\| currentId === null/, 'reveal needs a current session')
+  assert.match(text, /icon\('IconGoalOutline16', 16\)/, 'reveal uses the goal/target glyph from the shipped set')
+  assert.match(text, /icon\('IconChevronUpOutline14', 16\)/, 'collapse-all uses the chevron-up glyph')
+  // Reveal expands each ancestor class: disk chain, project-group bins, name
+  // folders (with the disk-level idPrefix), session sub-groups, Ungrouped.
+  assert.match(text, /const revealCurrent = \(\) => \{/)
+  assert.match(text, /while \(ancestor !== undefined\) \{ chain\.unshift\(ancestor\); ancestor = diskParentMap\.get\(ancestor\) \}/)
+  assert.match(text, /actions\.setExpanded\('pg\/\/' \+ key, true\)/)
+  assert.match(text, /actions\.setExpanded\(idPrefix === '' \? key : idPrefix \+ '\/\/' \+ key, true\)/)
+  assert.match(text, /actions\.setSessionGroupExpanded\(holder\.workspaceId \+ '\|' \+ key, true\)/)
+  assert.match(text, /querySelector\('\[data-row-key="/, 'reveal scrolls via the row key')
+  assert.match(text, /scrollIntoView\(\{ block: 'center' \}\)/)
+  // Collapse-all walks the rendered tree (compressed chains and disk-sub
+  // levels included) and dispatches ONE store action.
+  assert.match(text, /const collapseEntireTree = \(\) => \{/)
+  assert.match(text, /actions\.collapseAllTree\(\{ expanded, sessionsExpanded, sessionGroups, ungroupedOpen: false, projectRootOpen: false \}\)/)
+  assert.match(text, /if \(f\.kind === 'ws'\) \{ foldWorkspace\(f\.workspace\); continue \}/)
 })
 
 test('group move: user renames ride renameByUser, host reorder stays optional', () => {
@@ -1381,68 +1401,30 @@ test('declared groups: they render even with no members to project from (v0.17.0
 })
 
 /**
- * The new-group dialog (v0.17.0): a two-way layer switch plus an expandable
- * container TREE, because the parent is a place in the hierarchy — picking it
- * from a flat dropdown lost the "under which workspace / which group" reading.
- * The move dialog keeps its own shape; the two are separate entry points now.
+ * v0.17.0's new-group dialog RETIRED in v0.36.2 (user decision): declared
+ * empty groups lose their creation UI — name groups are title projections
+ * again, and the folders bag keeps rendering declarations written by older
+ * versions (plus the delete action on an empty declared group). The header
+ * seat now hosts the reveal / collapse-all pair (assertions live with the
+ * group-move tests above).
  */
-test('new group: icon button, live tooltip, layer switch and a tree picker (v0.17.0)', () => {
+test('new group: the v0.17.0 dialog cluster stays retired (v0.36.2)', () => {
   const text = read('src/client.js')
-  assert.match(text, /function GroupNewDialog\(props\)/, 'the dialog exists')
-  assert.match(text, /const newGroupLayers = \(\) => \(workspaceSlash && sessionSlash \? \['session', 'workspace'\]/, 'both layers are offered when both are live')
-  assert.match(text, /layer: defaultNewGroupLayer\(\)/, 'the header hands the dialog its default layer')
-  // One live layer means no switch at all — a two-option control with one
-  // option is noise, and the tooltip already names the single layer.
-  assert.match(text, /kinds\.length > 1 \? E\('div', \{ className: 'bw-seg'/, 'the switch renders only with two layers')
-  assert.match(text, /function GroupNewDialog[\s\S]*?treeOf\(kind\)/, 'the container tree follows the selected layer')
-  assert.match(text, /const pick = \(node\) => \{ if \(node\.pickable === false\) return; setPicked\(node\); setError\(''\) \}/, 'clicking a node picks the container (containers refuse)')
-  // The session layer has no "top level": folders.sess is keyed by workspaceId,
-  // so a declaration filed under '' would never be read by any render path. Its
-  // introduction is a plain HINT, not a header row that reads as a node.
-  // The container tree mirrors the sidebar's view mode, and the session layer
-  // walks the SAME tree the sidebar renders (disk nesting included) instead of
-  // the flat registry list — a child workspace must nest under its parent.
-  assert.match(text, /const treeView = groupBy === 'workspace-tree'/, 'the dialog follows the live view mode')
-  assert.match(text, /if \(treeView\) return \{ hint: t\('group\.new\.pickWorkspace'\), nodes: sessNodesOf\(rawTree\) \}/,
-    'tree view: session layer walks the tree')
-  // The dialog walks the UNCOMPRESSED tree: a merged single-child chain row
-  // stands for a group AND its only workspace at once, which cannot be one
-  // selectable and one unselectable node.
-  assert.match(text, /const rawTree = React\.useMemo\(\(\) => buildTree\(items, workspaceGroupMode, wsFolders\), \[items, workspaceGroupMode, wsFolders\]\)/,
-    'an uncompressed tree exists for the dialog')
-  assert.match(text, /const folderLabelOf = \(node\) => String\(node\.name \|\| \(Array\.isArray\(node\.segs\)/,
-    'labels survive a node shape that carries segs but no name')
-  assert.match(text, /const sessNodesOf = \(node\) => \{/, 'the recursive walk exists')
-  assert.match(text, /children: \[\.\.\.inner, \.\.\.subNodes\]/, 'a workspace node carries its session groups AND its disk-nested children')
-  assert.match(text, /const flat = \[\]/, 'one-level modes fall back to a flat list')
-  assert.match(text, /if \(!picked\) \{ setError\(t\('group\.new\.pickFirst'\)\); return \}/,
-    'commit refuses an unpicked container')
-  assert.match(text, /plan\.nodes\.length > 0 \? renderNodes\(plan\.nodes, 0\) : E\('div', \{ className: 'bw-gn-empty' \}/,
-    'an empty workspace list explains itself instead of rendering nothing')
-  assert.match(text, /onConfirm\(kind, picked\.scope, picked\.path === '' \? clean : picked\.path \+ '\/' \+ clean\)/,
-    'the name is appended to the picked container path')
-  assert.match(text, /actions\.addFolder\(kind, scope, path\)/, 'confirm writes the declaration')
-  // The tree carries the exact write targets.
-  // Workspace-GROUP containers list name-group folders ONLY: a workspace title
-  // is "group/leaf", so with members A/B, A/C, D and E/F the only groups are A
-  // and E — B/C/D/F are leaves and must not be offered as containers.
-  assert.match(text, /const wsFolderNodesOf = \(node\) => \(node\.folders \|\| \[\]\)\.map/, 'workspace container walk covers groups only')
-  assert.doesNotMatch(text, /wsGroupNodesOf/, 'the walk must not fall back to listing workspaces as containers')
-  // A dedicated top-level row carries "new group NEXT TO A and E"; the walk
-  // supplies the existing top-level groups beside it.
-  // It sits LAST: "one more, belonging to none of the above".
-  assert.match(text, /nodes: \[\.\.\.groups, \{ id: '@top', scope: '', path: '', label: t\('group\.new\.independent'\), kind: 'new', children: \[\] \}\]/,
-    'the dedicated top-level row exists and trails the containers')
-  assert.match(text, /const groups = treeView \? wsFolderNodesOf\(rawTree\) : \[\]/, 'the workspace layer uses the group-only walk')
-  assert.match(text, /node\.kind === 'new' \? icon\('IconPlusOutline16', 15\)/, 'the top-level row reads as an action, not a folder')
-  assert.match(text, /const sessGroupNodesOf = \(node, workspaceId\)/, 'session container walk')
-  assert.match(text, /scope: workspaceId, path: g\.path/, 'a session group files under its workspace')
-  // Menu hygiene (user report): the plugin's own entries sit AFTER the
-  // separator, and the move entry must carry a glyph the host actually has.
+  assert.doesNotMatch(text, /function GroupNewDialog/, 'the dialog component is gone')
+  assert.doesNotMatch(text, /bw-gn-|bw-newgroup-btn/, 'the dialog + button styles are gone')
+  assert.doesNotMatch(text, /'group\.new(\.|')/, 'every dictionary key is gone')
+  // What SURVIVES the retirement: the declaration bag still renders (old
+  // snapshots and the session layer both rely on it) and an empty declared
+  // group can still be deleted from its row menu.
+  assert.match(text, /addFolder: \(d, kind, scope, path\)/, 'the declaration action stays (compat rendering)')
+  assert.match(text, /removeFolder: \(d, kind, scope, path\)/, 'the delete action stays reachable')
+  assert.match(text, /ctx\.payload\.empty \? \[deleteFolderEntry\] : \[\]/, 'delete is offered for empty groups only')
+  assert.match(text, /explicitSegsOf\(explicitWs, idPrefix\)/, 'declarations still resolve into the tree')
+  assert.match(text, /hasDeclared\(sessFolders, workspace\.workspaceId\)/, 'declared session groups still render')
+  // Menu hygiene (user report) still holds: plugin entries after the separator,
+  // and the move glyph must exist on this host.
   assert.match(text, /icon\('IconFolderOpenOutline16', 16\) \}/, 'move-to-group uses a glyph this host ships')
   assert.doesNotMatch(text, /icon\('IconFolderOutline16'/, 'the retired glyph must not come back')
-  assert.match(text, /id: 'delete-folder', label: t\('menu\.deleteGroup'\)/, 'an empty group can be deleted')
-  assert.match(text, /ctx\.payload\.empty \? \[deleteFolderEntry\] : \[\]/, 'delete is offered for empty groups only')
 })
 
 /**
@@ -1476,7 +1458,11 @@ test('session drag out of a group: cross-group drops move the row, the workspace
   // the drop (row handlers stopPropagation, so only unclaimed drops reach it)
   // and marks itself while such a drag is in flight.
   assert.match(text, /const sessionCouldLeaveGroup = dragMatches\('session'\) && sessionSlash/)
-  assert.match(text, /sessionCouldLeaveGroup && 'bw-root-drop-out'/)
+  // v0.36.0/v0.36.1: the same "bare root is a way out" promise covers a
+  // grouped WORKSPACE drag (drop on unclaimed root space unbins it) and a
+  // NESTED project-group drag (climbs to the top level) — any of the three
+  // drags marks the container.
+  assert.match(text, /\(sessionCouldLeaveGroup \|\| workspaceCouldLeaveGroup \|\| pgroupCouldRelocate\) && 'bw-root-drop-out'/)
 
   // Pure helper: the leaf's own text survives, the group comes from the anchor
   // row ('' = the root level, i.e. out of every group).
@@ -1490,15 +1476,47 @@ test('session drag out of a group: cross-group drops move the row, the workspace
   assert.equal(titleMovedToGroup('组/A', ''), 'A', 'an empty anchor keeps the leaf as it is')
 })
 
-test('new-group dialog components stay at module scope (React discipline)', () => {
+/**
+ * Collapse-everything (v0.36.2): one store action folds the whole tree. The
+ * caller walks the RENDERED tree and hands over ready-made maps; the action
+ * only merges — hydration discipline as everywhere else.
+ */
+test('collapse-all: the bulk store action merges caller-built maps', () => {
   const text = read('src/client.js')
-  const head = text.indexOf('function GroupNewDialog(props) {')
-  const start = text.indexOf('\n', head) + 1
-  const end = text.indexOf('\n    function ', start)
-  const body = text.slice(start, end)
-  assert.ok(body.length > 0, 'component body found')
-  // Hooks before any early return; no nested component definitions.
-  assert.doesNotMatch(body, /function [A-Z]\w*\(/, 'no component defined inside the component')
+  const storeStart = text.indexOf('const declaredPathOf =')
+  const storeEnd = text.indexOf('/* ========================= title cache store')
+  const def = new Function('storeKit', text.slice(storeStart, storeEnd) + '\nreturn createViewStore()')({ defineStore: (d) => d })
+  const collapseAllTree = def.actions.collapseAllTree
+
+  // Every map folds at once, alongside both Ungrouped blocks.
+  let d = { expanded: { 'web': true }, sessionsExpanded: { 'w1': true }, sessionGroups: { 'w1|g': true }, ungroupedOpen: true, projectRootOpen: true }
+  collapseAllTree(d, {
+    expanded: { 'web': false, 'pg//x': false },
+    sessionsExpanded: { 'w1': false, 'w2': false },
+    sessionGroups: { 'w1|g': false },
+    ungroupedOpen: false,
+    projectRootOpen: false,
+  })
+  assert.deepEqual(d.expanded, { 'web': false, 'pg//x': false }, 'existing keys fold, new keys merge')
+  assert.deepEqual(d.sessionsExpanded, { 'w1': false, 'w2': false })
+  assert.deepEqual(d.sessionGroups, { 'w1|g': false })
+  assert.equal(d.ungroupedOpen, false)
+  assert.equal(d.projectRootOpen, false)
+
+  // Stale snapshots: no maps at all — the action re-creates them on write.
+  d = {}
+  collapseAllTree(d, { sessionsExpanded: { 'w9': false }, ungroupedOpen: false })
+  assert.deepEqual(d.sessionsExpanded, { 'w9': false }, 'the missing map is created')
+  assert.equal(d.projectRootOpen, undefined, 'absent patch fields stay untouched')
+
+  // Guard rails: a non-object patch is a no-op; partial patches never invent
+  // the other maps.
+  d = { expanded: {} }
+  collapseAllTree(d, null)
+  collapseAllTree(d, 'nope')
+  assert.deepEqual(d.expanded, {})
+  collapseAllTree(d, { expanded: { 'a': false } })
+  assert.equal('sessionsExpanded' in d, false, 'a partial patch does not create unrelated maps')
 })
 
 /**
@@ -2001,5 +2019,304 @@ test('issue #13: local reads and writes ride the PRIVATE store instance', () => 
   // The face travels through BOTH inject faces as a stable getter.
   assert.equal((text.match(/localStore: \(\) => \(\{ useStore: useViewStore, actions: viewInstance.actions \}\)/g) || []).length, 2,
     'both inject faces must carry the private store getter')
+})
+
+/**
+ * Project groups (v0.36.0): the store-driven bins ABOVE the workspace tree.
+ * Membership is a view-store bag ({ 'a/b': [workspaceId...] }) — assignment
+ * NEVER rewrites workspace titles (that is what separates this layer from
+ * the name-projection groups). Deleting a bin unbins its members; renaming
+ * re-keys the bucket and its descendants.
+ */
+test('project groups: the store bag semantics (v0.36.0)', () => {
+  const text = read('src/client.js')
+  // Slice from declaredPathOf: the pg actions normalize through it and the
+  // pg order helpers live between it and the store.
+  const storeStart = text.indexOf('const declaredPathOf =')
+  const storeEnd = text.indexOf('/* ========================= title cache store')
+  assert.ok(storeStart !== -1 && storeEnd !== -1 && storeStart < storeEnd, 'view store not found')
+  const def = new Function('storeKit', text.slice(storeStart, storeEnd) + '\nreturn createViewStore()')({ defineStore: (d) => d })
+
+  assert.deepEqual(def.init().projectGroups, {}, 'init carries the empty bag')
+  assert.equal(def.init().projectRootOpen, true, 'the Ungrouped root block defaults open')
+
+  const { assignProjectGroup, declareProjectGroup, removeProjectGroup, renameProjectGroup } = def.actions
+
+  // Assignment creates the bucket; moving re-files (single membership);
+  // unassigning removes the id and prunes the emptied bucket.
+  let d = {}
+  assignProjectGroup(d, 'ws1', '客户端')
+  assert.deepEqual(d.projectGroups, { '客户端': ['ws1'] })
+  assignProjectGroup(d, 'ws1', '基础设施')
+  assert.deepEqual(d.projectGroups, { '基础设施': ['ws1'] }, 'a move is a re-file, never two memberships')
+  assignProjectGroup(d, 'ws1', '')
+  assert.deepEqual(d.projectGroups, {}, 'the emptied bucket prunes itself')
+  assignProjectGroup(d, '', 'x')
+  assert.deepEqual(d.projectGroups, {}, 'an empty id is a no-op')
+
+  // Pruning keeps an emptied intermediate when a declared descendant needs it.
+  d = { projectGroups: { 'a': ['ws1'], 'a/b': [] } }
+  assignProjectGroup(d, 'ws1', '')
+  assert.deepEqual(d.projectGroups, { 'a': [], 'a/b': [] }, 'an emptied parent of a declared child survives')
+
+  // Re-assigning to the CURRENT group is a no-op (no churn, no prune).
+  d = { projectGroups: { 'g': ['ws1'] } }
+  assignProjectGroup(d, 'ws1', 'g')
+  assert.deepEqual(d.projectGroups, { 'g': ['ws1'] })
+
+  // Paths normalize like declared folders: junk segments are dropped.
+  d = {}
+  assignProjectGroup(d, 'ws1', '  a//b  ')
+  assert.deepEqual(d.projectGroups, { 'a/b': ['ws1'] })
+
+  // Explicit empty declaration.
+  d = {}
+  declareProjectGroup(d, '空组')
+  declareProjectGroup(d, '空组')
+  assert.deepEqual(d.projectGroups, { '空组': [] }, 'declaring twice is idempotent')
+
+  // Delete takes the declared descendants AND unbins the members.
+  d = { projectGroups: { 'a': ['ws1'], 'a/b': ['ws2'], 'c': ['ws3'] } }
+  removeProjectGroup(d, 'a')
+  assert.deepEqual(d.projectGroups, { 'c': ['ws3'] }, 'members ride the deleted bucket back to Ungrouped')
+
+  // Rename re-keys the bucket and its descendants; members untouched.
+  d = { projectGroups: { 'a': ['ws1'], 'a/b': ['ws2'], 'c': ['ws3'] } }
+  renameProjectGroup(d, 'a', 'x')
+  assert.deepEqual(d.projectGroups, { 'x': ['ws1'], 'x/b': ['ws2'], 'c': ['ws3'] })
+  // Renaming onto an existing group merges (union, no duplicates).
+  d = { projectGroups: { 'a': ['w1'], 'b': ['w2'] } }
+  renameProjectGroup(d, 'a', 'b')
+  assert.deepEqual(d.projectGroups, { 'b': ['w2', 'w1'] })
+
+  // Stale snapshots (pre-v0.36) carry no bag at all — writes must still land.
+  d = { folders: { ws: {}, sess: {} } }
+  assignProjectGroup(d, 'ws9', 'g')
+  assert.deepEqual(d.projectGroups, { 'g': ['ws9'] })
+  d = { projectGroups: null }
+  assignProjectGroup(d, 'ws9', 'g')
+  assert.deepEqual(d.projectGroups, { 'g': ['ws9'] })
+})
+
+/**
+ * Manual group order (v0.36.1): a flat `projectGroupOrder` list beside the
+ * bag; a level's display order = the relative order of its same-parent
+ * entries (unlisted paths fall back to alphabetical). Drag reorder writes
+ * through reorderProjectGroup; the other actions keep the list in sync.
+ */
+test('project groups: the manual order list (v0.36.1)', () => {
+  const text = read('src/client.js')
+  const storeStart = text.indexOf('const declaredPathOf =')
+  const storeEnd = text.indexOf('/* ========================= title cache store')
+  const def = new Function('storeKit', text.slice(storeStart, storeEnd) + '\nreturn createViewStore()')({ defineStore: (d) => d })
+  const { assignProjectGroup, declareProjectGroup, removeProjectGroup, renameProjectGroup, reorderProjectGroup } = def.actions
+
+  assert.deepEqual(def.init().projectGroupOrder, [], 'init carries the empty order list')
+
+  // Assignment/declaration append NEW groups at the end, never duplicate.
+  let d = {}
+  assignProjectGroup(d, 'w1', 'b')
+  assignProjectGroup(d, 'w2', 'a')
+  assignProjectGroup(d, 'w3', 'a')
+  assert.deepEqual(d.projectGroupOrder, ['b', 'a'])
+  declareProjectGroup(d, 'c')
+  declareProjectGroup(d, 'c')
+  assert.deepEqual(d.projectGroupOrder, ['b', 'a', 'c'])
+
+  // Delete strips the group and its descendants' entries.
+  d = { projectGroups: { 'a': ['w1'], 'a/b': [], 'c': ['w2'] }, projectGroupOrder: ['a', 'a/b', 'c'] }
+  removeProjectGroup(d, 'a')
+  assert.deepEqual(d.projectGroupOrder, ['c'])
+
+  // Rename rewrites the group's entry AND its descendants' entries.
+  d = { projectGroups: { 'a': ['w1'], 'a/b': [], 'c': ['w2'] }, projectGroupOrder: ['a', 'a/b', 'c'] }
+  renameProjectGroup(d, 'a', 'x')
+  assert.deepEqual(d.projectGroupOrder, ['x', 'x/b', 'c'])
+
+  // Reorder: before/after among siblings.
+  d = { projectGroups: { 'a': ['w1'], 'b': ['w2'], 'c': ['w3'] }, projectGroupOrder: ['a', 'b', 'c'] }
+  reorderProjectGroup(d, 'c', 'a', 'before')
+  assert.deepEqual(d.projectGroupOrder, ['c', 'a', 'b'], 'drop BEFORE places the group ahead of the anchor')
+  reorderProjectGroup(d, 'a', 'c', 'after')
+  assert.deepEqual(d.projectGroupOrder, ['c', 'a', 'b'], 'moving right AFTER the very next sibling is identity-ish')
+  reorderProjectGroup(d, 'a', 'b', 'after')
+  assert.deepEqual(d.projectGroupOrder, ['c', 'b', 'a'], 'drop AFTER places the group behind the anchor')
+
+  // Unlisted bag keys join the sequence alphabetically (deterministic
+  // fallback) instead of vanishing from the level.
+  d = { projectGroups: { 'a': ['w1'], 'b': ['w2'], 'c': [], 'd': [] }, projectGroupOrder: ['b', 'a'] }
+  reorderProjectGroup(d, 'd', 'a', 'before')
+  assert.deepEqual(d.projectGroupOrder, ['b', 'd', 'a', 'c'], 'the unlisted sibling keeps its place in the level')
+
+  // Anchor '' appends at the end of the (top) level.
+  d = { projectGroups: { 'a': ['w1'], 'b': ['w2'] }, projectGroupOrder: ['a', 'b'] }
+  reorderProjectGroup(d, 'a', '', 'after')
+  assert.deepEqual(d.projectGroupOrder, ['b', 'a'])
+
+  // Cross-parent anchors are a no-op (the UI reparents first, re-anchors after).
+  d = { projectGroups: { 'a': ['w1'], 'a/b': [], 'c': ['w3'] }, projectGroupOrder: ['a', 'a/b', 'c'] }
+  reorderProjectGroup(d, 'a/b', 'c', 'before')
+  assert.deepEqual(d.projectGroupOrder, ['a', 'a/b', 'c'])
+
+  // Nested reorder only rewrites its own level's entries (the flat list's
+  // cross-level positions are meaningless — only same-parent relatives count).
+  d = { projectGroups: { 'p': [], 'p/x': [], 'p/y': [], 'q': [] }, projectGroupOrder: ['p', 'p/x', 'q', 'p/y'] }
+  reorderProjectGroup(d, 'p/y', 'p/x', 'before')
+  assert.ok(d.projectGroupOrder.indexOf('p/y') < d.projectGroupOrder.indexOf('p/x'), 'the nested level re-sorts in place')
+  assert.ok(d.projectGroupOrder.indexOf('q') !== -1, 'other levels keep their entries')
+})
+
+/**
+ * applyProjectGroups: wraps the FINISHED (optionally compressed) root — pg
+ * nodes keep their flag/idPath and never pass through compressTree. Only
+ * root-level workspaces are redistributed; unassigned ones stay in
+ * level.workspaces for the Ungrouped block; pg bins prepend the name
+ * folders.
+ */
+test('project groups: applyProjectGroups wraps the finished root (v0.36.0)', () => {
+  const text = read('src/client.js')
+  const src = text.slice(
+    text.indexOf('const basename ='),
+    text.indexOf('const splitPlainSegs ='),
+  ) + text.slice(
+    text.indexOf('const splitPlainSegs ='),
+    text.indexOf('const normPath ='),
+  ) + text.slice(
+    text.indexOf('const DISK_SEP ='),
+    text.indexOf('const countWorkspaces ='),
+  )
+  const { applyProjectGroups, pgGroupOfIn } = new Function(src + '\nreturn { applyProjectGroups, pgGroupOfIn }')()
+
+  const ws = (id) => ({ workspaceId: id, title: id, leaf: id })
+  const root = {
+    path: '', name: '', folders: [
+      { path: 'web', name: 'web', kind: 'folder', folders: [], workspaces: [ws('n1')], idPath: 'web' },
+    ], workspaces: [ws('a'), ws('b'), ws('c')],
+  }
+  const grouped = applyProjectGroups(root, { '客户端': ['a'], '客户端/招标': ['b'], '空组': [] })
+
+  // Bins prepend the name folders, sorted among themselves by name.
+  assert.deepEqual(grouped.folders.map((f) => f.name), ['客户端', '空组', 'web'])
+  const bin = grouped.folders[0]
+  assert.equal(bin.pg, true)
+  assert.equal(bin.idPath, 'pg//客户端')
+  assert.deepEqual(bin.workspaces.map((w) => w.workspaceId), ['a'])
+  // Nesting: "客户端/招标" is a child bin of 客户端.
+  assert.equal(bin.folders.length, 1)
+  assert.equal(bin.folders[0].name, '招标')
+  assert.equal(bin.folders[0].pg, true)
+  assert.deepEqual(bin.folders[0].workspaces.map((w) => w.workspaceId), ['b'])
+  // The declared empty bin renders with no members.
+  assert.deepEqual(grouped.folders[1].workspaces, [])
+  // Unassigned workspaces stay at the root for the Ungrouped block.
+  assert.deepEqual(grouped.workspaces.map((w) => w.workspaceId), ['c'])
+  // A same-named NAME folder ("web") is untouched and still resolvable.
+  assert.equal(grouped.folders[2].pg, undefined)
+
+  // Membership lookup feeds the move dialog and the drag payload.
+  assert.equal(pgGroupOfIn({ 'x': ['w1'] }, 'w1'), 'x')
+  assert.equal(pgGroupOfIn({ 'x': ['w1'] }, 'w9'), '')
+  assert.equal(pgGroupOfIn(null, 'w1'), '')
+
+  // No groups at all: the level comes back untouched (identity).
+  assert.equal(applyProjectGroups(root, {}), root)
+  assert.equal(applyProjectGroups(root, undefined), root)
+
+  // Manual order (v0.36.1): the flat order list decides each level's
+  // sequence; unlisted bins fall back to alphabetical.
+  const orderedRoot = {
+    path: '', name: '', folders: [], workspaces: [ws('a'), ws('b'), ws('c')],
+  }
+  const byOrder = applyProjectGroups(orderedRoot, { '甲': ['a'], '乙': ['b'], '丙': ['c'] }, ['乙', '甲'])
+  assert.deepEqual(byOrder.folders.map((f) => f.name), ['乙', '甲', '丙'], 'listed groups follow the manual order')
+  const fallback = applyProjectGroups(orderedRoot, { '甲': ['a'], '乙': ['b'], '丙': ['c'] })
+  assert.deepEqual(fallback.folders.map((f) => f.name), ['丙', '甲', '乙'], 'unlisted groups stay alphabetical')
+})
+
+test('project groups: sidebar/picker wiring, menus, drag, dialogs (v0.36.0)', () => {
+  const text = read('src/client.js')
+
+  // Both tree builders wrap the finished root with the bins (sidebar + hero).
+  assert.equal((text.match(/return applyProjectGroups\(base, projectGroupsMap, projectGroupOrderList\)/g) || []).length, 2,
+    'sidebar and hero picker must both apply the project-group layer')
+
+  // Rendering: the pg branch of renderPlainFolder and its 'pgroup:' identity
+  // namespace (styling/expansion live apart from a same-named name folder).
+  assert.match(text, /if \(node\.pg\) \{/, 'renderPlainFolder branches on the pg flag')
+  assert.match(text, /key: 'pg-' \+ idPath/, 'pg rows carry their own React key')
+  assert.match(text, /rowStyleOf\('pgroup:' \+ node\.path\)/, 'pg styling rides the pgroup namespace')
+  assert.match(text, /openCtx\('pgroup', \{ path: node\.path/, 'pg rows open the pgroup ctx menu')
+  assert.match(text, /const renderWorkspaceEntry = \(entry, depth, pulse, allowPg = true\)/,
+    'row rendering threads the root-level flag')
+  assert.match(text, /\{ \.\.\.workspace, __bwNoPg: true \}/,
+    'disk-nested rows must not offer project-group entries')
+
+  // Membership helpers + move dialog sources.
+  assert.match(text, /const pgGroupOf = \(workspaceId\) => pgGroupOfIn\(projectGroupsMap, workspaceId\)/)
+  assert.match(text, /const collectPgPaths = \(\) =>/)
+
+  // Menus: the workspace entries (always on for root rows) + the pgroup row
+  // (rename / NEW CHILD bin / REPARENT under another-or-new parent / delete).
+  assert.match(text, /\{ id: 'move-pgroup', label: t\('menu\.moveToPgroup'\)/)
+  assert.match(text, /\{ id: 'move-out-pgroup', label: t\('menu\.moveOutPgroup'\)/)
+  assert.match(text, /if \(ctx\.kind === 'pgroup'\) return \[/)
+  assert.match(text, /\{ id: 'rename-pgroup', label: t\('menu\.renamePgroup'\)/)
+  assert.match(text, /\{ id: 'delete-pgroup', label: t\('menu\.deletePgroup'\)/)
+  assert.match(text, /\{ id: 'new-child-pgroup', label: t\('menu\.newChildPgroup'\)/)
+  assert.match(text, /\{ id: 'reparent-pgroup', label: t\('menu\.reparentPgroup'\)/)
+  assert.match(text, /if \(kind === 'pgroup'\) return 'pgroup:' \+ payload\.path/, 'appearance keys cover pgroup')
+
+  // Drag: the source carries its membership; a row drop re-bins across
+  // groups; a drop ONTO a bin row is a pure store write (over.kind pgfolder).
+  assert.match(text, /pg: sourcePg \}, over: null \}\)/, 'the workspace drag source carries pg')
+  assert.match(text, /const samePg = \(source\.pg \|\| ''\) === targetPg/)
+  assert.match(text, /if \(!samePg\) actions\.assignProjectGroup\(source\.workspaceId, targetPg\)/)
+  assert.match(text, /const pgFolderDropEvents = \(idPath, path\) => \(\{/)
+  assert.match(text, /over: \{ kind: 'pgfolder', target: idPath \}/)
+  assert.match(text, /actions\.assignProjectGroup\(source\.workspaceId, path\)/,
+    'dropping onto a bin re-bins without any host call')
+
+  // Group ROW drags (v0.36.1): the row is its own drag source; dropping on a
+  // sibling's halves reorders, a cross-parent drop reparents first and
+  // re-anchors second, and dropping into the group's own subtree is refused.
+  assert.match(text, /setDrag\(\{ kind: 'pgroup', source: \{ path \}, over: null \}\)/, 'pg rows are drag sources')
+  assert.match(text, /const commitPgGroupDrop = \(targetPath, half\) => \{/)
+  assert.match(text, /if \(targetPath\.indexOf\(source\.path \+ '\/'\) === 0\) return/, 'own subtree refuses the drop')
+  assert.match(text, /actions\.renameProjectGroup\(source\.path, newPath\)/, 'cross-parent drops re-key the bucket')
+  assert.match(text, /actions\.reorderProjectGroup\(newPath, targetPath, half\)/, 'every group drop re-anchors')
+  assert.match(text, /dropHalf: pgDropHalf\(idPath\)/, 'pg rows render the half indicators')
+  assert.match(text, /function FolderRow\(\{ node, depth, expanded, onToggle, onContextMenu, dropHalf, dropInto/,
+    'FolderRow paints the half drop classes')
+
+  // Bare-root drops: a grouped workspace unbins; a NESTED group climbs to
+  // the top level (re-key + append-at-end).
+  assert.match(text, /workspaceCouldLeaveGroup = dragMatches\('workspace'\) && drag\.source/)
+  assert.match(text, /if \(workspaceCouldLeaveGroup\) actions\.assignProjectGroup\(drag\.source\.workspaceId, ''\)/)
+  assert.match(text, /pgroupCouldRelocate = dragMatches\('pgroup'\) && drag\.source && pgParentPathOf/)
+  assert.match(text, /actions\.renameProjectGroup\(p, name\)\r?\n?\s*actions\.reorderProjectGroup\(name, '', 'after'\)/,
+    'root drop climbs a nested group to the top level')
+
+  // Name-path lookups must never resolve into a bin (same-path collision).
+  assert.match(text, /if \(folder\.pg\) continue/, 'findTreeNode skips pg subtrees')
+
+  // Dialogs: move (store write), rename (re-key), delete (confirm w/ count),
+  // new child bin, reparent-under (with the own-subtree refusal).
+  assert.match(text, /if \(dialog\.kind === 'pgroup-move'\) return E\(GroupDialog, \{/)
+  assert.match(text, /onConfirm: \(tv, gv\) => \{ actions\.assignProjectGroup\(dialog\.workspaceId, gv\); setDialog\(null\) \}/)
+  assert.match(text, /if \(dialog\.kind === 'pgroup-rename'\) return E\(TextDialog, \{/)
+  assert.match(text, /if \(dialog\.kind === 'pgroup-delete'\) return E\(ConfirmDialog, \{/)
+  assert.match(text, /t\('pgroup\.delete\.full', \{ name: dialog\.name, n: dialog\.count \}\)/)
+  assert.match(text, /if \(dialog\.kind === 'pgroup-new-child'\) return E\(TextDialog, \{/)
+  assert.match(text, /actions\.declareProjectGroup\(dialog\.path \+ '\/' \+ clean\)/, 'the child dialog declares under the group')
+  assert.match(text, /if \(dialog\.kind === 'pgroup-reparent'\) return E\(GroupDialog, \{/)
+  assert.match(text, /setErrorText\(t\('pgroup\.reparent\.self'\)\)/, 'reparenting into the own subtree is refused')
+
+  // Appearance dialog offers the icon grid for pgroup rows too.
+  assert.match(text, /kind === 'folder' \|\| kind === 'workspace' \|\| kind === 'pgroup'/)
+
+  // The store subscription + the Ungrouped root block.
+  assert.match(text, /useStore\(s => s\.projectGroups\) \|\| EMPTY_FOLDERS/)
+  assert.match(text, /const renderProjectRoot = \(workspaces\) => \{/)
+  assert.match(text, /typeof actions\.setProjectRootOpen === 'function'/, 'the Ungrouped block toggles via the store')
 })
 

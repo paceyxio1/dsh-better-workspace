@@ -40,6 +40,8 @@ window.__ModuleLoader__.load({
       'add': '添加工作区',
       'rail.search': '搜索',
       'rail.add': '添加工作区',
+      'action.reveal': '定位当前会话',
+      'action.collapseAll': '收起全部分组与会话列表',
       'empty': '暂无工作区',
       'empty.search': '没有匹配的结果',
       'empty.noneArchived': '暂无已归档会话',
@@ -85,6 +87,23 @@ window.__ModuleLoader__.load({
       'menu.renameSgroup': '重命名会话分组',
       'menu.moveToGroup': '移动到分组…',
       'menu.moveOutGroup': '移出分组',
+      'menu.moveToPgroup': '移动到项目组…',
+      'menu.moveOutPgroup': '移出项目组',
+      'menu.renamePgroup': '重命名项目组',
+      'menu.deletePgroup': '删除项目组',
+      'menu.newChildPgroup': '新建子分组…',
+      'menu.reparentPgroup': '移动到上层分组…',
+      'pgroup.newChild.title': '新建子分组',
+      'pgroup.newChild.hint': '名称中的 / 即嵌套层级，将建在本项目组之下',
+      'pgroup.reparent.title': '移动到上层分组',
+      'pgroup.reparent.hint': '输入上层项目组名称，用 / 分隔可建多级；留空则移到顶层',
+      'pgroup.reparent.self': '不能移动到项目组自己或它的子组里',
+      'pgroup.move.title': '移动到项目组',
+      'pgroup.move.hint': '输入项目组名称，用 / 分隔可建多级；留空则移出项目组',
+      'pgroup.rename.title': '重命名项目组',
+      'pgroup.delete.title': '删除项目组',
+      'pgroup.delete.empty': '确定删除项目组「{name}」吗？',
+      'pgroup.delete.full': '确定删除项目组「{name}」吗？其中的 {n} 个工作区将回到未分组。',
       'menu.sessionId': '复制 Session ID',
       'menu.workspacePreset': '修改工作区默认预设…',
       'wsPreset.title': '修改工作区默认预设',
@@ -191,20 +210,6 @@ window.__ModuleLoader__.load({
       'folder.error.empty': '分组路径不能为空',
       'group.move.title': '移动到分组',
       'group.pick': '选择已有分组',
-      'group.new': '新建分组',
-      'group.new.title': "新建分组",
-      'group.new.sess': "会话分组",
-      'group.new.ws': "工作区分组",
-      'group.new.both': "新建会话或工作区分组",
-      'group.new.where': "选择创建位置",
-      'group.new.placeholder': "分组名称,可用 / 嵌套",
-      'group.new.nameHint': "名称中的 / 即嵌套层级,例如 前端/组件",
-      'group.new.empty': "请输入分组名称",
-      'group.new.root': "顶层",
-      'group.new.independent': "新建顶层分组",
-      'group.new.pickWorkspace': "选择一个工作区",
-      'group.new.noWorkspace': "还没有工作区,请先添加一个",
-      'group.new.pickFirst': "请先选择一个工作区",
       'group.delete.title': "删除分组",
       'group.delete.body': "「{name}」是空分组,删除后不可恢复。",
       'menu.deleteGroup': "删除分组",
@@ -216,6 +221,8 @@ window.__ModuleLoader__.load({
       'add': 'Add workspace',
       'rail.search': 'Search',
       'rail.add': 'Add workspace',
+      'action.reveal': 'Reveal current session',
+      'action.collapseAll': 'Collapse all groups and session lists',
       'empty': 'No workspaces yet',
       'empty.search': 'No matches',
       'empty.noneArchived': 'No archived sessions yet',
@@ -261,6 +268,23 @@ window.__ModuleLoader__.load({
       'menu.renameSgroup': 'Rename session group',
       'menu.moveToGroup': 'Move to group…',
       'menu.moveOutGroup': 'Move out of group',
+      'menu.moveToPgroup': 'Move to project group…',
+      'menu.moveOutPgroup': 'Move out of project group',
+      'menu.renamePgroup': 'Rename project group',
+      'menu.deletePgroup': 'Delete project group',
+      'menu.newChildPgroup': 'New child group…',
+      'menu.reparentPgroup': 'Move to parent group…',
+      'pgroup.newChild.title': 'New child group',
+      'pgroup.newChild.hint': 'A "/" nests further — the group is created under this project group',
+      'pgroup.reparent.title': 'Move to parent group',
+      'pgroup.reparent.hint': 'Type a parent group; use / for nesting; leave empty for the top level',
+      'pgroup.reparent.self': 'A group cannot move into itself or its own child groups',
+      'pgroup.move.title': 'Move to project group',
+      'pgroup.move.hint': 'Type a project group name; use / for nesting levels; leave empty to move out of project groups',
+      'pgroup.rename.title': 'Rename project group',
+      'pgroup.delete.title': 'Delete project group',
+      'pgroup.delete.empty': 'Delete project group "{name}"?',
+      'pgroup.delete.full': 'Delete project group "{name}"? Its {n} workspaces will move back to Ungrouped.',
       'menu.sessionId': 'Copy Session ID',
       'menu.workspacePreset': 'Workspace default preset…',
       'wsPreset.title': 'Change workspace default preset',
@@ -367,20 +391,6 @@ window.__ModuleLoader__.load({
       'folder.error.empty': 'Folder path must not be empty',
       'group.move.title': 'Move to group',
       'group.pick': 'Pick an existing group',
-      'group.new': 'New group',
-      'group.new.title': "New group",
-      'group.new.sess': "Session group",
-      'group.new.ws': "Workspace group",
-      'group.new.both': "New session or workspace group",
-      'group.new.where': "Choose where to create it",
-      'group.new.placeholder': "Group name, \"/\" nests",
-      'group.new.nameHint': "A \"/\" nests further, e.g. frontend/components",
-      'group.new.empty': "Enter a group name",
-      'group.new.root': "Top level",
-      'group.new.independent': "New top-level group",
-      'group.new.pickWorkspace': "Pick a workspace",
-      'group.new.noWorkspace': "No workspaces yet — add one first",
-      'group.new.pickFirst': "Pick a workspace first",
       'group.delete.title': "Delete group",
       'group.delete.body': "\"{name}\" is an empty group; deleting it cannot be undone.",
       'menu.deleteGroup': "Delete group",
@@ -400,6 +410,8 @@ window.__ModuleLoader__.load({
         'add': 'إضافة مساحة عمل',
         'rail.search': 'بحث',
         'rail.add': 'إضافة مساحة عمل',
+        'action.reveal': 'الانتقال إلى الجلسة الحالية',
+        'action.collapseAll': 'طيّ جميع المجموعات وقوائم الجلسات',
         'empty': 'لا توجد مساحات عمل بعد',
         'empty.search': 'لا توجد نتائج مطابقة',
         'empty.noneArchived': 'لا توجد جلسات مؤرشفة بعد',
@@ -445,6 +457,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': 'إعادة تسمية مجموعة الجلسات',
         'menu.moveToGroup': 'نقل إلى مجموعة…',
         'menu.moveOutGroup': 'إخراج من المجموعة',
+        'menu.moveToPgroup': 'نقل إلى مجموعة المشروع…',
+        'menu.moveOutPgroup': 'إخراج من مجموعة المشروع',
+        'menu.renamePgroup': 'إعادة تسمية مجموعة المشروع',
+        'menu.deletePgroup': 'حذف مجموعة المشروع',
+        'menu.newChildPgroup': 'إنشاء مجموعة فرعية…',
+        'menu.reparentPgroup': 'نقل إلى المجموعة الأصل…',
+        'pgroup.newChild.title': 'إنشاء مجموعة فرعية',
+        'pgroup.newChild.hint': 'الشرطة المائلة "/" تنشئ مستوى أعمق — تُنشأ المجموعة ضمن مجموعة المشروع هذه',
+        'pgroup.reparent.title': 'نقل إلى المجموعة الأصل',
+        'pgroup.reparent.hint': 'أدخل المجموعة الأصل؛ استخدم / للتداخل؛ اتركه فارغًا للمستوى الأعلى',
+        'pgroup.reparent.self': 'لا يمكن نقل المجموعة إلى نفسها أو إلى مجموعاتها الفرعية',
+        'pgroup.move.title': 'نقل إلى مجموعة المشروع',
+        'pgroup.move.hint': 'أدخل اسم مجموعة المشروع؛ استخدم / لبناء مستويات؛ اتركه فارغًا للإخراج من مجموعات المشروع',
+        'pgroup.rename.title': 'إعادة تسمية مجموعة المشروع',
+        'pgroup.delete.title': 'حذف مجموعة المشروع',
+        'pgroup.delete.empty': 'حذف مجموعة المشروع "{name}"؟',
+        'pgroup.delete.full': 'حذف مجموعة المشروع "{name}"؟ سيعود {n} من مساحات العمل إلى غير المجمعة.',
         'menu.sessionId': 'نسخ معرّف الجلسة',
         'menu.workspacePreset': 'الإعداد المسبق الافتراضي لمساحة العمل…',
         'wsPreset.title': 'تغيير الإعداد المسبق الافتراضي لمساحة العمل',
@@ -551,20 +580,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': 'لا يمكن أن يكون مسار المجموعة فارغاً',
         'group.move.title': 'نقل إلى مجموعة',
         'group.pick': 'اختر مجموعة موجودة',
-        'group.new': 'مجموعة جديدة',
-        'group.new.title': "مجموعة جديدة",
-        'group.new.sess': "مجموعة جلسات",
-        'group.new.ws': "مجموعة مساحات عمل",
-        'group.new.both': "مجموعة جلسات أو مساحات عمل جديدة",
-        'group.new.where': "اختر مكان الإنشاء",
-        'group.new.placeholder': "اسم المجموعة، \"/\" للتداخل",
-        'group.new.nameHint': "الشرطة المائلة \"/\" تنشئ مستوى أعمق، مثل frontend/components",
-        'group.new.empty': "أدخل اسم المجموعة",
-        'group.new.root': "المستوى الأعلى",
-        'group.new.independent': "مجموعة جديدة في المستوى الأعلى",
-        'group.new.pickWorkspace': "اختر مساحة عمل",
-        'group.new.noWorkspace': "لا توجد مساحات عمل بعد — أضف واحدة أولاً",
-        'group.new.pickFirst': "اختر مساحة عمل أولاً",
         'group.delete.title': "حذف المجموعة",
         'group.delete.body': "\"{name}\" مجموعة فارغة؛ لا يمكن التراجع عن الحذف.",
         'menu.deleteGroup': "حذف المجموعة",
@@ -576,6 +591,8 @@ window.__ModuleLoader__.load({
         'add': 'Arbeitsbereich hinzufügen',
         'rail.search': 'Suchen',
         'rail.add': 'Arbeitsbereich hinzufügen',
+        'action.reveal': 'Aktuelle Sitzung anzeigen',
+        'action.collapseAll': 'Alle Gruppen und Sitzungslisten einklappen',
         'empty': 'Noch keine Arbeitsbereiche',
         'empty.search': 'Keine Treffer',
         'empty.noneArchived': 'Noch keine archivierten Sitzungen',
@@ -621,6 +638,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': 'Sitzungsgruppe umbenennen',
         'menu.moveToGroup': 'In Gruppe verschieben…',
         'menu.moveOutGroup': 'Aus der Gruppe entfernen',
+        'menu.moveToPgroup': 'In Projektgruppe verschieben…',
+        'menu.moveOutPgroup': 'Aus Projektgruppe entfernen',
+        'menu.renamePgroup': 'Projektgruppe umbenennen',
+        'menu.deletePgroup': 'Projektgruppe löschen',
+        'menu.newChildPgroup': 'Untergruppe erstellen…',
+        'menu.reparentPgroup': 'In übergeordnete Gruppe verschieben…',
+        'pgroup.newChild.title': 'Untergruppe erstellen',
+        'pgroup.newChild.hint': 'Ein „/“ verschachtelt weiter — die Gruppe wird unter dieser Projektgruppe erstellt',
+        'pgroup.reparent.title': 'In übergeordnete Gruppe verschieben',
+        'pgroup.reparent.hint': 'Übergeordnete Projektgruppe eingeben; / erzeugt Ebenen; leer lassen für die oberste Ebene',
+        'pgroup.reparent.self': 'Eine Gruppe kann nicht in sich selbst oder ihre eigenen Untergruppen verschoben werden',
+        'pgroup.move.title': 'In Projektgruppe verschieben',
+        'pgroup.move.hint': 'Projektgruppenname eingeben; / erzeugt Ebenen; leer lassen, um aus Projektgruppen zu entfernen',
+        'pgroup.rename.title': 'Projektgruppe umbenennen',
+        'pgroup.delete.title': 'Projektgruppe löschen',
+        'pgroup.delete.empty': 'Projektgruppe "{name}" löschen?',
+        'pgroup.delete.full': 'Projektgruppe "{name}" löschen? Ihre {n} Arbeitsbereiche kehren zu "Nicht gruppiert" zurück.',
         'menu.sessionId': 'Session-ID kopieren',
         'menu.workspacePreset': 'Workspace-Standardpreset…',
         'wsPreset.title': 'Workspace-Standardpreset ändern',
@@ -727,20 +761,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': 'Der Ordnerpfad darf nicht leer sein',
         'group.move.title': 'In Gruppe verschieben',
         'group.pick': 'Vorhandene Gruppe wählen',
-        'group.new': 'Neue Gruppe',
-        'group.new.title': "Neue Gruppe",
-        'group.new.sess': "Sitzungsgruppe",
-        'group.new.ws': "Arbeitsbereichsgruppe",
-        'group.new.both': "Neue Sitzungs- oder Arbeitsbereichsgruppe",
-        'group.new.where': "Speicherort wählen",
-        'group.new.placeholder': "Gruppenname, „/\" verschachtelt",
-        'group.new.nameHint': "Ein „/\" verschachtelt weiter, z. B. frontend/components",
-        'group.new.empty': "Gruppennamen eingeben",
-        'group.new.root': "Oberste Ebene",
-        'group.new.independent': "Neue Gruppe auf oberster Ebene",
-        'group.new.pickWorkspace': "Arbeitsbereich wählen",
-        'group.new.noWorkspace': "Noch keine Arbeitsbereiche — zuerst einen hinzufügen",
-        'group.new.pickFirst': "Zuerst einen Arbeitsbereich wählen",
         'group.delete.title': "Gruppe löschen",
         'group.delete.body': "„{name}\" ist eine leere Gruppe; das Löschen kann nicht rückgängig gemacht werden.",
         'menu.deleteGroup': "Gruppe löschen",
@@ -752,6 +772,8 @@ window.__ModuleLoader__.load({
         'add': 'Ajouter un espace de travail',
         'rail.search': 'Rechercher',
         'rail.add': 'Ajouter un espace de travail',
+        'action.reveal': 'Révéler la session en cours',
+        'action.collapseAll': 'Réduire tous les groupes et listes de sessions',
         'empty': 'Aucun espace de travail',
         'empty.search': 'Aucun résultat',
         'empty.noneArchived': 'Aucune session archivée',
@@ -797,6 +819,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': 'Renommer le groupe de sessions',
         'menu.moveToGroup': 'Déplacer vers le groupe…',
         'menu.moveOutGroup': 'Retirer du groupe',
+        'menu.moveToPgroup': 'Déplacer vers le groupe de projets…',
+        'menu.moveOutPgroup': 'Retirer du groupe de projets',
+        'menu.renamePgroup': 'Renommer le groupe de projets',
+        'menu.deletePgroup': 'Supprimer le groupe de projets',
+        'menu.newChildPgroup': 'Nouveau sous-groupe…',
+        'menu.reparentPgroup': 'Déplacer vers le groupe parent…',
+        'pgroup.newChild.title': 'Nouveau sous-groupe',
+        'pgroup.newChild.hint': 'Un « / » imbrique davantage — le groupe est créé sous ce groupe de projets',
+        'pgroup.reparent.title': 'Déplacer vers le groupe parent',
+        'pgroup.reparent.hint': 'Saisissez un groupe parent ; utilisez / pour imbriquer ; laissez vide pour le niveau racine',
+        'pgroup.reparent.self': 'Un groupe ne peut pas être déplacé dans lui-même ou ses propres sous-groupes',
+        'pgroup.move.title': 'Déplacer vers le groupe de projets',
+        'pgroup.move.hint': 'Saisissez un nom de groupe de projets ; utilisez / pour imbriquer ; laissez vide pour sortir des groupes',
+        'pgroup.rename.title': 'Renommer le groupe de projets',
+        'pgroup.delete.title': 'Supprimer le groupe de projets',
+        'pgroup.delete.empty': 'Supprimer le groupe de projets « {name} » ?',
+        'pgroup.delete.full': 'Supprimer le groupe de projets « {name} » ? Ses {n} espaces de travail retourneront dans Non groupé.',
         'menu.sessionId': 'Copier l’ID de session',
         'menu.workspacePreset': 'Préréglage par défaut du workspace…',
         'wsPreset.title': 'Modifier le préréglage par défaut du workspace',
@@ -903,20 +942,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': 'Le chemin du dossier ne doit pas être vide',
         'group.move.title': 'Déplacer vers le groupe',
         'group.pick': 'Choisir un groupe existant',
-        'group.new': 'Nouveau groupe',
-        'group.new.title': "Nouveau groupe",
-        'group.new.sess': "Groupe de sessions",
-        'group.new.ws': "Groupe d’espaces de travail",
-        'group.new.both': "Nouveau groupe de sessions ou d’espaces de travail",
-        'group.new.where': "Choisir l’emplacement",
-        'group.new.placeholder': "Nom du groupe, « / » imbrique",
-        'group.new.nameHint': "Un « / » imbrique davantage, par ex. frontend/components",
-        'group.new.empty': "Saisissez un nom de groupe",
-        'group.new.root': "Niveau supérieur",
-        'group.new.independent': "Nouveau groupe de premier niveau",
-        'group.new.pickWorkspace': "Choisissez un espace de travail",
-        'group.new.noWorkspace': "Aucun espace de travail — ajoutez-en un d’abord",
-        'group.new.pickFirst': "Choisissez d’abord un espace de travail",
         'group.delete.title': "Supprimer le groupe",
         'group.delete.body': "« {name} » est un groupe vide ; la suppression est irréversible.",
         'menu.deleteGroup': "Supprimer le groupe",
@@ -928,6 +953,8 @@ window.__ModuleLoader__.load({
         'add': 'कार्यस्थान जोड़ें',
         'rail.search': 'खोजें',
         'rail.add': 'कार्यस्थान जोड़ें',
+        'action.reveal': 'वर्तमान सत्र पर जाएँ',
+        'action.collapseAll': 'सभी समूह और सत्र सूचियाँ संक्षिप्त करें',
         'empty': 'अभी कोई कार्यस्थान नहीं',
         'empty.search': 'कोई मेल खाता परिणाम नहीं',
         'empty.noneArchived': 'अभी कोई संग्रहीत सत्र नहीं',
@@ -973,6 +1000,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': 'सत्र समूह का नाम बदलें',
         'menu.moveToGroup': 'समूह में ले जाएँ…',
         'menu.moveOutGroup': 'समूह से बाहर निकालें',
+        'menu.moveToPgroup': 'प्रोजेक्ट समूह में ले जाएँ…',
+        'menu.moveOutPgroup': 'प्रोजेक्ट समूह से बाहर निकालें',
+        'menu.renamePgroup': 'प्रोजेक्ट समूह का नाम बदलें',
+        'menu.deletePgroup': 'प्रोजेक्ट समूह हटाएँ',
+        'menu.newChildPgroup': 'नया उपसमूह बनाएँ…',
+        'menu.reparentPgroup': 'मूल समूह में ले जाएँ…',
+        'pgroup.newChild.title': 'नया उपसमूह बनाएँ',
+        'pgroup.newChild.hint': '"/" और गहरा स्तर बनाता है — समूह इस प्रोजेक्ट समूह के अंदर बनेगा',
+        'pgroup.reparent.title': 'मूल समूह में ले जाएँ',
+        'pgroup.reparent.hint': 'मूल समूह का नाम लिखें; नेस्टिंग के लिए / का उपयोग करें; शीर्ष स्तर के लिए खाली छोड़ें',
+        'pgroup.reparent.self': 'समूह को स्वयं या अपने उपसमूहों में नहीं ले जा सकते',
+        'pgroup.move.title': 'प्रोजेक्ट समूह में ले जाएँ',
+        'pgroup.move.hint': 'प्रोजेक्ट समूह का नाम लिखें; स्तरों के लिए / का उपयोग करें; समूहों से बाहर निकालने के लिए खाली छोड़ें',
+        'pgroup.rename.title': 'प्रोजेक्ट समूह का नाम बदलें',
+        'pgroup.delete.title': 'प्रोजेक्ट समूह हटाएँ',
+        'pgroup.delete.empty': 'प्रोजेक्ट समूह "{name}" हटाएँ?',
+        'pgroup.delete.full': 'प्रोजेक्ट समूह "{name}" हटाएँ? इसके {n} वर्कस्पेस अनग्रुप्ड में लौट आएँगे।',
         'menu.sessionId': 'सेशन आईडी कॉपी करें',
         'menu.workspacePreset': 'वर्कस्पेस डिफ़ॉल्ट प्रीसेट…',
         'wsPreset.title': 'वर्कस्पेस डिफ़ॉल्ट प्रीसेट बदलें',
@@ -1079,20 +1123,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': 'समूह पथ खाली नहीं हो सकता',
         'group.move.title': 'समूह में ले जाएँ',
         'group.pick': 'मौजूदा समूह चुनें',
-        'group.new': 'नया समूह',
-        'group.new.title': "नया समूह",
-        'group.new.sess': "सत्र समूह",
-        'group.new.ws': "कार्यस्थान समूह",
-        'group.new.both': "नया सत्र या कार्यस्थान समूह",
-        'group.new.where': "बनाने का स्थान चुनें",
-        'group.new.placeholder': "समूह का नाम, \"/\" से नेस्टिंग",
-        'group.new.nameHint': "\"/\" और गहरा स्तर बनाता है, जैसे frontend/components",
-        'group.new.empty': "समूह का नाम दर्ज करें",
-        'group.new.root': "शीर्ष स्तर",
-        'group.new.independent': "नया शीर्ष-स्तरीय समूह",
-        'group.new.pickWorkspace': "एक कार्यस्थान चुनें",
-        'group.new.noWorkspace': "अभी कोई कार्यस्थान नहीं — पहले एक जोड़ें",
-        'group.new.pickFirst': "पहले एक कार्यस्थान चुनें",
         'group.delete.title': "समूह हटाएँ",
         'group.delete.body': "\"{name}\" एक खाली समूह है; हटाने पर इसे वापस नहीं लाया जा सकता।",
         'menu.deleteGroup': "समूह हटाएँ",
@@ -1104,6 +1134,8 @@ window.__ModuleLoader__.load({
         'add': 'Tambah ruang kerja',
         'rail.search': 'Cari',
         'rail.add': 'Tambah ruang kerja',
+        'action.reveal': 'Buka sesi saat ini',
+        'action.collapseAll': 'Ciutkan semua grup dan daftar sesi',
         'empty': 'Belum ada ruang kerja',
         'empty.search': 'Tidak ada hasil yang cocok',
         'empty.noneArchived': 'Belum ada sesi yang diarsipkan',
@@ -1149,6 +1181,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': 'Ganti nama grup sesi',
         'menu.moveToGroup': 'Pindahkan ke grup…',
         'menu.moveOutGroup': 'Keluarkan dari grup',
+        'menu.moveToPgroup': 'Pindahkan ke grup proyek…',
+        'menu.moveOutPgroup': 'Keluarkan dari grup proyek',
+        'menu.renamePgroup': 'Ganti nama grup proyek',
+        'menu.deletePgroup': 'Hapus grup proyek',
+        'menu.newChildPgroup': 'Buat grup anak…',
+        'menu.reparentPgroup': 'Pindahkan ke grup induk…',
+        'pgroup.newChild.title': 'Buat grup anak',
+        'pgroup.newChild.hint': '"/" membuat tingkat lebih dalam — grup dibuat di bawah grup proyek ini',
+        'pgroup.reparent.title': 'Pindahkan ke grup induk',
+        'pgroup.reparent.hint': 'Ketik grup induk; gunakan / untuk bersarang; kosongkan untuk level teratas',
+        'pgroup.reparent.self': 'Grup tidak dapat dipindahkan ke dirinya sendiri atau grup anaknya',
+        'pgroup.move.title': 'Pindahkan ke grup proyek',
+        'pgroup.move.hint': 'Ketik nama grup proyek; gunakan / untuk level bersarang; kosongkan untuk keluar dari grup proyek',
+        'pgroup.rename.title': 'Ganti nama grup proyek',
+        'pgroup.delete.title': 'Hapus grup proyek',
+        'pgroup.delete.empty': 'Hapus grup proyek "{name}"?',
+        'pgroup.delete.full': 'Hapus grup proyek "{name}"? {n} ruang kerja di dalamnya akan kembali ke Tanpa Grup.',
         'menu.sessionId': 'Salin ID Sesi',
         'menu.workspacePreset': 'Preset bawaan ruang kerja…',
         'wsPreset.title': 'Ubah preset bawaan ruang kerja',
@@ -1255,20 +1304,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': 'Jalur folder tidak boleh kosong',
         'group.move.title': 'Pindahkan ke grup',
         'group.pick': 'Pilih grup yang ada',
-        'group.new': 'Grup baru',
-        'group.new.title': "Grup baru",
-        'group.new.sess': "Grup sesi",
-        'group.new.ws': "Grup ruang kerja",
-        'group.new.both': "Grup sesi atau ruang kerja baru",
-        'group.new.where': "Pilih lokasi pembuatan",
-        'group.new.placeholder': "Nama grup, \"/\" untuk bersarang",
-        'group.new.nameHint': "\"/\" membuat tingkat lebih dalam, mis. frontend/components",
-        'group.new.empty': "Masukkan nama grup",
-        'group.new.root': "Tingkat teratas",
-        'group.new.independent': "Grup tingkat teratas baru",
-        'group.new.pickWorkspace': "Pilih ruang kerja",
-        'group.new.noWorkspace': "Belum ada ruang kerja — tambahkan dulu",
-        'group.new.pickFirst': "Pilih ruang kerja dulu",
         'group.delete.title': "Hapus grup",
         'group.delete.body': "\"{name}\" adalah grup kosong; penghapusan tidak bisa dibatalkan.",
         'menu.deleteGroup': "Hapus grup",
@@ -1280,6 +1315,8 @@ window.__ModuleLoader__.load({
         'add': 'Aggiungi area di lavoro',
         'rail.search': 'Cerca',
         'rail.add': 'Aggiungi area di lavoro',
+        'action.reveal': 'Mostra la sessione corrente',
+        'action.collapseAll': 'Comprimi tutti i gruppi e gli elenchi delle sessioni',
         'empty': 'Nessuna area di lavoro',
         'empty.search': 'Nessun risultato',
         'empty.noneArchived': 'Nessuna sessione archiviata',
@@ -1325,6 +1362,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': 'Rinomina gruppo di sessioni',
         'menu.moveToGroup': 'Sposta nel gruppo…',
         'menu.moveOutGroup': 'Rimuovi dal gruppo',
+        'menu.moveToPgroup': 'Sposta nel gruppo di progetti…',
+        'menu.moveOutPgroup': 'Rimuovi dal gruppo di progetti',
+        'menu.renamePgroup': 'Rinomina gruppo di progetti',
+        'menu.deletePgroup': 'Elimina gruppo di progetti',
+        'menu.newChildPgroup': 'Nuovo sottogruppo…',
+        'menu.reparentPgroup': 'Sposta nel gruppo padre…',
+        'pgroup.newChild.title': 'Nuovo sottogruppo',
+        'pgroup.newChild.hint': 'Una «/» annida ulteriormente — il gruppo viene creato sotto questo gruppo di progetti',
+        'pgroup.reparent.title': 'Sposta nel gruppo padre',
+        'pgroup.reparent.hint': 'Digita il gruppo padre; usa / per annidare; lascia vuoto per il livello superiore',
+        'pgroup.reparent.self': 'Un gruppo non può essere spostato in sé stesso o nei propri sottogruppi',
+        'pgroup.move.title': 'Sposta nel gruppo di progetti',
+        'pgroup.move.hint': 'Digita il nome del gruppo di progetti; usa / per i livelli annidati; lascia vuoto per uscire dai gruppi',
+        'pgroup.rename.title': 'Rinomina gruppo di progetti',
+        'pgroup.delete.title': 'Elimina gruppo di progetti',
+        'pgroup.delete.empty': 'Eliminare il gruppo di progetti "{name}"?',
+        'pgroup.delete.full': 'Eliminare il gruppo di progetti "{name}"? I suoi {n} workspace torneranno in Nessun gruppo.',
         'menu.sessionId': 'Copia ID sessione',
         'menu.workspacePreset': 'Preset predefinito dello workspace…',
         'wsPreset.title': 'Modifica il preset predefinito dello workspace',
@@ -1431,20 +1485,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': 'Il percorso della cartella non può essere vuoto',
         'group.move.title': 'Sposta nel gruppo',
         'group.pick': 'Scegli un gruppo esistente',
-        'group.new': 'Nuovo gruppo',
-        'group.new.title': "Nuovo gruppo",
-        'group.new.sess': "Gruppo di sessioni",
-        'group.new.ws': "Gruppo di aree di lavoro",
-        'group.new.both': "Nuovo gruppo di sessioni o aree di lavoro",
-        'group.new.where': "Scegli dove crearlo",
-        'group.new.placeholder': "Nome del gruppo, «/» annida",
-        'group.new.nameHint': "Una «/» annida ulteriormente, es. frontend/components",
-        'group.new.empty': "Inserisci un nome di gruppo",
-        'group.new.root': "Livello superiore",
-        'group.new.independent': "Nuovo gruppo di primo livello",
-        'group.new.pickWorkspace': "Scegli un’area di lavoro",
-        'group.new.noWorkspace': "Nessuna area di lavoro — aggiungine una prima",
-        'group.new.pickFirst': "Scegli prima un’area di lavoro",
         'group.delete.title': "Elimina gruppo",
         'group.delete.body': "«{name}» è un gruppo vuoto; l’eliminazione non è reversibile.",
         'menu.deleteGroup': "Elimina gruppo",
@@ -1456,6 +1496,8 @@ window.__ModuleLoader__.load({
         'add': 'ワークスペースを追加',
         'rail.search': '検索',
         'rail.add': 'ワークスペースを追加',
+        'action.reveal': '現在のセッションを表示',
+        'action.collapseAll': 'すべてのグループとセッションリストを折りたたむ',
         'empty': 'ワークスペースがありません',
         'empty.search': '一致する結果がありません',
         'empty.noneArchived': 'アーカイブされたセッションはありません',
@@ -1501,6 +1543,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': 'セッショングループ名を変更',
         'menu.moveToGroup': 'グループに移動…',
         'menu.moveOutGroup': 'グループから出す',
+        'menu.moveToPgroup': 'プロジェクトグループに移動…',
+        'menu.moveOutPgroup': 'プロジェクトグループから出す',
+        'menu.renamePgroup': 'プロジェクトグループ名を変更',
+        'menu.deletePgroup': 'プロジェクトグループを削除',
+        'menu.newChildPgroup': '子グループを作成…',
+        'menu.reparentPgroup': '親グループに移動…',
+        'pgroup.newChild.title': '子グループを作成',
+        'pgroup.newChild.hint': '/ でさらに深い階層になります — このプロジェクトグループの下に作成されます',
+        'pgroup.reparent.title': '親グループに移動',
+        'pgroup.reparent.hint': '親グループ名を入力;/で階層を作れます;空欄でトップレベルに移動',
+        'pgroup.reparent.self': 'グループ自身またはその子グループには移動できません',
+        'pgroup.move.title': 'プロジェクトグループに移動',
+        'pgroup.move.hint': 'プロジェクトグループ名を入力;/で階層を作れます;空欄でプロジェクトグループから出ます',
+        'pgroup.rename.title': 'プロジェクトグループ名を変更',
+        'pgroup.delete.title': 'プロジェクトグループを削除',
+        'pgroup.delete.empty': 'プロジェクトグループ「{name}」を削除しますか?',
+        'pgroup.delete.full': 'プロジェクトグループ「{name}」を削除しますか? 含まれる {n} 個のワークスペースは「グループなし」に戻ります。',
         'menu.sessionId': 'セッション ID をコピー',
         'menu.workspacePreset': 'ワークスペース既定プリセット…',
         'wsPreset.title': 'ワークスペース既定プリセットを変更',
@@ -1607,20 +1666,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': 'フォルダーのパスを入力してください',
         'group.move.title': 'グループに移動',
         'group.pick': '既存のグループを選択',
-        'group.new': '新しいグループ',
-        'group.new.title': "新しいグループ",
-        'group.new.sess': "セッショングループ",
-        'group.new.ws': "ワークスペースグループ",
-        'group.new.both': "新しいセッション／ワークスペースグループ",
-        'group.new.where': "作成先を選択",
-        'group.new.placeholder': "グループ名、/ で入れ子",
-        'group.new.nameHint': "/ でさらに深い階層になります(例: frontend/components)",
-        'group.new.empty': "グループ名を入力してください",
-        'group.new.root': "最上位",
-        'group.new.independent': "最上位に新しいグループ",
-        'group.new.pickWorkspace': "ワークスペースを選択",
-        'group.new.noWorkspace': "ワークスペースがありません。先に追加してください",
-        'group.new.pickFirst': "先にワークスペースを選択してください",
         'group.delete.title': "グループを削除",
         'group.delete.body': "「{name}」は空のグループです。削除すると元に戻せません。",
         'menu.deleteGroup': "グループを削除",
@@ -1632,6 +1677,8 @@ window.__ModuleLoader__.load({
         'add': '워크스페이스 추가',
         'rail.search': '검색',
         'rail.add': '워크스페이스 추가',
+        'action.reveal': '현재 세션으로 이동',
+        'action.collapseAll': '모든 그룹과 세션 목록 접기',
         'empty': '워크스페이스가 없습니다',
         'empty.search': '일치하는 결과가 없습니다',
         'empty.noneArchived': '보관된 세션이 없습니다',
@@ -1677,6 +1724,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': '세션 그룹 이름 바꾸기',
         'menu.moveToGroup': '그룹으로 이동…',
         'menu.moveOutGroup': '그룹에서 제거',
+        'menu.moveToPgroup': '프로젝트 그룹으로 이동…',
+        'menu.moveOutPgroup': '프로젝트 그룹에서 제거',
+        'menu.renamePgroup': '프로젝트 그룹 이름 바꾸기',
+        'menu.deletePgroup': '프로젝트 그룹 삭제',
+        'menu.newChildPgroup': '하위 그룹 만들기…',
+        'menu.reparentPgroup': '상위 그룹으로 이동…',
+        'pgroup.newChild.title': '하위 그룹 만들기',
+        'pgroup.newChild.hint': '"/"로 더 깊은 단계 — 이 프로젝트 그룹 아래에 만들어집니다',
+        'pgroup.reparent.title': '상위 그룹으로 이동',
+        'pgroup.reparent.hint': '상위 그룹 이름 입력; /로 하위 레벨 생성; 비워 두면 최상위로 이동',
+        'pgroup.reparent.self': '그룹 자신이나 그 하위 그룹으로는 이동할 수 없습니다',
+        'pgroup.move.title': '프로젝트 그룹으로 이동',
+        'pgroup.move.hint': '프로젝트 그룹 이름 입력; /로 하위 레벨 생성; 비워 두면 프로젝트 그룹에서 제외',
+        'pgroup.rename.title': '프로젝트 그룹 이름 바꾸기',
+        'pgroup.delete.title': '프로젝트 그룹 삭제',
+        'pgroup.delete.empty': '프로젝트 그룹 "{name}"을 삭제할까요?',
+        'pgroup.delete.full': '프로젝트 그룹 "{name}"을 삭제할까요? 포함된 {n}개 워크스페이스는 그룹 없음으로 돌아갑니다.',
         'menu.sessionId': '세션 ID 복사',
         'menu.workspacePreset': '작업 공간 기본 프리셋…',
         'wsPreset.title': '작업 공간 기본 프리셋 변경',
@@ -1783,20 +1847,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': '폴더 경로를 입력해야 합니다',
         'group.move.title': '그룹으로 이동',
         'group.pick': '기존 그룹 선택',
-        'group.new': '새 그룹',
-        'group.new.title': "새 그룹",
-        'group.new.sess': "세션 그룹",
-        'group.new.ws': "워크스페이스 그룹",
-        'group.new.both': "새 세션 또는 워크스페이스 그룹",
-        'group.new.where': "만들 위치 선택",
-        'group.new.placeholder': "그룹 이름, \"/\"로 중첩",
-        'group.new.nameHint': "\"/\"로 더 깊은 단계, 예: frontend/components",
-        'group.new.empty': "그룹 이름을 입력하세요",
-        'group.new.root': "최상위",
-        'group.new.independent': "최상위 새 그룹",
-        'group.new.pickWorkspace': "워크스페이스 선택",
-        'group.new.noWorkspace': "워크스페이스가 없습니다. 먼저 추가하세요",
-        'group.new.pickFirst': "먼저 워크스페이스를 선택하세요",
         'group.delete.title': "그룹 삭제",
         'group.delete.body': "\"{name}\"은(는) 빈 그룹입니다. 삭제하면 되돌릴 수 없습니다.",
         'menu.deleteGroup': "그룹 삭제",
@@ -1808,6 +1858,8 @@ window.__ModuleLoader__.load({
         'add': 'Werkruimte toevoegen',
         'rail.search': 'Zoeken',
         'rail.add': 'Werkruimte toevoegen',
+        'action.reveal': 'Toon huidige sessie',
+        'action.collapseAll': 'Alle groepen en sessielijsten inklappen',
         'empty': 'Nog geen werkruimten',
         'empty.search': 'Geen resultaten',
         'empty.noneArchived': 'Nog geen gearchiveerde sessies',
@@ -1853,6 +1905,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': 'Sessiegroep naam wijzigen',
         'menu.moveToGroup': 'Naar groep verplaatsen…',
         'menu.moveOutGroup': 'Uit groep halen',
+        'menu.moveToPgroup': 'Verplaats naar projectgroep…',
+        'menu.moveOutPgroup': 'Uit projectgroep halen',
+        'menu.renamePgroup': 'Projectgroep hernoemen',
+        'menu.deletePgroup': 'Projectgroep verwijderen',
+        'menu.newChildPgroup': 'Nieuwe subgroep…',
+        'menu.reparentPgroup': 'Verplaats naar bovenliggende groep…',
+        'pgroup.newChild.title': 'Nieuwe subgroep',
+        'pgroup.newChild.hint': 'Een "/" nest dieper — de groep wordt onder deze projectgroep gemaakt',
+        'pgroup.reparent.title': 'Verplaats naar bovenliggende groep',
+        'pgroup.reparent.hint': 'Typ een bovenliggende groep; gebruik / voor nesten; laat leeg voor het hoogste niveau',
+        'pgroup.reparent.self': 'Een groep kan niet naar zichzelf of zijn eigen subgroepen worden verplaatst',
+        'pgroup.move.title': 'Verplaats naar projectgroep',
+        'pgroup.move.hint': 'Typ een projectgroepnaam; gebruik / voor geneste niveaus; laat leeg om uit projectgroepen te halen',
+        'pgroup.rename.title': 'Projectgroep hernoemen',
+        'pgroup.delete.title': 'Projectgroep verwijderen',
+        'pgroup.delete.empty': 'Projectgroep "{name}" verwijderen?',
+        'pgroup.delete.full': 'Projectgroep "{name}" verwijderen? De {n} werkruimtes keren terug naar Niet gegroepeerd.',
         'menu.sessionId': 'Sessie-ID kopiëren',
         'menu.workspacePreset': 'Standaardpreset van workspace…',
         'wsPreset.title': 'Standaardpreset van workspace wijzigen',
@@ -1959,20 +2028,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': 'Het mappad mag niet leeg zijn',
         'group.move.title': 'Naar groep verplaatsen',
         'group.pick': 'Bestaande groep kiezen',
-        'group.new': 'Nieuwe groep',
-        'group.new.title': "Nieuwe groep",
-        'group.new.sess': "Sessiegroep",
-        'group.new.ws': "Werkruimtegroep",
-        'group.new.both': "Nieuwe sessie- of werkruimtegroep",
-        'group.new.where': "Kies waar je maakt",
-        'group.new.placeholder': "Groepsnaam, \"/\" nest",
-        'group.new.nameHint': "Een \"/\" nest dieper, bijv. frontend/components",
-        'group.new.empty': "Voer een groepsnaam in",
-        'group.new.root': "Bovenste niveau",
-        'group.new.independent': "Nieuwe groep op hoogste niveau",
-        'group.new.pickWorkspace': "Kies een werkruimte",
-        'group.new.noWorkspace': "Nog geen werkruimten — voeg er eerst een toe",
-        'group.new.pickFirst': "Kies eerst een werkruimte",
         'group.delete.title': "Groep verwijderen",
         'group.delete.body': "\"{name}\" is een lege groep; verwijderen kan niet ongedaan worden gemaakt.",
         'menu.deleteGroup': "Groep verwijderen",
@@ -1984,6 +2039,8 @@ window.__ModuleLoader__.load({
         'add': 'Dodaj obszar roboczy',
         'rail.search': 'Szukaj',
         'rail.add': 'Dodaj obszar roboczy',
+        'action.reveal': 'Pokaż bieżącą sesję',
+        'action.collapseAll': 'Zwiń wszystkie grupy i listy sesji',
         'empty': 'Brak obszarów roboczych',
         'empty.search': 'Brak wyników',
         'empty.noneArchived': 'Brak zarchiwizowanych sesji',
@@ -2029,6 +2086,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': 'Zmień nazwę grupy sesji',
         'menu.moveToGroup': 'Przenieś do grupy…',
         'menu.moveOutGroup': 'Przenieś poza grupę',
+        'menu.moveToPgroup': 'Przenieś do grupy projektów…',
+        'menu.moveOutPgroup': 'Przenieś poza grupę projektów',
+        'menu.renamePgroup': 'Zmień nazwę grupy projektów',
+        'menu.deletePgroup': 'Usuń grupę projektów',
+        'menu.newChildPgroup': 'Nowa podgrupa…',
+        'menu.reparentPgroup': 'Przenieś do grupy nadrzędnej…',
+        'pgroup.newChild.title': 'Nowa podgrupa',
+        'pgroup.newChild.hint': '„/” zagnieżdża głębiej — grupa powstaje pod tą grupą projektów',
+        'pgroup.reparent.title': 'Przenieś do grupy nadrzędnej',
+        'pgroup.reparent.hint': 'Wpisz grupę nadrzędną; użyj / do zagnieżdżania; zostaw puste dla najwyższego poziomu',
+        'pgroup.reparent.self': 'Grupy nie można przenieść do niej samej ani do jej podgrup',
+        'pgroup.move.title': 'Przenieś do grupy projektów',
+        'pgroup.move.hint': 'Wpisz nazwę grupy projektów; użyj / do zagnieżdżania; zostaw puste, aby wyjąć z grup',
+        'pgroup.rename.title': 'Zmień nazwę grupy projektów',
+        'pgroup.delete.title': 'Usuń grupę projektów',
+        'pgroup.delete.empty': 'Usunąć grupę projektów „{name}"?',
+        'pgroup.delete.full': 'Usunąć grupę projektów „{name}"? Jej {n} obszary robocze wrócą do pozycji bez grupy.',
         'menu.sessionId': 'Kopiuj ID sesji',
         'menu.workspacePreset': 'Domyślny preset obszaru roboczego…',
         'wsPreset.title': 'Zmień domyślny preset obszaru roboczego',
@@ -2135,20 +2209,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': 'Ścieżka folderu nie może być pusta',
         'group.move.title': 'Przenieś do grupy',
         'group.pick': 'Wybierz istniejącą grupę',
-        'group.new': 'Nowa grupa',
-        'group.new.title': "Nowa grupa",
-        'group.new.sess': "Grupa sesji",
-        'group.new.ws': "Grupa obszarów roboczych",
-        'group.new.both': "Nowa grupa sesji lub obszarów roboczych",
-        'group.new.where': "Wybierz miejsce utworzenia",
-        'group.new.placeholder': "Nazwa grupy, „/” zagnieżdża",
-        'group.new.nameHint': "„/” zagnieżdża głębiej, np. frontend/components",
-        'group.new.empty': "Podaj nazwę grupy",
-        'group.new.root': "Najwyższy poziom",
-        'group.new.independent': "Nowa grupa najwyższego poziomu",
-        'group.new.pickWorkspace': "Wybierz obszar roboczy",
-        'group.new.noWorkspace': "Brak obszarów roboczych — najpierw dodaj jeden",
-        'group.new.pickFirst': "Najpierw wybierz obszar roboczy",
         'group.delete.title': "Usuń grupę",
         'group.delete.body': "„{name}” to pusta grupa; usunięcia nie można cofnąć.",
         'menu.deleteGroup': "Usuń grupę",
@@ -2160,6 +2220,8 @@ window.__ModuleLoader__.load({
         'add': 'Adicionar espaço de trabalho',
         'rail.search': 'Pesquisar',
         'rail.add': 'Adicionar espaço de trabalho',
+        'action.reveal': 'Revelar sessão atual',
+        'action.collapseAll': 'Recolher todos os grupos e listas de sessões',
         'empty': 'Nenhum espaço de trabalho',
         'empty.search': 'Nenhum resultado',
         'empty.noneArchived': 'Nenhuma sessão arquivada',
@@ -2205,6 +2267,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': 'Renomear grupo de sessões',
         'menu.moveToGroup': 'Mover para o grupo…',
         'menu.moveOutGroup': 'Remover do grupo',
+        'menu.moveToPgroup': 'Mover para o grupo de projetos…',
+        'menu.moveOutPgroup': 'Remover do grupo de projetos',
+        'menu.renamePgroup': 'Renomear grupo de projetos',
+        'menu.deletePgroup': 'Excluir grupo de projetos',
+        'menu.newChildPgroup': 'Novo subgrupo…',
+        'menu.reparentPgroup': 'Mover para o grupo pai…',
+        'pgroup.newChild.title': 'Novo subgrupo',
+        'pgroup.newChild.hint': 'Uma "/" aninha mais — o grupo é criado sob este grupo de projetos',
+        'pgroup.reparent.title': 'Mover para o grupo pai',
+        'pgroup.reparent.hint': 'Digite o grupo pai; use / para aninhar; deixe vazio para o nível superior',
+        'pgroup.reparent.self': 'Um grupo não pode ser movido para si mesmo ou para seus próprios subgrupos',
+        'pgroup.move.title': 'Mover para o grupo de projetos',
+        'pgroup.move.hint': 'Digite o nome do grupo de projetos; use / para níveis aninhados; deixe vazio para sair dos grupos',
+        'pgroup.rename.title': 'Renomear grupo de projetos',
+        'pgroup.delete.title': 'Excluir grupo de projetos',
+        'pgroup.delete.empty': 'Excluir o grupo de projetos "{name}"?',
+        'pgroup.delete.full': 'Excluir o grupo de projetos "{name}"? Seus {n} workspaces voltarão para Sem grupo.',
         'menu.sessionId': 'Copiar ID da sessão',
         'menu.workspacePreset': 'Preset padrão do workspace…',
         'wsPreset.title': 'Alterar o preset padrão do workspace',
@@ -2311,20 +2390,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': 'O caminho da pasta não pode ficar vazio',
         'group.move.title': 'Mover para o grupo',
         'group.pick': 'Escolher um grupo existente',
-        'group.new': 'Novo grupo',
-        'group.new.title': "Novo grupo",
-        'group.new.sess': "Grupo de sessões",
-        'group.new.ws': "Grupo de áreas de trabalho",
-        'group.new.both': "Novo grupo de sessões ou áreas de trabalho",
-        'group.new.where': "Escolha onde criar",
-        'group.new.placeholder': "Nome do grupo, \"/\" aninha",
-        'group.new.nameHint': "Uma \"/\" aninha mais, ex. frontend/components",
-        'group.new.empty': "Digite um nome de grupo",
-        'group.new.root': "Nível superior",
-        'group.new.independent': "Novo grupo de nível superior",
-        'group.new.pickWorkspace': "Escolha uma área de trabalho",
-        'group.new.noWorkspace': "Ainda não há áreas de trabalho — adicione uma primeiro",
-        'group.new.pickFirst': "Escolha uma área de trabalho primeiro",
         'group.delete.title': "Excluir grupo",
         'group.delete.body': "\"{name}\" é um grupo vazio; a exclusão não pode ser desfeita.",
         'menu.deleteGroup': "Excluir grupo",
@@ -2336,6 +2401,8 @@ window.__ModuleLoader__.load({
         'add': 'Добавить рабочую область',
         'rail.search': 'Поиск',
         'rail.add': 'Добавить рабочую область',
+        'action.reveal': 'Показать текущую сессию',
+        'action.collapseAll': 'Свернуть все группы и списки сессий',
         'empty': 'Рабочих областей пока нет',
         'empty.search': 'Ничего не найдено',
         'empty.noneArchived': 'Нет архивных сеансов',
@@ -2381,6 +2448,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': 'Переименовать группу сессий',
         'menu.moveToGroup': 'Переместить в группу…',
         'menu.moveOutGroup': 'Убрать из группы',
+        'menu.moveToPgroup': 'Переместить в группу проектов…',
+        'menu.moveOutPgroup': 'Убрать из группы проектов',
+        'menu.renamePgroup': 'Переименовать группу проектов',
+        'menu.deletePgroup': 'Удалить группу проектов',
+        'menu.newChildPgroup': 'Создать подгруппу…',
+        'menu.reparentPgroup': 'Переместить в родительскую группу…',
+        'pgroup.newChild.title': 'Создать подгруппу',
+        'pgroup.newChild.hint': '«/» вкладывает глубже — группа создаётся под этой группой проектов',
+        'pgroup.reparent.title': 'Переместить в родительскую группу',
+        'pgroup.reparent.hint': 'Введите родительскую группу; используйте / для вложенности; оставьте пустым для верхнего уровня',
+        'pgroup.reparent.self': 'Группу нельзя переместить в неё саму или в её подгруппы',
+        'pgroup.move.title': 'Переместить в группу проектов',
+        'pgroup.move.hint': 'Введите имя группы проектов; используйте / для вложенности; оставьте пустым, чтобы убрать из групп',
+        'pgroup.rename.title': 'Переименовать группу проектов',
+        'pgroup.delete.title': 'Удалить группу проектов',
+        'pgroup.delete.empty': 'Удалить группу проектов «{name}»?',
+        'pgroup.delete.full': 'Удалить группу проектов «{name}»? Её {n} рабочих пространств вернутся в «Без группы».',
         'menu.sessionId': 'Копировать ID сессии',
         'menu.workspacePreset': 'Пресет воркспейса по умолчанию…',
         'wsPreset.title': 'Изменить пресет воркспейса по умолчанию',
@@ -2487,20 +2571,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': 'Путь папки не может быть пустым',
         'group.move.title': 'Переместить в группу',
         'group.pick': 'Выбрать существующую группу',
-        'group.new': 'Новая группа',
-        'group.new.title': "Новая группа",
-        'group.new.sess': "Группа сеансов",
-        'group.new.ws': "Группа рабочих областей",
-        'group.new.both': "Новая группа сеансов или рабочих областей",
-        'group.new.where': "Выберите место создания",
-        'group.new.placeholder': "Имя группы, «/» вкладывает",
-        'group.new.nameHint': "«/» вкладывает глубже, напр. frontend/components",
-        'group.new.empty': "Введите имя группы",
-        'group.new.root': "Верхний уровень",
-        'group.new.independent': "Новая группа верхнего уровня",
-        'group.new.pickWorkspace': "Выберите рабочую область",
-        'group.new.noWorkspace': "Рабочих областей пока нет — сначала добавьте одну",
-        'group.new.pickFirst': "Сначала выберите рабочую область",
         'group.delete.title': "Удалить группу",
         'group.delete.body': "«{name}» — пустая группа; удаление необратимо.",
         'menu.deleteGroup': "Удалить группу",
@@ -2512,6 +2582,8 @@ window.__ModuleLoader__.load({
         'add': 'Lägg till arbetsyta',
         'rail.search': 'Sök',
         'rail.add': 'Lägg till arbetsyta',
+        'action.reveal': 'Visa aktuell session',
+        'action.collapseAll': 'Fäll ihop alla grupper och sessionslistor',
         'empty': 'Inga arbetsytor ännu',
         'empty.search': 'Inga träffar',
         'empty.noneArchived': 'Inga arkiverade sessioner',
@@ -2557,6 +2629,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': 'Byt namn på sessionsgrupp',
         'menu.moveToGroup': 'Flytta till grupp…',
         'menu.moveOutGroup': 'Flytta ut ur gruppen',
+        'menu.moveToPgroup': 'Flytta till projektgrupp…',
+        'menu.moveOutPgroup': 'Flytta ut ur projektgrupp',
+        'menu.renamePgroup': 'Byt namn på projektgrupp',
+        'menu.deletePgroup': 'Ta bort projektgrupp',
+        'menu.newChildPgroup': 'Ny undergrupp…',
+        'menu.reparentPgroup': 'Flytta till överordnad grupp…',
+        'pgroup.newChild.title': 'Ny undergrupp',
+        'pgroup.newChild.hint': 'Ett "/" nästlar djupare — gruppen skapas under den här projektgruppen',
+        'pgroup.reparent.title': 'Flytta till överordnad grupp',
+        'pgroup.reparent.hint': 'Skriv en överordnad grupp; använd / för nivåer; lämna tomt för högsta nivån',
+        'pgroup.reparent.self': 'En grupp kan inte flyttas till sig själv eller sina egna undergrupper',
+        'pgroup.move.title': 'Flytta till projektgrupp',
+        'pgroup.move.hint': 'Skriv ett projektgruppsnamn; använd / för nivåer; lämna tomt för att flytta ut ur projektgrupper',
+        'pgroup.rename.title': 'Byt namn på projektgrupp',
+        'pgroup.delete.title': 'Ta bort projektgrupp',
+        'pgroup.delete.empty': 'Ta bort projektgruppen "{name}"?',
+        'pgroup.delete.full': 'Ta bort projektgruppen "{name}"? Dess {n} arbetsytor återgår till Utan grupp.',
         'menu.sessionId': 'Kopiera sessions-ID',
         'menu.workspacePreset': 'Standardförinställning för arbetsyta…',
         'wsPreset.title': 'Ändra standardförinställning för arbetsyta',
@@ -2663,20 +2752,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': 'Mappsökvägen får inte vara tom',
         'group.move.title': 'Flytta till grupp',
         'group.pick': 'Välj en befintlig grupp',
-        'group.new': 'Ny grupp',
-        'group.new.title': "Ny grupp",
-        'group.new.sess': "Sessionsgrupp",
-        'group.new.ws': "Arbetsytegrupp",
-        'group.new.both': "Ny sessions- eller arbetsytegrupp",
-        'group.new.where': "Välj var den skapas",
-        'group.new.placeholder': "Gruppnamn, \"/\" nästlar",
-        'group.new.nameHint': "Ett \"/\" nästlar djupare, t.ex. frontend/components",
-        'group.new.empty': "Ange ett gruppnamn",
-        'group.new.root': "Översta nivån",
-        'group.new.independent': "Ny grupp på översta nivån",
-        'group.new.pickWorkspace': "Välj en arbetsyta",
-        'group.new.noWorkspace': "Inga arbetsytor än — lägg till en först",
-        'group.new.pickFirst': "Välj en arbetsyta först",
         'group.delete.title': "Ta bort grupp",
         'group.delete.body': "\"{name}\" är en tom grupp; borttagningen kan inte ångras.",
         'menu.deleteGroup': "Ta bort grupp",
@@ -2688,6 +2763,8 @@ window.__ModuleLoader__.load({
         'add': 'เพิ่มพื้นที่ทำงาน',
         'rail.search': 'ค้นหา',
         'rail.add': 'เพิ่มพื้นที่ทำงาน',
+        'action.reveal': 'แสดงเซสชันปัจจุบัน',
+        'action.collapseAll': 'ยุบกลุ่มและรายการเซสชันทั้งหมด',
         'empty': 'ยังไม่มีพื้นที่ทำงาน',
         'empty.search': 'ไม่พบผลลัพธ์ที่ตรงกัน',
         'empty.noneArchived': 'ยังไม่มีเซสชันที่เก็บถาวร',
@@ -2733,6 +2810,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': 'เปลี่ยนชื่อกลุ่มเซสชัน',
         'menu.moveToGroup': 'ย้ายไปยังกลุ่ม…',
         'menu.moveOutGroup': 'ย้ายออกจากกลุ่ม',
+        'menu.moveToPgroup': 'ย้ายไปยังกลุ่มโปรเจกต์…',
+        'menu.moveOutPgroup': 'ย้ายออกจากกลุ่มโปรเจกต์',
+        'menu.renamePgroup': 'เปลี่ยนชื่อกลุ่มโปรเจกต์',
+        'menu.deletePgroup': 'ลบกลุ่มโปรเจกต์',
+        'menu.newChildPgroup': 'สร้างกลุ่มย่อย…',
+        'menu.reparentPgroup': 'ย้ายไปยังกลุ่มหลัก…',
+        'pgroup.newChild.title': 'สร้างกลุ่มย่อย',
+        'pgroup.newChild.hint': '/ ใช้ซ้อนระดับลึกขึ้น — กลุ่มจะถูกสร้างภายใต้กลุ่มโปรเจกต์นี้',
+        'pgroup.reparent.title': 'ย้ายไปยังกลุ่มหลัก',
+        'pgroup.reparent.hint': 'พิมพ์กลุ่มหลัก ใช้ / สำหรับระดับซ้อน เว้นว่างสำหรับระดับบนสุด',
+        'pgroup.reparent.self': 'ไม่สามารถย้ายกลุ่มไปยังตัวเองหรือกลุ่มย่อยของตัวเองได้',
+        'pgroup.move.title': 'ย้ายไปยังกลุ่มโปรเจกต์',
+        'pgroup.move.hint': 'พิมพ์ชื่อกลุ่มโปรเจกต์ ใช้ / สำหรับระดับซ้อน เว้นว่างเพื่อย้ายออกจากกลุ่มโปรเจกต์',
+        'pgroup.rename.title': 'เปลี่ยนชื่อกลุ่มโปรเจกต์',
+        'pgroup.delete.title': 'ลบกลุ่มโปรเจกต์',
+        'pgroup.delete.empty': 'ลบกลุ่มโปรเจกต์ "{name}" หรือไม่?',
+        'pgroup.delete.full': 'ลบกลุ่มโปรเจกต์ "{name}" หรือไม่? เวิร์กสเปซ {n} รายการจะกลับไปยังไม่จัดกลุ่ม',
         'menu.sessionId': 'คัดลอก ID เซสชัน',
         'menu.workspacePreset': 'พรีเซ็ตเริ่มต้นของพื้นที่ทำงาน…',
         'wsPreset.title': 'เปลี่ยนพรีเซ็ตเริ่มต้นของพื้นที่ทำงาน',
@@ -2839,20 +2933,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': 'เส้นทางกลุ่มต้องไม่ว่าง',
         'group.move.title': 'ย้ายไปยังกลุ่ม',
         'group.pick': 'เลือกกลุ่มที่มีอยู่',
-        'group.new': 'กลุ่มใหม่',
-        'group.new.title': "กลุ่มใหม่",
-        'group.new.sess': "กลุ่มเซสชัน",
-        'group.new.ws': "กลุ่มเวิร์กสเปซ",
-        'group.new.both': "กลุ่มเซสชันหรือเวิร์กสเปซใหม่",
-        'group.new.where': "เลือกตำแหน่งที่สร้าง",
-        'group.new.placeholder': "ชื่อกลุ่ม ใช้ / ซ้อนระดับ",
-        'group.new.nameHint': "/ ใช้ซ้อนระดับลึกขึ้น เช่น frontend/components",
-        'group.new.empty': "กรอกชื่อกลุ่ม",
-        'group.new.root': "ระดับบนสุด",
-        'group.new.independent': "กลุ่มระดับบนสุดใหม่",
-        'group.new.pickWorkspace': "เลือกเวิร์กสเปซ",
-        'group.new.noWorkspace': "ยังไม่มีเวิร์กสเปซ — เพิ่มก่อน",
-        'group.new.pickFirst': "เลือกเวิร์กสเปซก่อน",
         'group.delete.title': "ลบกลุ่ม",
         'group.delete.body': "\"{name}\" เป็นกลุ่มว่าง ลบแล้วกู้คืนไม่ได้",
         'menu.deleteGroup': "ลบกลุ่ม",
@@ -2864,6 +2944,8 @@ window.__ModuleLoader__.load({
         'add': 'Çalışma alanı ekle',
         'rail.search': 'Ara',
         'rail.add': 'Çalışma alanı ekle',
+        'action.reveal': 'Geçerli oturuma git',
+        'action.collapseAll': 'Tüm grupları ve oturum listelerini daralt',
         'empty': 'Henüz çalışma alanı yok',
         'empty.search': 'Eşleşen sonuç yok',
         'empty.noneArchived': 'Arşivlenmiş oturum yok',
@@ -2909,6 +2991,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': 'Oturum grubunu yeniden adlandır',
         'menu.moveToGroup': 'Gruba taşı…',
         'menu.moveOutGroup': 'Gruptan çıkar',
+        'menu.moveToPgroup': 'Proje grubuna taşı…',
+        'menu.moveOutPgroup': 'Proje grubundan çıkar',
+        'menu.renamePgroup': 'Proje grubunu yeniden adlandır',
+        'menu.deletePgroup': 'Proje grubunu sil',
+        'menu.newChildPgroup': 'Yeni alt grup…',
+        'menu.reparentPgroup': 'Üst gruba taşı…',
+        'pgroup.newChild.title': 'Yeni alt grup',
+        'pgroup.newChild.hint': '"/" daha derin iç içe koyar — grup bu proje grubunun altında oluşturulur',
+        'pgroup.reparent.title': 'Üst gruba taşı',
+        'pgroup.reparent.hint': 'Üst grup adı yazın; iç içe düzeyler için / kullanın; en üst düzey için boş bırakın',
+        'pgroup.reparent.self': 'Bir grup kendisine veya kendi alt gruplarına taşınamaz',
+        'pgroup.move.title': 'Proje grubuna taşı',
+        'pgroup.move.hint': 'Proje grubu adı yazın; iç içe düzeyler için / kullanın; gruplardan çıkarmak için boş bırakın',
+        'pgroup.rename.title': 'Proje grubunu yeniden adlandır',
+        'pgroup.delete.title': 'Proje grubunu sil',
+        'pgroup.delete.empty': '"{name}" proje grubu silinsin mi?',
+        'pgroup.delete.full': '"{name}" proje grubu silinsin mi? İçindeki {n} çalışma alanı Gruplanmamış\'a döner.',
         'menu.sessionId': 'Oturum kimliğini kopyala',
         'menu.workspacePreset': 'Çalışma alanı varsayılan ön ayarı…',
         'wsPreset.title': 'Çalışma alanı varsayılan ön ayarını değiştir',
@@ -3015,20 +3114,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': 'Klasör yolu boş olamaz',
         'group.move.title': 'Gruba taşı',
         'group.pick': 'Mevcut bir grup seç',
-        'group.new': 'Yeni grup',
-        'group.new.title': "Yeni grup",
-        'group.new.sess': "Oturum grubu",
-        'group.new.ws': "Çalışma alanı grubu",
-        'group.new.both': "Yeni oturum veya çalışma alanı grubu",
-        'group.new.where': "Oluşturulacak yeri seçin",
-        'group.new.placeholder': "Grup adı, \"/\" iç içe koyar",
-        'group.new.nameHint': "\"/\" daha derin iç içe koyar, örn. frontend/components",
-        'group.new.empty': "Bir grup adı girin",
-        'group.new.root': "En üst düzey",
-        'group.new.independent': "Yeni üst düzey grup",
-        'group.new.pickWorkspace': "Bir çalışma alanı seçin",
-        'group.new.noWorkspace': "Henüz çalışma alanı yok — önce bir tane ekleyin",
-        'group.new.pickFirst': "Önce bir çalışma alanı seçin",
         'group.delete.title': "Grubu sil",
         'group.delete.body': "\"{name}\" boş bir grup; silme geri alınamaz.",
         'menu.deleteGroup': "Grubu sil",
@@ -3040,6 +3125,8 @@ window.__ModuleLoader__.load({
         'add': 'Thêm không gian làm việc',
         'rail.search': 'Tìm kiếm',
         'rail.add': 'Thêm không gian làm việc',
+        'action.reveal': 'Hiện phiên hiện tại',
+        'action.collapseAll': 'Thu gọn tất cả nhóm và danh sách phiên',
         'empty': 'Chưa có không gian làm việc',
         'empty.search': 'Không có kết quả phù hợp',
         'empty.noneArchived': 'Chưa có phiên nào được lưu trữ',
@@ -3085,6 +3172,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': 'Đổi tên nhóm phiên',
         'menu.moveToGroup': 'Chuyển vào nhóm…',
         'menu.moveOutGroup': 'Đưa ra khỏi nhóm',
+        'menu.moveToPgroup': 'Chuyển vào nhóm dự án…',
+        'menu.moveOutPgroup': 'Đưa ra khỏi nhóm dự án',
+        'menu.renamePgroup': 'Đổi tên nhóm dự án',
+        'menu.deletePgroup': 'Xóa nhóm dự án',
+        'menu.newChildPgroup': 'Tạo nhóm con…',
+        'menu.reparentPgroup': 'Chuyển vào nhóm cha…',
+        'pgroup.newChild.title': 'Tạo nhóm con',
+        'pgroup.newChild.hint': '"/" tạo cấp lồng sâu hơn — nhóm được tạo bên trong nhóm dự án này',
+        'pgroup.reparent.title': 'Chuyển vào nhóm cha',
+        'pgroup.reparent.hint': 'Nhập nhóm cha; dùng / để tạo cấp lồng; để trống để lên cấp cao nhất',
+        'pgroup.reparent.self': 'Không thể chuyển nhóm vào chính nó hoặc các nhóm con của nó',
+        'pgroup.move.title': 'Chuyển vào nhóm dự án',
+        'pgroup.move.hint': 'Nhập tên nhóm dự án; dùng / để tạo cấp lồng; để trống để ra khỏi nhóm dự án',
+        'pgroup.rename.title': 'Đổi tên nhóm dự án',
+        'pgroup.delete.title': 'Xóa nhóm dự án',
+        'pgroup.delete.empty': 'Xóa nhóm dự án "{name}"?',
+        'pgroup.delete.full': 'Xóa nhóm dự án "{name}"? {n} workspace bên trong sẽ quay lại Chưa phân nhóm.',
         'menu.sessionId': 'Sao chép ID phiên',
         'menu.workspacePreset': 'Preset mặc định của không gian làm việc…',
         'wsPreset.title': 'Thay đổi preset mặc định của không gian làm việc',
@@ -3191,20 +3295,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': 'Đường dẫn nhóm không được để trống',
         'group.move.title': 'Chuyển vào nhóm',
         'group.pick': 'Chọn một nhóm có sẵn',
-        'group.new': 'Nhóm mới',
-        'group.new.title': "Nhóm mới",
-        'group.new.sess': "Nhóm phiên",
-        'group.new.ws': "Nhóm không gian làm việc",
-        'group.new.both': "Nhóm phiên hoặc không gian làm việc mới",
-        'group.new.where': "Chọn nơi tạo",
-        'group.new.placeholder': "Tên nhóm, \"/\" để lồng nhau",
-        'group.new.nameHint': "\"/\" lồng sâu hơn, ví dụ frontend/components",
-        'group.new.empty': "Nhập tên nhóm",
-        'group.new.root': "Cấp cao nhất",
-        'group.new.independent': "Nhóm cấp cao nhất mới",
-        'group.new.pickWorkspace': "Chọn một không gian làm việc",
-        'group.new.noWorkspace': "Chưa có không gian làm việc — hãy thêm trước",
-        'group.new.pickFirst': "Chọn không gian làm việc trước",
         'group.delete.title': "Xóa nhóm",
         'group.delete.body': "\"{name}\" là nhóm trống; không thể hoàn tác sau khi xóa.",
         'menu.deleteGroup': "Xóa nhóm",
@@ -3216,6 +3306,8 @@ window.__ModuleLoader__.load({
         'add': '新增工作區',
         'rail.search': '搵',
         'rail.add': '新增工作區',
+        'action.reveal': '定位目前工作階段',
+        'action.collapseAll': '收起所有分組與工作階段清單',
         'empty': '未有工作區',
         'empty.search': '搵唔到符合嘅結果',
         'empty.noneArchived': '未有已封存嘅會話',
@@ -3261,6 +3353,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': '重新命名對話分組',
         'menu.moveToGroup': '移動到分組…',
         'menu.moveOutGroup': '移出分組',
+        'menu.moveToPgroup': '移動到項目組…',
+        'menu.moveOutPgroup': '移出項目組',
+        'menu.renamePgroup': '重新命名項目組',
+        'menu.deletePgroup': '刪除項目組',
+        'menu.newChildPgroup': '新建子分組…',
+        'menu.reparentPgroup': '移動到上層分組…',
+        'pgroup.newChild.title': '新建子分組',
+        'pgroup.newChild.hint': '名稱中的 / 即嵌套層級，將建在本項目組之下',
+        'pgroup.reparent.title': '移動到上層分組',
+        'pgroup.reparent.hint': '輸入上層項目組名稱，用 / 分隔可建多層；留空則移到頂層',
+        'pgroup.reparent.self': '不能移動到項目組自己或它的子組裡',
+        'pgroup.move.title': '移動到項目組',
+        'pgroup.move.hint': '輸入項目組名稱，用 / 分隔可建多層；留空則移出項目組',
+        'pgroup.rename.title': '重新命名項目組',
+        'pgroup.delete.title': '刪除項目組',
+        'pgroup.delete.empty': '確定刪除項目組「{name}」嗎？',
+        'pgroup.delete.full': '確定刪除項目組「{name}」嗎？其中的 {n} 個工作區將回到未分組。',
         'menu.sessionId': '複製 Session ID',
         'menu.workspacePreset': '修改工作區預設…',
         'wsPreset.title': '修改工作區預設',
@@ -3367,20 +3476,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': '分組路徑唔可以係空',
         'group.move.title': '移動到分組',
         'group.pick': '選擇已有分組',
-        'group.new': '新增分組',
-        'group.new.title': "新增分組",
-        'group.new.sess': "工作階段分組",
-        'group.new.ws': "工作區分組",
-        'group.new.both': "新增工作階段或工作區分組",
-        'group.new.where': "揀建立位置",
-        'group.new.placeholder': "分組名,可用 / 嵌套",
-        'group.new.nameHint': "名入面嘅 / 即嵌套層級,例如 前端/組件",
-        'group.new.empty': "請輸入分組名",
-        'group.new.root': "最頂層",
-        'group.new.independent': "新增頂層分組",
-        'group.new.pickWorkspace': "揀一個工作區",
-        'group.new.noWorkspace': "仲未有工作區,請先加一個",
-        'group.new.pickFirst': "請先揀一個工作區",
         'group.delete.title': "刪除分組",
         'group.delete.body': "「{name}」係空分組,刪咗冇得返轉頭。",
         'menu.deleteGroup': "刪除分組",
@@ -3392,6 +3487,8 @@ window.__ModuleLoader__.load({
         'add': '新增工作區',
         'rail.search': '搵',
         'rail.add': '新增工作區',
+        'action.reveal': '定位目前工作階段',
+        'action.collapseAll': '收起所有分組與工作階段清單',
         'empty': '未有工作區',
         'empty.search': '搵唔到符合嘅結果',
         'empty.noneArchived': '未有已封存嘅會話',
@@ -3437,6 +3534,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': '重新命名對話分組',
         'menu.moveToGroup': '移動到分組…',
         'menu.moveOutGroup': '移出分組',
+        'menu.moveToPgroup': '移動到項目組…',
+        'menu.moveOutPgroup': '移出項目組',
+        'menu.renamePgroup': '重新命名項目組',
+        'menu.deletePgroup': '刪除項目組',
+        'menu.newChildPgroup': '新建子分組…',
+        'menu.reparentPgroup': '移動到上層分組…',
+        'pgroup.newChild.title': '新建子分組',
+        'pgroup.newChild.hint': '名稱中的 / 即嵌套層級，將建在本項目組之下',
+        'pgroup.reparent.title': '移動到上層分組',
+        'pgroup.reparent.hint': '輸入上層項目組名稱，用 / 分隔可建多層；留空則移到頂層',
+        'pgroup.reparent.self': '不能移動到項目組自己或它的子組裡',
+        'pgroup.move.title': '移動到項目組',
+        'pgroup.move.hint': '輸入項目組名稱，用 / 分隔可建多層；留空則移出項目組',
+        'pgroup.rename.title': '重新命名項目組',
+        'pgroup.delete.title': '刪除項目組',
+        'pgroup.delete.empty': '確定刪除項目組「{name}」嗎？',
+        'pgroup.delete.full': '確定刪除項目組「{name}」嗎？其中的 {n} 個工作區將回到未分組。',
         'menu.sessionId': '複製 Session ID',
         'menu.workspacePreset': '修改工作區預設…',
         'wsPreset.title': '修改工作區預設',
@@ -3543,20 +3657,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': '分組路徑唔可以係空',
         'group.move.title': '移動到分組',
         'group.pick': '選擇已有分組',
-        'group.new': '新增分組',
-        'group.new.title': "新增分組",
-        'group.new.sess': "工作階段分組",
-        'group.new.ws': "工作區分組",
-        'group.new.both': "新增工作階段或工作區分組",
-        'group.new.where': "揀建立位置",
-        'group.new.placeholder': "分組名,可用 / 嵌套",
-        'group.new.nameHint': "名入面嘅 / 即嵌套層級,例如 前端/組件",
-        'group.new.empty': "請輸入分組名",
-        'group.new.root': "最頂層",
-        'group.new.independent': "新增頂層分組",
-        'group.new.pickWorkspace': "揀一個工作區",
-        'group.new.noWorkspace': "仲未有工作區,請先加一個",
-        'group.new.pickFirst': "請先揀一個工作區",
         'group.delete.title': "刪除分組",
         'group.delete.body': "「{name}」係空分組,刪咗冇得返轉頭。",
         'menu.deleteGroup': "刪除分組",
@@ -3568,6 +3668,8 @@ window.__ModuleLoader__.load({
         'add': '新增工作區',
         'rail.search': '搜尋',
         'rail.add': '新增工作區',
+        'action.reveal': '定位目前工作階段',
+        'action.collapseAll': '收起所有分組與工作階段清單',
         'empty': '尚無工作區',
         'empty.search': '沒有相符的結果',
         'empty.noneArchived': '尚無已封存的會話',
@@ -3613,6 +3715,23 @@ window.__ModuleLoader__.load({
         'menu.renameSgroup': '重新命名工作階段群組',
         'menu.moveToGroup': '移動到分組…',
         'menu.moveOutGroup': '移出分組',
+        'menu.moveToPgroup': '移動到項目組…',
+        'menu.moveOutPgroup': '移出項目組',
+        'menu.renamePgroup': '重新命名項目組',
+        'menu.deletePgroup': '刪除項目組',
+        'menu.newChildPgroup': '新建子分組…',
+        'menu.reparentPgroup': '移動到上層分組…',
+        'pgroup.newChild.title': '新建子分組',
+        'pgroup.newChild.hint': '名稱中的 / 即嵌套層級，將建在本項目組之下',
+        'pgroup.reparent.title': '移動到上層分組',
+        'pgroup.reparent.hint': '輸入上層項目組名稱，用 / 分隔可建多層；留空則移到頂層',
+        'pgroup.reparent.self': '不能移動到項目組自己或它的子組裡',
+        'pgroup.move.title': '移動到項目組',
+        'pgroup.move.hint': '輸入項目組名稱，用 / 分隔可建多層；留空則移出項目組',
+        'pgroup.rename.title': '重新命名項目組',
+        'pgroup.delete.title': '刪除項目組',
+        'pgroup.delete.empty': '確定刪除項目組「{name}」嗎？',
+        'pgroup.delete.full': '確定刪除項目組「{name}」嗎？其中的 {n} 個工作區將回到未分組。',
         'menu.sessionId': '複製 Session ID',
         'menu.workspacePreset': '修改工作區預設…',
         'wsPreset.title': '修改工作區預設',
@@ -3719,20 +3838,6 @@ window.__ModuleLoader__.load({
         'folder.error.empty': '群組路徑不能為空',
         'group.move.title': '移動到分組',
         'group.pick': '選擇現有群組',
-        'group.new': '新增分組',
-        'group.new.title': "新增分組",
-        'group.new.sess': "工作階段分組",
-        'group.new.ws': "工作區分組",
-        'group.new.both': "新增工作階段或工作區分組",
-        'group.new.where': "選擇建立位置",
-        'group.new.placeholder': "分組名稱,可用 / 巢狀",
-        'group.new.nameHint': "名稱中的 / 即巢狀層級,例如 前端/元件",
-        'group.new.empty': "請輸入分組名稱",
-        'group.new.root': "最頂層",
-        'group.new.independent': "新增頂層分組",
-        'group.new.pickWorkspace': "選擇一個工作區",
-        'group.new.noWorkspace': "還沒有工作區,請先新增一個",
-        'group.new.pickFirst': "請先選擇一個工作區",
         'group.delete.title': "刪除分組",
         'group.delete.body': "「{name}」是空分組,刪除後無法復原。",
         'menu.deleteGroup': "刪除分組",
@@ -4575,6 +4680,100 @@ window.__ModuleLoader__.load({
       return buildLevel(topLevel, '')
     }
 
+    /**
+     * Project groups (v0.36.0): the store-driven layer ABOVE the whole tree.
+     * Runs AFTER buildTree/compression (both memo sites call it last), so a
+     * group node never passes through compressTree — it keeps its `pg` flag
+     * and idPath, which renderPlainFolder branches on.
+     *
+     * The bag maps "a/b" paths to member workspaceId lists. Only ROOT-level
+     * workspaces (level.workspaces) are redistributed: a disk-nested child
+     * lives in its parent's .sub level and the disk layer is a filesystem
+     * fact — assigning a child would change nothing on screen. Members render
+     * FLAT inside their group (by leaf): the name-prefix layer of a moved
+     * entry stays in its title (rename/move dialogs still see it) but is not
+     * re-grouped inside the bin — a project group is a bin, not a level with
+     * its own name layer. Unassigned workspaces stay in level.workspaces and
+     * the caller wraps them in the Ungrouped block. Group nodes prepend the
+     * root's name folders: 项目组 → 名称分组 → (未分组) 工作区.
+     *
+     * `order` is the flat manual-order list (v0.36.1): each bin level sorts
+     * by the relative position of its same-parent paths in the list, with
+     * unlisted paths falling back to alphabetical — a drag-reordered group
+     * keeps its place, a group created behind the list's back files at the
+     * end without any migration.
+     */
+    function applyProjectGroups(level, groups, order) {
+      const map = groups && typeof groups === 'object' ? groups : EMPTY_FOLDERS
+      const keys = Object.keys(map)
+      if (keys.length === 0) return level
+      const pgRoot = { folders: [], workspaces: [] }
+      const byPath = new Map()
+      const ensure = (segs) => {
+        let node = pgRoot
+        let key = ''
+        for (const seg of segs) {
+          key = key === '' ? seg : key + '/' + seg
+          let next = byPath.get(key)
+          if (!next) {
+            next = {
+              path: key,
+              name: seg,
+              kind: 'folder',
+              folders: [],
+              workspaces: [],
+              // 'pg//' keeps expansion/styling identity disjoint from a
+              // same-named NAME group at the root (its idPath is the bare
+              // path) — the two layers may reuse a word without sharing state.
+              idPath: 'pg//' + key,
+              pg: true,
+            }
+            byPath.set(key, next)
+            node.folders.push(next)
+          }
+          node = next
+        }
+        return node
+      }
+      const ownerOf = new Map()
+      for (const path of keys) {
+        const segs = String(path).split('/').filter((s) => s !== '')
+        if (segs.length === 0) continue
+        const node = ensure(segs)
+        for (const id of Array.isArray(map[path]) ? map[path] : []) {
+          ownerOf.set(String(id), node)
+        }
+      }
+      if (ownerOf.size === 0 && pgRoot.folders.length === 0) return level
+      const remaining = []
+      for (const w of level.workspaces || []) {
+        const node = ownerOf.get(String(w.workspaceId))
+        if (node) node.workspaces.push(w)
+        else remaining.push(w)
+      }
+      const orderList = Array.isArray(order) ? order : []
+      const rankOf = (path) => {
+        const i = orderList.indexOf(path)
+        return i === -1 ? Number.MAX_SAFE_INTEGER : i
+      }
+      const sortRec = (node) => {
+        node.folders.sort((a, b) => (rankOf(a.path) - rankOf(b.path)) || a.name.localeCompare(b.name, 'zh'))
+        for (const child of node.folders) sortRec(child)
+      }
+      sortRec(pgRoot)
+      return { ...level, folders: [...pgRoot.folders, ...(level.folders || [])], workspaces: remaining }
+    }
+
+    const pgGroupOfIn = (groups, workspaceId) => {
+      const map = groups && typeof groups === 'object' ? groups : EMPTY_FOLDERS
+      const key = String(workspaceId)
+      for (const path of Object.keys(map)) {
+        const list = map[path]
+        if (Array.isArray(list) && list.indexOf(key) !== -1) return path
+      }
+      return ''
+    }
+
     const countWorkspaces = (node) => (node.kind === 'ws'
       ? 1
       : node.workspaces.reduce((sum, w) => sum + 1 + (w.sub ? countWorkspaces(w.sub) : 0), 0)
@@ -4685,34 +4884,6 @@ window.__ModuleLoader__.load({
       // bottom of the tree says "anywhere outside a group = out of it". Kept
       // faint on purpose — the row outlines are the loud feedback.
       '.bw-root-drop-out::after{content:"";position:absolute;left:10px;right:10px;bottom:6px;border-bottom:1px dashed var(--dsw-alias-border-secondary,rgba(230,230,230,.35));pointer-events:none}',
-      // v0.17.0: the new-group entry is an ICON button now (same family as the
-      // search / add buttons beside it); the wording moved into its tooltip.
-      '.bw-newgroup-btn{flex:none}',
-      '.bw-seg{display:flex;gap:0;width:fit-content;border:1px solid var(--dsw-alias-border-l1,rgba(127,127,127,.25));border-radius:7px;overflow:hidden}',
-      '.bw-seg-btn{border:none;background:transparent;color:var(--dsw-alias-label-secondary,#b8b8b8);font:inherit;font-size:13px;padding:5px 14px;cursor:pointer}',
-      '.bw-seg-btn:hover{background:var(--dsw-alias-interactive-bg-hover,rgba(127,127,127,.12));color:var(--dsw-alias-label-primary,#e6e6e6)}',
-      '.bw-seg-btn-on{background:var(--dsw-alias-bg-layer-2,rgba(127,127,127,.16));color:var(--dsw-alias-label-primary,#e6e6e6);font-weight:500}',
-      '.bw-seg-btn+.bw-seg-btn{border-left:1px solid var(--dsw-alias-border-l1,rgba(127,127,127,.25))}',
-      '.bw-gn-hint{font-size:12px;color:var(--dsw-alias-label-tertiary,#9a9a9a)}',
-      // A container-only node (a workspace name-group in the session layer):
-      // still expandable, but it carries no workspaceId to file against.
-      // The trailing "new top-level group" row: separated from the containers
-      // above it, because it belongs to none of them.
-      '.bw-gn-row-new{margin-top:4px;border-top:1px solid var(--dsw-alias-border-l1,rgba(127,127,127,.22));border-radius:0 0 6px 6px;padding-top:4px}',
-      '.bw-gn-row-new .bw-gn-label{color:var(--dsw-alias-label-secondary,#b8b8b8)}',
-      '.bw-gn-row-hold{cursor:default}',
-      '.bw-gn-row-hold:hover{background:transparent}',
-      '.bw-gn-row-hold .bw-gn-label{color:var(--dsw-alias-label-secondary,#b8b8b8)}',
-      '.bw-gn-empty{font-size:12px;color:var(--dsw-alias-label-tertiary,#9a9a9a);padding:10px 8px;text-align:center}',
-      '.bw-gn-tree{max-height:250px;overflow:auto;padding:4px;box-sizing:border-box;border:1px solid var(--dsw-alias-border-l1,rgba(127,127,127,.22));border-radius:8px;background:var(--dsw-alias-bg-layer-2,rgba(127,127,127,.06))}',
-      '.bw-gn-row{display:flex;align-items:center;gap:6px;min-height:26px;padding-right:8px;border-radius:6px;cursor:pointer;user-select:none}',
-      '.bw-gn-row:hover{background:var(--dsw-alias-interactive-bg-hover,rgba(127,127,127,.12))}',
-      '.bw-gn-row-on{background:var(--dsw-alias-interactive-bg-hover,rgba(127,127,127,.12));box-shadow:inset 0 0 0 1px var(--dsw-alias-brand-primary,#5b8def)}',
-      '.bw-gn-twist{flex:none;display:grid;place-items:center;width:14px;height:14px;padding:0;border:none;background:transparent;color:var(--dsw-alias-label-tertiary,#9a9a9a);cursor:pointer}',
-      '.bw-gn-twist-open{transform:rotate(90deg)}',
-      '.bw-gn-icon{flex:none;display:grid;place-items:center;width:16px;height:16px;color:var(--dsw-alias-label-secondary,#b8b8b8)}',
-      '.bw-gn-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;color:var(--dsw-alias-label-primary,#e6e6e6)}',
-      '.bw-gn-input{width:100%;box-sizing:border-box}',
       // Row hover/selection follow the background plugin's interface scheme
       // (body[data-ds-dark-theme], flipped by dsh-any-background): dark
       // surfaces tint BLACK — every label token is rewritten toward bright ink
@@ -4969,6 +5140,35 @@ window.__ModuleLoader__.load({
     const declaredPathOf = (raw) => String(raw == null ? '' : raw)
       .split('/').map((s) => s.trim()).filter((s) => s !== '').join('/')
 
+    /**
+     * Project-group path/order helpers (v0.36.1). The bag alone cannot
+     * express a manual order, so a flat `projectGroupOrder` list rides
+     * beside it: every known group path appears at most once, and a level's
+     * display order = the RELATIVE order of its same-parent entries in this
+     * list (bag keys missing from it fall back to alphabetical). Positions
+     * across different parents are meaningless and never read. Same
+     * hydration discipline as the bag: old snapshots lack the list, every
+     * read falls back and every write re-creates it.
+     */
+    const pgParentPathOf = (p) => {
+      const s = String(p || '')
+      const i = s.lastIndexOf('/')
+      return i === -1 ? '' : s.slice(0, i)
+    }
+    const pgOrderEnsure = (d) => { if (!Array.isArray(d.projectGroupOrder)) d.projectGroupOrder = [] }
+    const pgOrderAppend = (d, path) => { pgOrderEnsure(d); if (path !== '' && d.projectGroupOrder.indexOf(path) === -1) d.projectGroupOrder.push(path) }
+    /** Rewrite `from` and its descendants' entries after a rename/reparent. */
+    const pgOrderRewrite = (d, from, to) => {
+      pgOrderEnsure(d)
+      const prefix = from + '/'
+      d.projectGroupOrder = d.projectGroupOrder.map((p) => (p === from ? to : (p.indexOf(prefix) === 0 ? to + '/' + p.slice(prefix.length) : p)))
+    }
+    /** Drop `path` and its descendants' entries (group removed). */
+    const pgOrderStrip = (d, path) => {
+      const prefix = path + '/'
+      d.projectGroupOrder = (Array.isArray(d.projectGroupOrder) ? d.projectGroupOrder : []).filter((p) => p !== path && p.indexOf(prefix) !== 0)
+    }
+
     const createViewStore = () => storeKit.defineStore({
       // prefs.appearance bakes the shipped default (v0.31.0: stroke OFF) so a
       // fresh install — which never hydrates — starts outline-free, while a
@@ -4978,7 +5178,7 @@ window.__ModuleLoader__.load({
       // LITERAL, not a spread of DEFAULT_APPEARANCE: init() is eval-harness
       // friendly (no cross-section reference), and the smoke suite asserts the
       // two stay in lockstep field by field.
-      init: () => ({ expanded: {}, sessionsExpanded: {}, sessionGroups: {}, sessionOrder: {}, prefs: { compactChains: true, sessionLimit: 0, appearance: { color: '', glow: 0, weight: 0, shadow: false, stroke: false, strokeWidth: 1, strokeColor: '#808080' } }, styling: {}, groupBy: 'workspace-tree', orderBy: 'manual', archivedFilter: 'default', workspaceGroupMode: 'disk', sessionTitleSlash: true, workspaceTitleSlash: false, ungroupedOpen: true, folders: { ws: {}, sess: {} } }),
+      init: () => ({ expanded: {}, sessionsExpanded: {}, sessionGroups: {}, sessionOrder: {}, prefs: { compactChains: true, sessionLimit: 0, appearance: { color: '', glow: 0, weight: 0, shadow: false, stroke: false, strokeWidth: 1, strokeColor: '#808080' } }, styling: {}, groupBy: 'workspace-tree', orderBy: 'manual', archivedFilter: 'default', workspaceGroupMode: 'disk', sessionTitleSlash: true, workspaceTitleSlash: false, ungroupedOpen: true, folders: { ws: {}, sess: {} }, projectGroups: {}, projectGroupOrder: [], projectRootOpen: true }),
       // NOTE: hydration REPLACES the state with the persisted whole value —
       // init defaults never merge. Every action must tolerate a missing key
       // (states persisted by older plugin versions lack sessionGroups), and
@@ -5075,6 +5275,177 @@ window.__ModuleLoader__.load({
           const next = cur.filter((p) => p !== clean && p.indexOf(prefix) !== 0)
           if (next.length === 0) delete bag[key]
           else bag[key] = next
+        },
+        // Project groups (v0.36.0): the store-driven layer ABOVE the workspace
+        // tree. A group is a pure view-layer bin — membership NEVER rewrites
+        // workspace titles (unlike the name layer, which is a title
+        // projection). The bag maps a '/'-separated group path to the list of
+        // workspaceIds assigned to that EXACT group; a path whose list is
+        // empty declares the group (it renders even with no members, like
+        // folders.ws declarations); a workspace absent from every list is
+        // unassigned and stays at the tree root (wrapped in the collapsible
+        // "Ungrouped" block while any group exists). Nesting is spelled with
+        // '/': "客户端/招标" is the 招标 child of 客户端. Like every other key
+        // here, old snapshots lack `projectGroups` — every read takes the
+        // EMPTY fallback and every action re-creates the bag on write.
+        // Assignment is single-membership: assignProjectGroup removes the id
+        // from every other bucket before filing it.
+        assignProjectGroup: (d, workspaceId, path) => {
+          const id = String(workspaceId == null ? '' : workspaceId)
+          if (id === '') return
+          const clean = declaredPathOf(path)
+          if (!d.projectGroups || typeof d.projectGroups !== 'object') d.projectGroups = {}
+          // Buckets EMPTIED BY THIS MOVE — only those may self-clean: a bucket
+          // that was declared empty beforehand is an explicit declaration and
+          // must survive (this is what keeps "a" alive while "a/b" is a
+          // declared empty child, and it never churns untouched state).
+          const emptied = []
+          for (const key of Object.keys(d.projectGroups)) {
+            const list = Array.isArray(d.projectGroups[key]) ? d.projectGroups[key] : []
+            const at = list.indexOf(id)
+            if (at === -1 || key === clean) continue
+            const next = list.slice()
+            next.splice(at, 1)
+            d.projectGroups[key] = next
+            if (next.length === 0) emptied.push(key)
+          }
+          if (clean !== '') {
+            const cur = Array.isArray(d.projectGroups[clean]) ? d.projectGroups[clean] : []
+            if (cur.indexOf(id) === -1) {
+              d.projectGroups[clean] = cur.concat([id])
+              // A brand-new typed-in group lands at the END of the manual
+              // order (pgOrderAppend is a no-op for known groups).
+              pgOrderAppend(d, clean)
+            }
+          }
+          // Self-cleaning: a bucket whose last member left disappears, UNLESS
+          // a declared descendant still needs it as an intermediate row (a
+          // lone "a/b" declaration keeps the emptied "a" alive).
+          for (const key of emptied) {
+            const list = d.projectGroups[key]
+            if (!Array.isArray(list) || list.length !== 0) continue
+            let hasDescendant = false
+            const prefix = key + '/'
+            for (const other of Object.keys(d.projectGroups)) {
+              if (other !== key && other.indexOf(prefix) === 0) { hasDescendant = true; break }
+            }
+            if (!hasDescendant) delete d.projectGroups[key]
+          }
+        },
+        // Explicit empty-group declaration (header-free creation path: the
+        // move dialog types a new name, assignment creates the bucket
+        // implicitly — this action exists for declared empties, mirroring
+        // addFolder).
+        declareProjectGroup: (d, path) => {
+          const clean = declaredPathOf(path)
+          if (clean === '') return
+          if (!d.projectGroups || typeof d.projectGroups !== 'object') d.projectGroups = {}
+          if (!Array.isArray(d.projectGroups[clean])) d.projectGroups[clean] = []
+          // Declaring a group that predates the order list files it at the
+          // end; re-declaring an ordered group is a no-op.
+          pgOrderAppend(d, clean)
+        },
+        // Deleting a group takes its DECLARED DESCENDANTS with it (same
+        // branch rule as removeFolder) and unassigns its members — they are
+        // stored IN the bucket, so deleting the bucket returns them to the
+        // root level. That is the one delete semantic the title-projection
+        // groups cannot offer, and the reason the menu can honestly offer
+        // this on a non-empty group.
+        removeProjectGroup: (d, path) => {
+          const clean = declaredPathOf(path)
+          if (clean === '') return
+          if (!d.projectGroups || typeof d.projectGroups !== 'object') return
+          const prefix = clean + '/'
+          for (const key of Object.keys(d.projectGroups)) {
+            if (key === clean || key.indexOf(prefix) === 0) delete d.projectGroups[key]
+          }
+          pgOrderStrip(d, clean)
+        },
+        // Rename = re-key the bucket and rewrite its descendants' prefix;
+        // members ride along untouched. A same-named existing bucket is a
+        // merge (union, source order kept, duplicates dropped).
+        renameProjectGroup: (d, oldPath, newPath) => {
+          const from = declaredPathOf(oldPath)
+          const to = declaredPathOf(newPath)
+          if (from === '' || to === '' || from === to) return
+          if (!d.projectGroups || typeof d.projectGroups !== 'object') return
+          const prefix = from + '/'
+          // Two passes so a rename ONTO an existing group appends AFTER the
+          // group's current members (they were there first); unrelated keys
+          // keep their relative order.
+          const keep = []
+          const move = []
+          for (const key of Object.keys(d.projectGroups)) {
+            const list = Array.isArray(d.projectGroups[key]) ? d.projectGroups[key] : []
+            if (key === from) move.push([to, list])
+            else if (key.indexOf(prefix) === 0) move.push([to + '/' + key.slice(prefix.length), list])
+            else keep.push([key, list])
+          }
+          const next = {}
+          const into = (key, list) => {
+            const cur = Array.isArray(next[key]) ? next[key] : []
+            next[key] = cur.concat(list.filter((id) => cur.indexOf(id) === -1))
+          }
+          for (const [key, list] of keep) into(key, list)
+          for (const [key, list] of move) into(key, list)
+          d.projectGroups = next
+          pgOrderRewrite(d, from, to)
+        },
+        // Manual sibling order (v0.36.1): `path` lands before/after `anchor`
+        // among their COMMON parent's children; anchor '' appends at the end
+        // of the top level. Cross-parent calls are a no-op — the UI derives
+        // the parent change (renameProjectGroup) separately and re-anchors
+        // afterwards, so this action only ever sorts one level. The rebuilt
+        // level sequence (listed entries first, unlisted bag keys appended
+        // alphabetically) is written back as a whole: entries of OTHER
+        // parents in the flat list are never touched.
+        reorderProjectGroup: (d, path, anchor, half) => {
+          const clean = declaredPathOf(path)
+          if (clean === '') return
+          const anc = declaredPathOf(anchor)
+          if (anc === clean) return
+          if (pgParentPathOf(clean) !== pgParentPathOf(anc)) return
+          if (!d.projectGroups || typeof d.projectGroups !== 'object' || !Array.isArray(d.projectGroups[clean])) return
+          pgOrderEnsure(d)
+          const parent = pgParentPathOf(clean)
+          const listed = d.projectGroupOrder.filter((p) => pgParentPathOf(p) === parent && p !== clean)
+          const inOrder = new Set(d.projectGroupOrder)
+          const missing = Object.keys(d.projectGroups)
+            .filter((p) => pgParentPathOf(p) === parent && p !== clean && !inOrder.has(p))
+            .sort((a, b) => a.localeCompare(b, 'zh'))
+          const seq = listed.concat(missing)
+          if (anc !== '') {
+            const at = seq.indexOf(anc)
+            if (at === -1) return
+            seq.splice(at + (half === 'after' ? 1 : 0), 0, clean)
+          } else {
+            seq.push(clean)
+          }
+          d.projectGroupOrder = d.projectGroupOrder.filter((p) => pgParentPathOf(p) !== parent).concat(seq)
+        },
+        // Collapsible "Ungrouped" root block while any project group exists
+        // (mirror of setUngroupedOpen; default open via the !== false read).
+        setProjectRootOpen: (d, value) => { d.projectRootOpen = value },
+        // Collapse-everything (v0.36.2): ONE dispatch folds the whole tree —
+        // every workspace session list, every name folder / project-group
+        // bin, every session sub-group, and both Ungrouped blocks. The store
+        // knows state shapes but not tree shapes, so the CALLER walks the
+        // rendered tree and hands over ready-made maps; they merge into the
+        // existing state wholesale (hydration discipline as always: missing
+        // maps are re-created on write).
+        collapseAllTree: (d, patch) => {
+          if (!patch || typeof patch !== 'object') return
+          const merge = (key) => {
+            const part = patch[key]
+            if (!part || typeof part !== 'object') return
+            if (!d[key] || typeof d[key] !== 'object') d[key] = {}
+            for (const k of Object.keys(part)) d[key][k] = part[k]
+          }
+          merge('expanded')
+          merge('sessionsExpanded')
+          merge('sessionGroups')
+          if (patch.ungroupedOpen === false) d.ungroupedOpen = false
+          if (patch.projectRootOpen === false) d.projectRootOpen = false
         },
       },
     })
@@ -5403,114 +5774,6 @@ window.__ModuleLoader__.load({
      * Degradation: callers keep a native control for hosts whose primitives
      * have no Menu, so picking never becomes impossible.
      */
-
-    /**
-     * "New group" dialog (v0.17.0). Three decisions, top to bottom:
-     *
-     *  1. WHICH LAYER — session groups, or workspace groups. A single segmented
-     *     pair of buttons; the workspace side only exists while "/" grouping is
-     *     on for workspaces, and a host where only one layer is live renders no
-     *     switch at all (the wording of the header button already promised it).
-     *  2. WHERE — an expandable TREE of containers rather than a flat dropdown:
-     *     the parent is picked visually, so "under this workspace" and "inside
-     *     that group" read the same way they do in the sidebar.
-     *  3. WHAT — the new group's name ("a/b" nests).
-     *
-     * Declared-empty groups did not use to exist (a group was a projection of
-     * member titles, so a member-less one could not be represented); this dialog
-     * writes the declaration itself, which is why it is not the move dialog.
-     */
-    function GroupNewDialog(props) {
-      const { kinds, initialKind, treeOf, label, onConfirm, onClose, t } = props
-      const [kind, setKind] = React.useState(initialKind)
-      const [picked, setPicked] = React.useState(null)
-      const [openKeys, setOpenKeys] = React.useState({})
-      const [name, setName] = React.useState('')
-      const [error, setError] = React.useState('')
-      const plan = treeOf(kind)
-      const toggle = (id) => setOpenKeys((prev) => ({ ...prev, [id]: !prev[id] }))
-      const pick = (node) => { if (node.pickable === false) return; setPicked(node); setError('') }
-      const submit = () => {
-        const clean = String(name).split('/').filter((s) => s !== '').join('/')
-        if (clean === '') { setError(t('group.new.empty')); return }
-        if (!picked) { setError(t('group.new.pickFirst')); return }
-        onConfirm(kind, picked.scope, picked.path === '' ? clean : picked.path + '/' + clean)
-      }
-      const renderNodes = (list, depth) => {
-        const out = []
-        for (const node of list) {
-          const hasKids = node.children.length > 0
-          // The first level opens by default: the root row is a header ("pick a
-          // workspace"), so a collapsed tree would show the user a header and
-          // nothing to pick. Deeper levels stay closed until asked for.
-          const expanded = openKeys[node.id] === true || (depth === 0 && openKeys[node.id] !== false)
-          out.push(E('div', {
-            key: 'n-' + node.id,
-            className: cls('bw-gn-row', node.pickable === false && 'bw-gn-row-hold', node.kind === 'new' && 'bw-gn-row-new', picked && picked.id === node.id && 'bw-gn-row-on'),
-            style: { paddingLeft: 6 + depth * 14 },
-            role: 'treeitem',
-            'aria-selected': picked && picked.id === node.id ? 'true' : 'false',
-            onClick: () => pick(node),
-          },
-            hasKids ? E('button', {
-              type: 'button',
-              className: cls('bw-gn-twist', expanded && 'bw-gn-twist-open'),
-              tabIndex: -1,
-              'aria-label': node.label,
-              onClick: (e) => { e.stopPropagation(); toggle(node.id) },
-            }, E('span', { className: 'bw-chevron' })) : E('span', { className: 'bw-gn-twist' }),
-            E('span', { className: 'bw-gn-icon' },
-              node.kind === 'new' ? icon('IconPlusOutline16', 15)
-                : node.kind === 'ws' ? icon('IconFolderOpen16', 15)
-                  : icon('IconFolderClose16', 15)),
-            E('span', { className: 'bw-gn-label' }, node.label),
-          ))
-          if (hasKids && expanded) out.push(...renderNodes(node.children, depth + 1))
-        }
-        return out
-      }
-      return E(ui.Modal, {
-        open: true,
-        onClose,
-        closeLabel: t('close'),
-        title: label,
-        footer: E('div', { className: 'bw-modal-actions' },
-          E(BTN, { variant: 'outline', onClick: onClose }, t('cancel')),
-          E(BTN, { variant: 'primary', onClick: submit }, t('confirm')),
-        ),
-      },
-        E('div', { className: 'bw-modal-body' },
-          kinds.length > 1 ? E('div', { className: 'bw-seg', role: 'radiogroup', 'aria-label': t('group.new.title') },
-            E('button', {
-              type: 'button', role: 'radio', 'aria-checked': kind === 'session' ? 'true' : 'false',
-              className: cls('bw-seg-btn', kind === 'session' && 'bw-seg-btn-on'),
-              onClick: () => { setKind('session'); setPicked(null) },
-            }, t('group.new.sess')),
-            E('button', {
-              type: 'button', role: 'radio', 'aria-checked': kind === 'workspace' ? 'true' : 'false',
-              className: cls('bw-seg-btn', kind === 'workspace' && 'bw-seg-btn-on'),
-              onClick: () => { setKind('workspace'); setPicked(null) },
-            }, t('group.new.ws')),
-          ) : null,
-          E('div', { className: 'bw-gn-hint' }, plan.hint || t('group.new.where')),
-          E('div', { className: 'bw-gn-tree', role: 'tree', 'aria-label': t('group.new.where') },
-            plan.nodes.length > 0 ? renderNodes(plan.nodes, 0) : E('div', { className: 'bw-gn-empty' }, t('group.new.noWorkspace'))),
-          E('div', { className: 'bw-field' },
-            E('input', {
-              className: 'bw-input bw-gn-input',
-              value: name,
-              autoFocus: true,
-              placeholder: t('group.new.placeholder'),
-              'aria-label': t('group.new.title'),
-              onChange: (e) => { setName(e.target.value); setError('') },
-              onKeyDown: (e) => { if (e.key === 'Enter') submit() },
-            }),
-          ),
-          E('div', { className: 'bw-hint' }, t('group.new.nameHint')),
-          error !== '' ? E('div', { className: 'bw-error-text', role: 'alert' }, error) : null,
-        ),
-      )
-    }
 
     function MenuPicker({ options, value, onPick, placeholder, chevronOnly, title, t }) {
       const [open, setOpen] = React.useState(false)
@@ -5977,7 +6240,7 @@ window.__ModuleLoader__.load({
       }
     }
 
-    function FolderRow({ node, depth, expanded, onToggle, onContextMenu, dropInto, dragEvents, custStyle, iconMode, pulse, active, dataRowKey, t }) {
+    function FolderRow({ node, depth, expanded, onToggle, onContextMenu, dropHalf, dropInto, dragEvents, custStyle, iconMode, pulse, active, dataRowKey, t }) {
       const total = countWorkspaces(node)
       const iconEl = iconOf(iconMode, expanded)
       // Hidden status dots breathe on the icon; with the icon hidden (mode
@@ -5986,7 +6249,10 @@ window.__ModuleLoader__.load({
         ? E(PulseGlow, { state: pulse }, iconEl || (typeof ui.StateDot === 'function' ? E(ui.StateDot, { state: pulse, size: 10 }) : null))
         : iconEl
       return E('div', {
-        className: cls('bw-row', 'bw-container-row', dropInto && 'bw-drop-into', dropInto && 'bw-drop-into-strong'),
+        // dropHalf (v0.36.1): project-group ROW drags reorder by halves, the
+        // same affordance workspace rows already use; bin drops keep the
+        // whole-row dropInto highlight.
+        className: cls('bw-row', 'bw-container-row', dropHalf === 'before' && 'bw-drop-before', dropHalf === 'after' && 'bw-drop-after', dropInto && 'bw-drop-into', dropInto && 'bw-drop-into-strong'),
         'data-row-key': dataRowKey,
         style: { '--bw-indent': (depth * 12) + 'px', ...(custStyle || {}), ...(pulse ? { '--bw-pulse-color': PULSE_COLORS[pulse] || PULSE_COLORS.ongoing } : null) },
         onClick: onToggle,
@@ -6824,11 +7090,12 @@ window.__ModuleLoader__.load({
      * Reset removes the entry outright.
      */
     function CustomizeDialog({ open, seedKey, initial, defaults, kind, onChange, onReset, onClose, t }) {
-      // Icons render only for workspace / workspace-folder rows. Session rows
-      // already carry the official status dot (pending/running/done) in the
-      // leading slot, and session sub-group rows have no icon either — so the
-      // icon grid is offered only where it actually displays.
-      const allowIcon = kind === 'folder' || kind === 'workspace'
+      // Icons render only for workspace / workspace-folder / project-group
+      // rows. Session rows already carry the official status dot
+      // (pending/running/done) in the leading slot, and session sub-group
+      // rows have no icon either — so the icon grid is offered only where it
+      // actually displays.
+      const allowIcon = kind === 'folder' || kind === 'workspace' || kind === 'pgroup'
       const fallback = readAppearance(defaults)
       const [draft, setDraft] = React.useState(DEFAULT_APPEARANCE)
       // The seed reads the CURRENT initial through a ref, and the effect keys
@@ -7287,6 +7554,14 @@ window.__ModuleLoader__.load({
       const wsFolders = typeof useStore === 'function'
         ? useStore(state => (state && state.folders && state.folders.ws) || EMPTY_FOLDERS)
         : EMPTY_FOLDERS
+      // Project groups ride the same store key the sidebar reads: the picker
+      // renders the same bins (folding is picker-local, as with folders).
+      const projectGroupsMap = typeof useStore === 'function'
+        ? useStore(state => (state && state.projectGroups) || EMPTY_FOLDERS)
+        : EMPTY_FOLDERS
+      const projectGroupOrderList = typeof useStore === 'function'
+        ? useStore(state => (state && state.projectGroupOrder) || EMPTY_LIST)
+        : EMPTY_LIST
       // Occupancy is the only reactive fact here: the ledger read re-runs on
       // every render, so the count just forces the re-render when the shipped
       // occupant loads or unloads (its identity is stable while occupied).
@@ -7306,12 +7581,15 @@ window.__ModuleLoader__.load({
         [rawItems, defaultWorkspaceName],
       )
       // Same construction the sidebar runs (buildTree + optional chain
-      // compression), so both surfaces answer the same view options.
+      // compression + project-group bins), so both surfaces answer the same
+      // view options.
       const tree = React.useMemo(() => {
         const built = buildTree(items, groupMode, wsFolders)
-        if (!compactChains) return built
-        return { ...built, folders: built.folders.map((f) => materializeChain(compressTree(f))), workspaces: built.workspaces }
-      }, [items, groupMode, wsFolders, compactChains])
+        const base = !compactChains
+          ? built
+          : { ...built, folders: built.folders.map((f) => materializeChain(compressTree(f))), workspaces: built.workspaces }
+        return applyProjectGroups(base, projectGroupsMap, projectGroupOrderList)
+      }, [items, groupMode, wsFolders, compactChains, projectGroupsMap, projectGroupOrderList])
 
       const rows = React.useMemo(() => {
         const out = []
@@ -7542,6 +7820,12 @@ window.__ModuleLoader__.load({
       const foldersMap = useStore ? (useStore(s => s.folders) || {}) : {}
       const wsFolders = foldersMap && typeof foldersMap.ws === 'object' && foldersMap.ws !== null ? foldersMap.ws : EMPTY_FOLDERS
       const sessFolders = foldersMap && typeof foldersMap.sess === 'object' && foldersMap.sess !== null ? foldersMap.sess : EMPTY_FOLDERS
+      // Project groups (v0.36.0): the store-driven bins ABOVE the workspace
+      // tree. Same hydration discipline as folders — old snapshots lack the
+      // key, so every read falls back to the empty bag.
+      const projectGroupsMap = useStore ? (useStore(s => s.projectGroups) || EMPTY_FOLDERS) : EMPTY_FOLDERS
+      const projectGroupOrderList = useStore ? (useStore(s => s.projectGroupOrder) || EMPTY_LIST) : EMPTY_LIST
+      const projectRootOpen = useStore ? (useStore(s => s.projectRootOpen) !== false) : true
       // View options (v0.13). Selector reads take fallbacks: hydration
       // replaces the whole persisted value, so states written by older
       // plugin versions lack these keys (hard store discipline).
@@ -8082,6 +8366,7 @@ window.__ModuleLoader__.load({
         if (kind === 'workspace') return 'workspace:' + payload.workspaceId
         if (kind === 'session') return 'session:' + payload.id
         if (kind === 'sgroup') return 'sgroup:' + payload.workspaceId + '|' + payload.path
+        if (kind === 'pgroup') return 'pgroup:' + payload.path
         return String(kind)
       }
 
@@ -8122,9 +8407,13 @@ window.__ModuleLoader__.load({
       const draggingWorkspace = drag !== null && drag.kind === 'workspace'
       const tree = React.useMemo(() => {
         const built = buildTree(items, workspaceGroupMode, wsFolders)
-        if (!compactChains || draggingWorkspace) return built
-        return { ...built, folders: built.folders.map((f) => materializeChain(compressTree(f))), workspaces: built.workspaces }
-      }, [items, compactChains, draggingWorkspace, workspaceGroupMode, wsFolders])
+        const base = (!compactChains || draggingWorkspace)
+          ? built
+          : { ...built, folders: built.folders.map((f) => materializeChain(compressTree(f))), workspaces: built.workspaces }
+        // Project groups wrap the finished (optionally compressed) root: the
+        // pg nodes keep their flag/idPath and never pass through compressTree.
+        return applyProjectGroups(base, projectGroupsMap, projectGroupOrderList)
+      }, [items, compactChains, draggingWorkspace, workspaceGroupMode, wsFolders, projectGroupsMap, projectGroupOrderList])
       // UNCOMPRESSED tree, for the new-group dialog only. compressTree merges a
       // single-child chain into one row that stands for BOTH a group and the
       // workspace under it — fine for drawing, useless for choosing a
@@ -8428,115 +8717,13 @@ window.__ModuleLoader__.load({
         return [...paths].sort()
       }
       /**
-       * Which name layer the header picker may target. The two switches gate
-       * independently, so the picker narrows to whichever layer is ON; the
-       * button itself disappears entirely when neither is (see the header).
+       * Project-group membership of one workspace ('' = unassigned). The bag
+       * is small (tens of workspaces), a linear scan per row is nothing; the
+       * module-level pgGroupOfIn keeps the walk itself testable.
        */
-      const pickerKindOf = () => workspaceSlash && sessionSlash ? undefined : (workspaceSlash ? 'workspace' : 'session')
-      // The header button opens "new group" (v0.17.0); its wording and its
-      // default layer follow which name layers are live. With workspaces
-      // disk-only there is no workspace-group layer to create into, so the
-      // default is the session layer — and a single live layer means no switch.
-      const newGroupLayers = () => (workspaceSlash && sessionSlash ? ['session', 'workspace'] : (workspaceSlash ? ['workspace'] : ['session']))
-      const defaultNewGroupLayer = () => (workspaceSlash && !sessionSlash ? 'workspace' : 'session')
-      const newGroupLabel = () => (workspaceSlash && sessionSlash ? t('group.new.both') : (workspaceSlash ? t('group.new.ws') : t('group.new.sess')))
-
-      // Container trees for the new-group dialog. Each node carries the exact
-      // write target: `scope` is the store's bags key (the disk level's idPrefix
-      // for workspaces, the workspaceId for sessions) and `path` is the parent
-      // group's name path — the dialog appends the new name to it.
-      // Workspace-GROUP containers: name-group folders only, never the
-      // workspaces themselves. A workspace title is "group/leaf", so with
-      // members A/B, A/C, D and E/F the only groups that exist are A and E —
-      // B, C, D and F are leaves (they are workspaces, not containers), and
-      // offering them would invite a group named after a leaf. Disk nesting is
-      // a workspace fact too, so it is skipped for the same reason.
-      const wsFolderNodesOf = (node) => (node.folders || []).map((f) => ({
-        id: f.scope + '|' + f.path, scope: f.scope, path: f.path, label: folderLabelOf(f), kind: 'folder',
-        children: wsFolderNodesOf(f),
-      }))
-      const sessGroupNodesOf = (node, workspaceId) => (node.groups || []).map((g) => ({
-        id: workspaceId + '|' + g.path, scope: workspaceId, path: g.path, label: g.name, kind: 'sgroup',
-        children: sessGroupNodesOf(g, workspaceId),
-      }))
-      const newGroupTreeOf = (kind) => {
-        // The container tree MIRRORS the sidebar's current view mode (v0.17.1):
-        // "workspace tree" offers the real hierarchy (disk nesting + name
-        // groups); the one-level modes ("workspaces" / "flat") render no
-        // hierarchy to mirror, so they fall back to a flat workspace list.
-        // Offering a nesting the sidebar is not showing would be a lie about
-        // where the new group lands.
-        const treeView = groupBy === 'workspace-tree'
-        if (kind === 'workspace') {
-          // "Top level" IS a real target here (a group at the root of the
-          // workspace tree), so it is a node like any other.
-          // A dedicated top-level row, not a root node that both expands AND
-          // accepts the new name: that read as "pick a spot inside the top
-          // level", and it left no way to say "give me a group NEXT TO A and
-          // E". The row below is that way, and A / E sit beside it as the
-          // top-level groups they actually are.
-          const groups = treeView ? wsFolderNodesOf(rawTree) : []
-          return {
-            hint: t('group.new.where'),
-            // The "top level" row sits LAST (user's call): it reads as "and
-            // here is one more, belonging to none of the above" instead of as
-            // a header the others hang under.
-            nodes: [...groups, { id: '@top', scope: '', path: '', label: t('group.new.independent'), kind: 'new', children: [] }],
-          }
-        }
-        // A session group lives INSIDE one workspace (folders.sess is keyed by
-        // workspaceId), so there is no "top level" to declare into — the
-        // workspace tree IS the top level, introduced by a plain hint rather
-        // than wrapped in a fake root node (a header row that looked like a
-        // tree node read as a container you could pick).
-        //
-        // The walk follows the SAME tree the sidebar renders (disk nesting
-        // included), not the flat registry list: a child workspace must appear
-        // nested under its parent exactly as it does in "workspace tree" view.
-        // Name-group folders are containers here — a session group cannot be
-        // filed against one (they carry no workspaceId) — so they expand but
-        // refuse selection.
-        const sessNodesOf = (node) => {
-          const out = []
-          for (const f of node.folders || []) {
-            out.push({ id: f.scope + '|' + f.path, scope: '', path: '', label: folderLabelOf(f), kind: 'folder', pickable: false, children: sessNodesOf(f) })
-          }
-          for (const w of node.workspaces || []) {
-            const inner = sessGroupNodesOf(buildSessionTree(sessionsOf(w), sessionSlash, sessFolders, w.workspaceId), w.workspaceId)
-            const subNodes = w.sub ? sessNodesOf(w.sub) : []
-            out.push({
-              id: w.workspaceId + '|', scope: w.workspaceId, path: '', label: w.leaf || w.title, kind: 'ws',
-              children: [...inner, ...subNodes],
-            })
-          }
-          return out
-        }
-        if (treeView) return { hint: t('group.new.pickWorkspace'), nodes: sessNodesOf(rawTree) }
-        // One-level modes: every workspace sits at the root, exactly as the
-        // sidebar draws it (raw items — there is no .sub level to nest here).
-        const flat = []
-        for (const w of items) {
-          const inner = sessGroupNodesOf(buildSessionTree(sessionsOf(w), sessionSlash, sessFolders, w.workspaceId), w.workspaceId)
-          flat.push({ id: w.workspaceId + '|', scope: w.workspaceId, path: '', label: w.leaf || w.title, kind: 'ws', children: inner })
-        }
-        return { hint: t('group.new.pickWorkspace'), nodes: flat }
-      }
-      /**
-       * Picker entries for the header button: every workspace, then its
-       * sessions — each list present only while its OWN name layer is on, so
-       * the dropdown never offers a container the tree cannot render.
-       */
-      const targetListOf = () => {
-        const out = []
-        for (const workspace of items || []) {
-          const name = String(workspace.title || workspace.leaf || workspace.workspaceId || '')
-          if (workspaceSlash) out.push({ value: 'ws:' + workspace.workspaceId, label: name })
-          if (sessionSlash) for (const session of sessionsOf(workspace)) {
-            out.push({ value: 'sess:' + session.id, label: name + ' › ' + String(session.title || session.leaf || '') })
-          }
-        }
-        return out
-      }
+      const pgGroupOf = (workspaceId) => pgGroupOfIn(projectGroupsMap, workspaceId)
+      /** Every declared project-group path (move-dialog datalist source). */
+      const collectPgPaths = () => Object.keys(projectGroupsMap && typeof projectGroupsMap === 'object' ? projectGroupsMap : EMPTY_FOLDERS).sort()
       /** Rehydrate one 'ws:<id>' / 'sess:<id>' picker value (null when the row vanished). */
       const targetOfValue = (value) => {
         const text = String(value || '')
@@ -8656,7 +8843,7 @@ window.__ModuleLoader__.load({
         return over && over.kind === 'workspace' && over.target === workspaceId ? over.half : null
       }
       const wsDropInto = (path) => dragMatches('workspace') && drag.over && drag.over.kind === 'folder' && drag.over.target === path
-      const workspaceDragEvents = (workspace) => ({
+      const workspaceDragEvents = (workspace, allowPg = true) => ({
         draggable: !searching && canDragWorkspace,
         onDragStart: (event) => {
           if (searching || !canDragWorkspace) return
@@ -8677,6 +8864,11 @@ window.__ModuleLoader__.load({
           // cross-group move and rewrite the title behind the user's back.
           // With '' on both sides the drop stays pure reordering.
           const sourceFolder = workspaceSlash && segs.length > 1 ? segs.slice(0, -1).join('/') : ''
+          // The project-group membership rides along for drops onto workspace
+          // rows (cross-bin drops re-bin the source). Disk-nested children
+          // carry '' — they render inside their parent's disk level and can
+          // never be re-binned into a project group (see applyProjectGroups).
+          const sourcePg = allowPg ? pgGroupOf(workspace.workspaceId) : ''
           // Deferred by one frame on purpose (Chromium cancels a just-started
           // drag whose source element is moved out from under the cursor; see
           // wsDragArmTimer above). By the next frame the gesture has settled
@@ -8684,7 +8876,7 @@ window.__ModuleLoader__.load({
           if (wsDragArmTimer.current !== null) clearTimeout(wsDragArmTimer.current)
           wsDragArmTimer.current = setTimeout(() => {
             wsDragArmTimer.current = null
-            setDrag({ kind: 'workspace', source: { workspaceId: workspace.workspaceId, leaf: sourceLeaf, folderPath: sourceFolder, disk: diskParentMap.get(workspace.workspaceId) }, over: null })
+            setDrag({ kind: 'workspace', source: { workspaceId: workspace.workspaceId, leaf: sourceLeaf, folderPath: sourceFolder, disk: diskParentMap.get(workspace.workspaceId), pg: sourcePg }, over: null })
           }, 0)
         },
         onDragEnd: () => {
@@ -8750,6 +8942,90 @@ window.__ModuleLoader__.load({
           commitWorkspaceMoveInto(path)
         },
       })
+      /* -------------------- project-group drag & drop ------------------- */
+      // A workspace dropped ONTO a project-group row is re-BINNED — pure store
+      // write, no host call, the title is never touched (that is the whole
+      // point of the layer). over.kind 'pgfolder' is its own identity so it
+      // can never light a same-keyed name folder (kind 'folder').
+      const pgDropInto = (idPath) => dragMatches('workspace') && drag.over && drag.over.kind === 'pgfolder' && drag.over.target === idPath
+      // A project-group ROW dragged over another group row reorders by halves
+      // among siblings (over.kind 'pgroup-row'); dropping on a group of a
+      // DIFFERENT parent reparents first and re-anchors second, so one
+      // gesture both nests and places. Rows refuse drops from their own
+      // subtree (a group can never become its own descendant).
+      const pgDropHalf = (idPath) => {
+        if (!dragMatches('pgroup')) return null
+        const over = drag.over
+        return over && over.kind === 'pgroup-row' && over.target === idPath ? over.half : null
+      }
+      const commitPgGroupDrop = (targetPath, half) => {
+        const source = drag.source
+        setDrag(null)
+        if (!source || source.path === undefined || source.path === '') return
+        if (source.path === targetPath) return
+        if (targetPath.indexOf(source.path + '/') === 0) return
+        const srcParent = pgParentPathOf(source.path)
+        const tgtParent = pgParentPathOf(targetPath)
+        const name = source.path.slice(source.path.lastIndexOf('/') + 1)
+        // Cross-parent: re-key the bucket (+descendants, +order entries) into
+        // the target's parent; same-parent: order only.
+        const newPath = srcParent === tgtParent ? source.path : (tgtParent !== '' ? tgtParent + '/' + name : name)
+        if (newPath !== source.path) actions.renameProjectGroup(source.path, newPath)
+        actions.reorderProjectGroup(newPath, targetPath, half)
+      }
+      const pgFolderDropEvents = (idPath, path) => ({
+        // The row itself is draggable: group REORDER/Nesting rides the same
+        // HTML5 gesture as everything else. No one-frame arm timer needed —
+        // bins are always real rows (compression never folds them), so the
+        // source element never moves out from under the cursor at dragstart.
+        draggable: !searching,
+        onDragStart: (event) => {
+          if (searching) return
+          event.stopPropagation()
+          try {
+            event.dataTransfer.effectAllowed = 'move'
+            event.dataTransfer.setData('text/plain', 'pg:' + path)
+          } catch { /* drag payload is best-effort */ }
+          setDrag({ kind: 'pgroup', source: { path }, over: null })
+        },
+        onDragEnd: () => setDrag(null),
+        onDragOver: (event) => {
+          if (dragMatches('workspace')) {
+            event.preventDefault()
+            event.stopPropagation()
+            try { event.dataTransfer.dropEffect = 'move' } catch { }
+            setDrag(current => (current && current.over && current.over.kind === 'pgfolder' && current.over.target === idPath)
+              ? current
+              : (current ? { ...current, over: { kind: 'pgfolder', target: idPath } } : current))
+            return
+          }
+          if (!dragMatches('pgroup')) return
+          if (drag.source.path === path || path.indexOf(drag.source.path + '/') === 0) return
+          event.preventDefault()
+          event.stopPropagation()
+          try { event.dataTransfer.dropEffect = 'move' } catch { }
+          const half = rowHalf(event)
+          setDrag(current => (current && current.over && current.over.kind === 'pgroup-row' && current.over.target === idPath && current.over.half === half)
+            ? current
+            : (current ? { ...current, over: { kind: 'pgroup-row', target: idPath, half } } : current))
+        },
+        onDrop: (event) => {
+          if (dragMatches('workspace')) {
+            event.preventDefault()
+            event.stopPropagation()
+            const source = drag.source
+            setDrag(null)
+            if (!source) return
+            actions.assignProjectGroup(source.workspaceId, path)
+            return
+          }
+          if (!dragMatches('pgroup')) return
+          event.preventDefault()
+          event.stopPropagation()
+          const half = drag.over && drag.over.kind === 'pgroup-row' && drag.over.target === idPath ? drag.over.half : rowHalf(event)
+          commitPgGroupDrop(path, half)
+        },
+      })
       const nextWorkspaceAfter = (folderPath, workspaceId) => {
         const node = findTreeNode(tree, folderPath)
         if (!node) return undefined
@@ -8769,11 +9045,20 @@ window.__ModuleLoader__.load({
         // cross-level drop only re-groups the title (the registry append
         // lands it at the end of ITS disk level).
         const sameDisk = source.disk === diskParentMap.get(targetWorkspace.workspaceId)
-        const chain = sameFolder
+        // Dropping onto a workspace row parked in ANOTHER project group
+        // re-bins the source into that group (store write beside the title
+        // rename — a drop can change both layers at once).
+        const targetPg = pgGroupOf(targetWorkspace.workspaceId)
+        const samePg = (source.pg || '') === targetPg
+        const chain = (sameFolder && samePg)
           ? Promise.resolve()
           : Promise.resolve().then(() => {
-            const newTitle = targetFolder !== '' ? targetFolder + '/' + source.leaf : source.leaf
-            return renameWorkspace(source.workspaceId, newTitle)
+            if (!samePg) actions.assignProjectGroup(source.workspaceId, targetPg)
+            if (!sameFolder) {
+              const newTitle = targetFolder !== '' ? targetFolder + '/' + source.leaf : source.leaf
+              return renameWorkspace(source.workspaceId, newTitle)
+            }
+            return undefined
           })
         const anchor = !sameDisk
           ? undefined
@@ -8935,45 +9220,6 @@ window.__ModuleLoader__.load({
           .catch(fail)
       }
 
-      /* ---------------------- group drop target ----------------------- */
-      // The header's "New group" button doubles as a drop zone: dropping a
-      // workspace/session row on it opens the move dialog with that row
-      // locked and the group name empty. The drag state machine is reused —
-      // `over.kind === 'newgroup'` is the one non-row drop target.
-
-      const groupDropTarget = () => drag !== null && drag.over && drag.over.kind === 'newgroup'
-      const groupDropEvents = {
-        onDragOver: (event) => {
-          if (drag === null) return
-          // Only a layer that is ON accepts a drop; the slot never lights up
-          // for a row whose name layer is off (see the header render guard).
-          if (drag.kind === 'workspace' && !workspaceSlash) return
-          if (drag.kind === 'session' && !sessionSlash) return
-          event.preventDefault()
-          event.stopPropagation()
-          try { event.dataTransfer.dropEffect = 'move' } catch { }
-          setDrag(current => (current && current.over && current.over.kind === 'newgroup')
-            ? current
-            : (current ? { ...current, over: { kind: 'newgroup' } } : current))
-        },
-        onDrop: (event) => {
-          if (drag === null) return
-          if ((drag.kind === 'workspace' && !workspaceSlash) || (drag.kind === 'session' && !sessionSlash)) {
-            setDrag(null)
-            return
-          }
-          event.preventDefault()
-          event.stopPropagation()
-          const source = drag.source
-          if (!source) { setDrag(null); return }
-          const target = drag.kind === 'session'
-            ? { kind: 'session', id: source.sessionId, title: source.title || source.leaf, workspaceId: source.workspaceId }
-            : { kind: 'workspace', id: source.workspaceId, title: source.folderPath ? source.folderPath + '/' + source.leaf : source.leaf }
-          setDialog({ kind: 'group-move', target, initial: '', groupPaths: collectGroupPaths(target.kind) })
-          setDrag(null)
-        },
-      }
-
       /* --------------------------- actions --------------------------- */
 
       const submitWorkspaceRename = (workspace, nextTitle) => {
@@ -9026,8 +9272,12 @@ window.__ModuleLoader__.load({
       }
 
       const findTreeNode = (node, path) => {
-        if (path !== '' && node.path === path) return node
+        // Project-group bins share the path namespace with root name folders
+        // ("web" can be both) — a name-path lookup must never resolve into a
+        // bin, so pg subtrees are skipped here entirely.
+        if (path !== '' && node.path === path && !node.pg) return node
         for (const folder of node.folders) {
+          if (folder.pg) continue
           const hit = findTreeNode(folder, path)
           if (hit) return hit
         }
@@ -9071,10 +9321,10 @@ window.__ModuleLoader__.load({
         if (full.length === 0 && !hasDeclared(sessFolders, workspace.workspaceId)) return []
         // Issue #8 progressive listing: quota the IDLE rows of this folder
         // (attention rows stay visible — see limitSessionsForRender); one
-        // overflow row hides the rest until clicked. Search always shows
-        // everything, and the current session is passed so it can never be
-        // folded away.
-        const limited = limitSessionsForRender(full, sessionLimit, limitLifted[workspace.workspaceId], currentId)
+        // overflow row hides the rest until clicked. SEARCH bypasses the
+        // quota entirely (v0.36.2: a matched project shows its FULL session
+        // record), and the current session is passed so it is never folded.
+        const limited = limitSessionsForRender(full, searching ? 0 : sessionLimit, limitLifted[workspace.workspaceId], currentId)
         const out = renderSessionNode(buildSessionTree(limited.rows, sessionSlash, sessFolders, workspace.workspaceId), workspace.workspaceId, depth)
         if (limited.hidden > 0) {
           out.push(E('button', {
@@ -9087,21 +9337,13 @@ window.__ModuleLoader__.load({
         }
         return out
       }
-      const searchSessionNode = (node) => {
-        const groups = []
-        for (const group of node.groups) {
-          const hit = searchSessionNode(group)
-          if (hit) groups.push(hit)
-        }
-        const sessions = node.sessions.filter(s => ((s.leaf || s.title) + ' ' + s.title).toLowerCase().includes(normalizedQuery))
-        if (groups.length === 0 && sessions.length === 0) return null
-        return { path: node.path, name: node.name, groups, sessions }
-      }
       const renderSessionNode = (node, workspaceId, depth) => {
-        const view = searching ? searchSessionNode(node) : node
-        if (!view) return []
+        // v0.36.2: search renders the FULL session record — the old pruner
+        // filtered every non-matching branch, so a workspace that matched by
+        // NAME showed zero sessions ("the project cannot be expanded").
+        // Groups stay force-open while searching (the invariant).
         const out = []
-        for (const group of view.groups) {
+        for (const group of node.groups) {
           const key = workspaceId + '|' + group.path
           const open = searching || sessionGroupOpen(key)
           out.push(E(SessionGroupRow, {
@@ -9120,7 +9362,7 @@ window.__ModuleLoader__.load({
           }))
           if (open) out.push(...renderSessionNode(group, workspaceId, depth + 1))
         }
-        for (const s of view.sessions) out.push(renderSessionRow(s, depth, workspaceId))
+        for (const s of node.sessions) out.push(renderSessionRow(s, depth, workspaceId))
         return out
       }
 
@@ -9168,7 +9410,15 @@ window.__ModuleLoader__.load({
         return total
       }
 
-      const renderWorkspaceEntry = (entry, depth, pulse) => {
+      /**
+       * `allowPg` marks rows that represent a ROOT-level workspace: the
+       * project-group layer only redistributes those (a disk-nested child
+       * renders inside its parent's level — see applyProjectGroups), so the
+       * "移动到项目组…" menu entry and the drag payload's pg membership are
+       * offered only here. Rows that cannot be binned carry `__bwNoPg` in
+       * their ctx payload and a '' drag pg.
+       */
+      const renderWorkspaceEntry = (entry, depth, pulse, allowPg = true) => {
         const { workspace } = entry
         if (!workspaceVisible(workspace)) return []
         const count = countSessionTree(buildSessionTree(sessionsOf(workspace), sessionSlash, sessFolders, workspace.workspaceId))
@@ -9183,7 +9433,7 @@ window.__ModuleLoader__.load({
           // Starting a session force-expands the workspace row: the user must
           // SEE the new session appear, even if the row was collapsed.
           onStart: () => { actions.setSessionsExpanded(workspace.workspaceId, true); startSession(workspace.workspaceId) },
-          onContextMenu: (e) => openCtx('workspace', workspace, e),
+          onContextMenu: (e) => openCtx('workspace', allowPg ? workspace : { ...workspace, __bwNoPg: true }, e),
           // The in-row ellipsis is retired; the ctx surface stays the
           // right-click path. While the menu is open the row still pins
           // (hover fill + visible actions), matching the official menuOpen
@@ -9192,7 +9442,7 @@ window.__ModuleLoader__.load({
           hoverBody: workspaceHoverBody,
           dropHalf: wsDropHalf(workspace.workspaceId),
           dropInto: wsRootDropActive(workspace.workspaceId),
-          dragEvents: workspaceDragEvents(workspace),
+          dragEvents: workspaceDragEvents(workspace, allowPg),
           custStyle: rowStyleOf('workspace:' + workspace.workspaceId),
           iconMode: (styleEntry('workspace:' + workspace.workspaceId) || {}).icon || 'solid',
           // Shipped sidebar parity: the row's new-session affordance names the
@@ -9235,13 +9485,48 @@ window.__ModuleLoader__.load({
         : undefined
       const renderLevelRows = (level, depth) => {
         const rows = []
-        for (const folder of level.folders) rows.push(...renderPlainFolder(folder, depth))
-        for (const workspace of level.workspaces) rows.push(...renderWorkspaceEntry({ workspace }, depth, wsPulseOf(workspace)))
+        // A disk-sub level: every workspace here is disk-nested under its
+        // parent — never project-group assignable (allowPg=false).
+        for (const folder of level.folders) rows.push(...renderPlainFolder(folder, depth, false))
+        for (const workspace of level.workspaces) rows.push(...renderWorkspaceEntry({ workspace }, depth, wsPulseOf(workspace), false))
         return rows
       }
 
-      const renderPlainFolder = (node, depth) => {
-        if (node.kind === 'ws') return renderWorkspaceEntry({ workspace: node.workspace }, depth, wsPulseOf(node.workspace))
+      const renderPlainFolder = (node, depth, allowPg = true) => {
+        if (node.kind === 'ws') return renderWorkspaceEntry({ workspace: node.workspace }, depth, wsPulseOf(node.workspace), allowPg)
+        // Project-group bin (v0.36.0): same folder shape, store-driven
+        // membership. Identity keys live in the 'pgroup:' namespace so a
+        // same-named name folder at the root never shares expansion, styling
+        // or drop state with the bin.
+        if (node.pg) {
+          // Archived-only view: a bin whose workspaces all lost their
+          // archived sessions is as empty as a name group would be.
+          if (archivedOnly && countVisibleAt(node) === 0) return []
+          const idPath = node.idPath || ('pg//' + node.path)
+          const expanded = searching || folderExpanded(idPath)
+          const total = countWorkspaces(node)
+          const rows = [E(FolderRow, {
+            key: 'pg-' + idPath,
+            node,
+            depth,
+            expanded,
+            onToggle: () => { if (!searching) actions.setExpanded(idPath, !expanded) },
+            onContextMenu: (e) => openCtx('pgroup', { path: node.path, name: node.name, idPath, count: total, empty: total === 0 }, e),
+            dropHalf: pgDropHalf(idPath),
+            dropInto: pgDropInto(idPath),
+            dragEvents: pgFolderDropEvents(idPath, node.path),
+            custStyle: rowStyleOf('pgroup:' + node.path),
+            iconMode: (styleEntry('pgroup:' + node.path) || {}).icon || 'solid',
+            pulse: expanded ? null : folderPulseOf(node),
+            active: subHasCurrent(node),
+            t,
+          })]
+          if (expanded) {
+            for (const child of node.folders) rows.push(...renderPlainFolder(child, depth + 1, true))
+            for (const workspace of node.workspaces) rows.push(...renderWorkspaceEntry({ workspace }, depth + 1, wsPulseOf(workspace), true))
+          }
+          return rows
+        }
         // Archived-only view: a group whose Workspaces all lost their archived
         // Sessions is as empty as they are (see countVisibleAt).
         if (archivedOnly && countVisibleAt(node) === 0) return []
@@ -9265,8 +9550,8 @@ window.__ModuleLoader__.load({
           t,
         })]
         if (expanded) {
-          for (const child of node.folders) rows.push(...renderPlainFolder(child, depth + 1))
-          for (const workspace of node.workspaces) rows.push(...renderWorkspaceEntry({ workspace }, depth + 1, wsPulseOf(workspace)))
+          for (const child of node.folders) rows.push(...renderPlainFolder(child, depth + 1, allowPg))
+          for (const workspace of node.workspaces) rows.push(...renderWorkspaceEntry({ workspace }, depth + 1, wsPulseOf(workspace), allowPg))
         }
         return rows
       }
@@ -9304,6 +9589,28 @@ window.__ModuleLoader__.load({
         }
         return rows
       }
+      // While any project group exists, the unassigned root workspaces fold
+      // into a collapsible "Ungrouped" block (mirrors the sessions bucket);
+      // with no groups at all the root renders exactly as it always did.
+      const renderProjectRoot = (workspaces) => {
+        const rows = []
+        if (!workspaces || workspaces.length === 0) return rows
+        const open = searching || projectRootOpen
+        rows.push(E('div', {
+          key: 'pg-root',
+          className: 'bw-row bw-sgroup-row',
+          style: { '--bw-indent': '0px' },
+          onClick: () => { if (!searching && actions && typeof actions.setProjectRootOpen === 'function') actions.setProjectRootOpen(!open) },
+          role: 'treeitem',
+          'aria-expanded': open,
+        },
+          E('span', { className: cls('bw-chevron', open && 'bw-chevron-open') }, E('span', { className: 'bw-arrow' }, icon('IconTriangleRightFill14', 14))),
+          E('span', { className: 'bw-row-label' }, t('group.ungrouped')),
+          E('span', { className: 'bw-row-count' }, String(workspaces.length)),
+        ))
+        if (open) for (const workspace of workspaces) rows.push(...renderWorkspaceEntry({ workspace }, 0, wsPulseOf(workspace)))
+        return rows
+      }
       let bodyRows = []
       if (searching) {
         for (const entry of searched) bodyRows.push(...renderWorkspaceEntry(entry, 0))
@@ -9321,8 +9628,9 @@ window.__ModuleLoader__.load({
         }
         bodyRows.push(...renderUngroupedBlock())
       } else {
+        const hasPg = tree.folders.some((f) => f.pg === true)
         for (const folder of tree.folders) bodyRows.push(...renderPlainFolder(folder, 0))
-        for (const workspace of tree.workspaces) bodyRows.push(...renderWorkspaceEntry({ workspace }, 0, wsPulseOf(workspace)))
+        bodyRows.push(...(hasPg ? renderProjectRoot(tree.workspaces) : tree.workspaces.map((workspace) => renderWorkspaceEntry({ workspace }, 0, wsPulseOf(workspace))).flat()))
         bodyRows.push(...renderUngroupedBlock())
       }
       const isEmpty = bodyRows.length === 0
@@ -9487,17 +9795,39 @@ window.__ModuleLoader__.load({
           ...wsGroupItems,
           customizeEntry,
         ]
-        if (ctx.kind === 'workspace') return [
-          { id: 'rename', label: ot ? ot('rename') : t('menu.rename'), icon: icon('IconEditOutline16', 16) },
-          { id: 'delete', label: ot ? ot('delete.workspace') : t('menu.delete'), icon: icon('IconTrashOutline16', 16), danger: true },
+        if (ctx.kind === 'workspace') {
+          // Project-group entries (v0.36.0): always available for root-level
+          // rows (the layer has no switch), unlike the name-layer entry above
+          // which the workspaceSlash gate controls. Disk-nested children
+          // carry __bwNoPg in the payload and get neither entry.
+          const pgItems = ctx.payload && ctx.payload.__bwNoPg === true ? [] : [
+            { id: 'move-pgroup', label: t('menu.moveToPgroup'), icon: icon('IconFolderOpenOutline16', 16) },
+            ...(pgGroupOf(ctx.payload.workspaceId) !== '' ? [{ id: 'move-out-pgroup', label: t('menu.moveOutPgroup'), icon: icon('IconRightUpOutline16', 16) }] : []),
+          ]
+          return [
+            { id: 'rename', label: ot ? ot('rename') : t('menu.rename'), icon: icon('IconEditOutline16', 16) },
+            { id: 'delete', label: ot ? ot('delete.workspace') : t('menu.delete'), icon: icon('IconTrashOutline16', 16), danger: true },
+            { type: 'separator', id: 'bw-sep' },
+            ...wsGroupItems,
+            ...pgItems,
+            customizeEntry,
+            // v0.32.0: the workspace default preset. Rides the official
+            // agent-preset roster + blank-composition channels (the hero
+            // chip's remotes); hidden entirely where the host lacks them —
+            // older hosts simply never offer what they cannot do.
+            ...(presetFace ? [{ id: 'ws-preset', label: t('menu.workspacePreset'), icon: icon('IconAgentPresetOutlineRegular', 16) }] : []),
+          ]
+        }
+        // Project-group bin row: rename / nest deeper (new child bin) /
+        // reparent under another (or a brand-new) parent / delete (deleting
+        // unbins the members) — then appearance.
+        if (ctx.kind === 'pgroup') return [
+          { id: 'rename-pgroup', label: t('menu.renamePgroup'), icon: icon('IconEditOutline16', 16) },
+          { id: 'new-child-pgroup', label: t('menu.newChildPgroup'), icon: icon('IconPlusOutline16', 16) },
+          { id: 'reparent-pgroup', label: t('menu.reparentPgroup'), icon: icon('IconFolderOpenOutline16', 16) },
+          { id: 'delete-pgroup', label: t('menu.deletePgroup'), icon: icon('IconTrashOutline16', 16), danger: true },
           { type: 'separator', id: 'bw-sep' },
-          ...wsGroupItems,
           customizeEntry,
-          // v0.32.0: the workspace default preset. Rides the official
-          // agent-preset roster + blank-composition channels (the hero
-          // chip's remotes); hidden entirely where the host lacks them —
-          // older hosts simply never offer what they cannot do.
-          ...(presetFace ? [{ id: 'ws-preset', label: t('menu.workspacePreset'), icon: icon('IconAgentPresetOutlineRegular', 16) }] : []),
         ]
         if (ctx.kind === 'session') {
           // The shared builder owns the session list (see
@@ -9534,6 +9864,20 @@ window.__ModuleLoader__.load({
               : kind === 'session' ? { kind: 'session', id: payload.id, title: payload.title }
                 : { kind: 'sgroup', path: payload.path, title: payload.path, workspaceId: payload.workspaceId }
           setDialog({ kind: 'group-move', target, initial: groupPrefixOf(target.title), groupPaths: collectGroupPaths(target.kind) })
+        }
+        else if (id === 'move-pgroup' && kind === 'workspace') {
+          // The project-group move dialog: the name starts at the CURRENT
+          // group so retyping moves the workspace; clearing it moves it out.
+          setDialog({ kind: 'pgroup-move', workspaceId: payload.workspaceId, initial: pgGroupOf(payload.workspaceId), groupPaths: collectPgPaths() })
+        }
+        else if (id === 'move-out-pgroup' && kind === 'workspace') {
+          actions.assignProjectGroup(payload.workspaceId, '')
+        }
+        else if (kind === 'pgroup') {
+          if (id === 'rename-pgroup') setDialog({ kind: 'pgroup-rename', path: payload.path, name: payload.name })
+          else if (id === 'delete-pgroup') setDialog({ kind: 'pgroup-delete', path: payload.path, name: payload.name, count: payload.count || 0 })
+          else if (id === 'new-child-pgroup') setDialog({ kind: 'pgroup-new-child', path: payload.path })
+          else if (id === 'reparent-pgroup') setDialog({ kind: 'pgroup-reparent', path: payload.path, initial: pgParentPathOf(payload.path), groupPaths: collectPgPaths() })
         }
         else if (kind === 'folder' && id === 'rename-folder') setDialog({ kind: 'folder-rename', path: payload.path })
         else if (kind === 'folder' && id === 'delete-folder') setDialog({ kind: 'folder-delete', path: payload.path, scope: payload.scope, name: payload.name })
@@ -9701,19 +10045,6 @@ window.__ModuleLoader__.load({
           onClose: () => setDialog(null),
           t,
         })
-        if (dialog.kind === 'group-new') return E(GroupNewDialog, {
-          key: 'group-new',
-          kinds: newGroupLayers(),
-          initialKind: dialog.layer === 'workspace' ? 'workspace' : 'session',
-          treeOf: newGroupTreeOf,
-          // The heading names the layer(s) the button promised: with both
-          // layers live the switch below decides, so the generic wording is
-          // accurate there and only there.
-          label: newGroupLabel(),
-          onConfirm: (kind, scope, path) => { actions.addFolder(kind, scope, path); setDialog(null) },
-          onClose: () => setDialog(null),
-          t,
-        })
         if (dialog.kind === 'group-move') return E(GroupDialog, {
           key: 'group-move',
           title: t('group.move.title'),
@@ -9724,6 +10055,79 @@ window.__ModuleLoader__.load({
           targets: dialog.targets || null,
           groupPaths: dialog.groupPaths || [],
           onConfirm: (tv, gv) => submitGroupMove(dialog.targets ? targetOfValue(tv) : dialog.target, gv),
+          onClose: () => setDialog(null),
+          t,
+        })
+        // Project-group move (v0.36.0): the same GroupDialog surface, but the
+        // confirm is a STORE write — no host call, the workspace title is
+        // never rewritten (unlike the name-layer move above).
+        if (dialog.kind === 'pgroup-move') return E(GroupDialog, {
+          key: 'pgroup-move',
+          title: t('pgroup.move.title'),
+          hint: t('pgroup.move.hint'),
+          initial: dialog.initial || '',
+          targets: null,
+          groupPaths: dialog.groupPaths || [],
+          onConfirm: (tv, gv) => { actions.assignProjectGroup(dialog.workspaceId, gv); setDialog(null) },
+          onClose: () => setDialog(null),
+          t,
+        })
+        if (dialog.kind === 'pgroup-rename') return E(TextDialog, {
+          key: 'pgroup-rename',
+          title: t('pgroup.rename.title'),
+          initial: dialog.path,
+          onConfirm: (v) => {
+            const clean = declaredPathOf(v)
+            if (clean === '') { setErrorText(t('folder.error.empty')); return }
+            if (clean !== dialog.path) actions.renameProjectGroup(dialog.path, clean)
+            setDialog(null)
+          },
+          onClose: () => setDialog(null),
+          t,
+        })
+        // Nest deeper (v0.36.1): declare an empty child bin UNDER this group;
+        // workspaces are dragged in afterwards.
+        if (dialog.kind === 'pgroup-new-child') return E(TextDialog, {
+          key: 'pgroup-new-child',
+          title: t('pgroup.newChild.title'),
+          hint: t('pgroup.newChild.hint'),
+          initial: '',
+          onConfirm: (v) => {
+            const clean = declaredPathOf(v)
+            if (clean === '') { setErrorText(t('folder.error.empty')); return }
+            actions.declareProjectGroup(dialog.path + '/' + clean)
+            setDialog(null)
+          },
+          onClose: () => setDialog(null),
+          t,
+        })
+        // Reparent (v0.36.1): file this group under ANOTHER (typed-in or
+        // existing) parent — "新名字" creates the layer above; '' climbs to
+        // the top level. The group's own name and its descendants ride the
+        // re-key; moving into itself or its own subtree is refused.
+        if (dialog.kind === 'pgroup-reparent') return E(GroupDialog, {
+          key: 'pgroup-reparent',
+          title: t('pgroup.reparent.title'),
+          hint: t('pgroup.reparent.hint'),
+          initial: dialog.initial || '',
+          targets: null,
+          groupPaths: dialog.groupPaths || [],
+          onConfirm: (tv, gv) => {
+            const parent = declaredPathOf(gv)
+            if (parent === dialog.path || parent.indexOf(dialog.path + '/') === 0) { setErrorText(t('pgroup.reparent.self')); return }
+            const name = dialog.path.slice(dialog.path.lastIndexOf('/') + 1)
+            const next = parent === '' ? name : parent + '/' + name
+            if (next !== dialog.path) actions.renameProjectGroup(dialog.path, next)
+            setDialog(null)
+          },
+          onClose: () => setDialog(null),
+          t,
+        })
+        if (dialog.kind === 'pgroup-delete') return E(ConfirmDialog, {
+          key: 'pgroup-delete',
+          title: t('pgroup.delete.title'),
+          body: (dialog.count || 0) > 0 ? t('pgroup.delete.full', { name: dialog.name, n: dialog.count }) : t('pgroup.delete.empty', { name: dialog.name }),
+          onConfirm: () => { actions.removeProjectGroup(dialog.path); setDialog(null) },
           onClose: () => setDialog(null),
           t,
         })
@@ -9840,17 +10244,115 @@ window.__ModuleLoader__.load({
       // leave the group. Row handlers stopPropagation, so this only fires
       // where no row claimed the drop.
       const sessionCouldLeaveGroup = dragMatches('session') && sessionSlash && drag.source && leafOf(drag.source.title) !== drag.source.title
+      // The project-group reading of the same promise: a grouped workspace
+      // dropped on bare root space leaves its group (back to Ungrouped).
+      const workspaceCouldLeaveGroup = dragMatches('workspace') && drag.source && (drag.source.pg || '') !== ''
+      // ...and a NESTED project group dropped on bare root space climbs to
+      // the top level (a top-level group's parent is already '').
+      const pgroupCouldRelocate = dragMatches('pgroup') && drag.source && pgParentPathOf(drag.source.path) !== ''
+      const rootCouldAccept = sessionCouldLeaveGroup || workspaceCouldLeaveGroup || pgroupCouldRelocate
       const rootDropEvents = {
         onDragOver: (event) => {
-          if (!sessionCouldLeaveGroup) return
+          if (!rootCouldAccept) return
           event.preventDefault()
           try { event.dataTransfer.dropEffect = 'move' } catch { }
         },
         onDrop: (event) => {
-          if (!sessionCouldLeaveGroup) return
+          if (!rootCouldAccept) return
           event.preventDefault()
-          commitSessionMoveOut(drag.source.workspaceId)
+          if (workspaceCouldLeaveGroup) actions.assignProjectGroup(drag.source.workspaceId, '')
+          else if (pgroupCouldRelocate) {
+            const p = drag.source.path
+            const name = p.slice(p.lastIndexOf('/') + 1)
+            actions.renameProjectGroup(p, name)
+            actions.reorderProjectGroup(name, '', 'after')
+          }
+          else commitSessionMoveOut(drag.source.workspaceId)
         },
+      }
+
+      /* ------------------ reveal & collapse-everything ------------------- */
+
+      // Reveal (v0.36.2): expand EVERY ancestor of the CURRENT session — its
+      // workspace row and the disk chain above it, the project-group bins and
+      // name folders along its path, its session sub-groups, and the
+      // Ungrouped blocks — then scroll the session row into view. A no-op
+      // without a current session. Folders/groups default OPEN, so the writes
+      // only matter where the user folded something earlier — exactly the
+      // keys reveal must win over.
+      const revealCurrent = () => {
+        if (currentId === undefined || currentId === null || !actions) return
+        const holder = (items || []).find((w) => (w.sessionIds || []).includes(currentId))
+        if (!holder) return
+        const chain = []
+        let ancestor = diskParentMap.get(holder.workspaceId)
+        while (ancestor !== undefined) { chain.unshift(ancestor); ancestor = diskParentMap.get(ancestor) }
+        if (typeof actions.setSessionsExpanded === 'function') {
+          actions.setSessionsExpanded(holder.workspaceId, true)
+          for (const id of chain) actions.setSessionsExpanded(id, true)
+        }
+        const pg = pgGroupOf(holder.workspaceId)
+        if (pg !== '' && typeof actions.setExpanded === 'function') {
+          let key = ''
+          for (const seg of pg.split('/')) { key = key === '' ? seg : key + '/' + seg; actions.setExpanded('pg//' + key, true) }
+        }
+        const folderPath = groupPrefixOf(String(holder.title || ''))
+        if (folderPath !== '' && typeof actions.setExpanded === 'function') {
+          // Name-folder idPath inside a disk level: <ancestorChain>//<namePath>
+          // (the chain is '' at the top level — the idPath is the bare path).
+          const idPrefix = chain.join('//')
+          let key = ''
+          for (const seg of folderPath.split('/')) { key = key === '' ? seg : key + '/' + seg; actions.setExpanded(idPrefix === '' ? key : idPrefix + '//' + key, true) }
+        }
+        const summary = list && list.byId ? list.byId[currentId] : undefined
+        const sessPrefix = groupPrefixOf(rowTitleOf(currentId, summary, prefsMap.graftTitlePrefix !== false))
+        if (sessPrefix !== '' && typeof actions.setSessionGroupExpanded === 'function') {
+          let key = ''
+          for (const seg of sessPrefix.split('/')) { key = key === '' ? seg : key + '/' + seg; actions.setSessionGroupExpanded(holder.workspaceId + '|' + key, true) }
+        }
+        if (pg === '' && typeof actions.setProjectRootOpen === 'function') actions.setProjectRootOpen(true)
+        // The dispatches re-render synchronously after the handler; scroll on
+        // a short timer once the freshly-expanded rows exist in the DOM.
+        window.setTimeout(() => {
+          const rootEl = treeRef.current
+          if (!rootEl || typeof rootEl.querySelector !== 'function') return
+          const target = rootEl.querySelector('[data-row-key="' + String(currentId).replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"]')
+          if (target && typeof target.scrollIntoView === 'function') target.scrollIntoView({ block: 'center' })
+        }, 120)
+      }
+
+      // Collapse-everything (v0.36.2): fold the WHOLE tree in one dispatch —
+      // every workspace session list, every name folder / project-group bin,
+      // every session sub-group, and both Ungrouped blocks. The walk runs on
+      // the rendered tree so compressed chains and disk-sub levels collapse
+      // exactly as they appear.
+      const collapseEntireTree = () => {
+        if (!actions || typeof actions.collapseAllTree !== 'function') return
+        const expanded = {}
+        const sessionsExpanded = {}
+        const sessionGroups = {}
+        const collectGroups = (node, workspaceId) => {
+          for (const g of node.groups || []) {
+            sessionGroups[workspaceId + '|' + g.path] = false
+            collectGroups(g, workspaceId)
+          }
+        }
+        const foldWorkspace = (w) => {
+          sessionsExpanded[w.workspaceId] = false
+          collectGroups(buildSessionTree(sessionsOf(w), sessionSlash, sessFolders, w.workspaceId), w.workspaceId)
+          collectLevel(w.sub)
+        }
+        const collectLevel = (level) => {
+          if (!level) return
+          for (const f of level.folders || []) {
+            if (f.kind === 'ws') { foldWorkspace(f.workspace); continue }
+            expanded[f.idPath || f.path] = false
+            collectLevel(f)
+          }
+          for (const w of level.workspaces || []) foldWorkspace(w)
+        }
+        collectLevel(tree)
+        actions.collapseAllTree({ expanded, sessionsExpanded, sessionGroups, ungroupedOpen: false, projectRootOpen: false })
       }
 
       // Copy-session-id notice copy: the official 'workspace' dictionary is
@@ -9865,7 +10367,7 @@ window.__ModuleLoader__.load({
               undefined, t(copyNotice.ok ? 'toast.sessionIdCopied' : 'toast.sessionIdCopyFailed')))
         : ''
 
-      return E('div', { className: cls('bw-root', sessionCouldLeaveGroup && 'bw-root-drop-out'), ...rootDropEvents },
+      return E('div', { className: cls('bw-root', (sessionCouldLeaveGroup || workspaceCouldLeaveGroup || pgroupCouldRelocate) && 'bw-root-drop-out'), ...rootDropEvents },
         StyleNode(),
         // The shipped fork notice rides the shipped browser's overlay, which is
         // shadowed with it: the shortcut's async failure would otherwise be
@@ -9910,18 +10412,26 @@ window.__ModuleLoader__.load({
             : null,
         E('div', { className: 'bw-header' },
           E('div', { className: 'bw-header-title' }, t('title')),
-          // Group discoverability: an ICON entry point (v0.17.0 — it used to be
-          // a text button, which crowded the header) that doubles as the row-drop
-          // zone. Its tooltip names the layer(s) the button can actually create
-          // into; the click opens the NEW-group dialog, not the move dialog.
-          (workspaceSlash || sessionSlash) ? E('button', {
+          // v0.36.2: two tree-wide affordances where the retired new-group
+          // button used to sit — REVEAL expands every ancestor of the current
+          // session and scrolls it into view; COLLAPSE-ALL folds the entire
+          // tree (groups + session lists) in one dispatch.
+          E('button', {
             type: 'button',
-            className: cls('bw-icon-btn', 'bw-newgroup-btn', groupDropTarget() && 'bw-drop-into-strong'),
-            'aria-label': newGroupLabel(),
-            title: newGroupLabel(),
-            onClick: () => setDialog({ kind: 'group-new', layer: defaultNewGroupLayer() }),
-            ...groupDropEvents,
-          }, icon('IconFolderOpen16', 16)) : null,
+            className: 'bw-icon-btn',
+            'aria-label': t('action.reveal'),
+            title: t('action.reveal'),
+            onClick: revealCurrent,
+            disabled: currentId === undefined || currentId === null,
+          }, icon('IconGoalOutline16', 16)),
+          E('button', {
+            type: 'button',
+            className: 'bw-icon-btn',
+            'aria-label': t('action.collapseAll'),
+            title: t('action.collapseAll'),
+            onClick: collapseEntireTree,
+            disabled: (items || []).length === 0,
+          }, icon('IconChevronUpOutline14', 16)),
           (searchOpen || query !== '') ? E('input', {
             ref: searchInputRef,
             className: 'bw-input',
