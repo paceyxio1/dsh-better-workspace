@@ -197,6 +197,41 @@ test('splitTitleSegs: paired quotes verbatim, lone quotes are plain text', () =>
   assert.deepEqual(splitTitleSegs('see https://x.dev/a/b'), ['see https://x.dev/a/b'])
 })
 
+/**
+ * v0.37.3 user report: session rows sometimes gained several directory levels
+ * ("对话会突然多几层目录结构"). Auto-generated titles echo the file path the
+ * turn touched; splitting one shredded a path into a folder per level. A
+ * path-shaped title is now ONE leaf, exactly like the URL tail.
+ */
+test('splitTitleSegs: path-shaped titles stay one leaf (v0.37.3)', () => {
+  const { splitTitleSegs } = loadTitleSegs()
+  // Drive-absolute path with FORWARD slashes (the shredding case).
+  assert.deepEqual(
+    splitTitleSegs('G:/ProjectWorkspace/zibo/code/bidjingjia/pages/cqjyjingjia'),
+    ['G:/ProjectWorkspace/zibo/code/bidjingjia/pages/cqjyjingjia'],
+  )
+  // Backslash path was already opaque (no "/"), kept verbatim.
+  assert.deepEqual(splitTitleSegs('C:\\Users\\Administrator\\Downloads\\wrapper'),
+    ['C:\\Users\\Administrator\\Downloads\\wrapper'])
+  // "@"-prefixed reference to a path stays whole.
+  assert.deepEqual(splitTitleSegs('@C:/Users/Administrator/x'), ['@C:/Users/Administrator/x'])
+  // UNC prefix.
+  assert.deepEqual(splitTitleSegs('\\\\server\\share\\a'), ['\\\\server\\share\\a'])
+  // Mixed separators are a path too.
+  assert.deepEqual(splitTitleSegs('webapp\\bidjingjia/pages'), ['webapp\\bidjingjia/pages'])
+  // Deliberate grouping still splits; paired quotes still win.
+  assert.deepEqual(splitTitleSegs('前端/后端'), ['前端', '后端'])
+  assert.deepEqual(splitTitleSegs('“a/b” c/d'), ['“a/b”', 'c', 'd'])
+  // Structural guard: the path test runs before the bare "/" split.
+  const text = read('src/client.js')
+  const start = text.indexOf('const splitPlainSegs = (text) => {')
+  const end = text.indexOf('const splitTitleSegs', start)
+  const body = text.slice(start, end)
+  assert.match(body, /\/\[A-Za-z\]:\[\\\\\/\]\//, 'drive-prefix probe present')
+  assert.ok(body.indexOf('PATH-SHAPED') < body.indexOf("schemeAt = s.indexOf('://')"),
+    'path guard precedes the URL-tail logic')
+})
+
 test('quote-on-land effect: blank-born only, user renames pinned, stability window', () => {
   const text = read('src/client.js')
   // Eligibility is keyed off an observed BLANK snapshot, not "first time seen".
@@ -2318,5 +2353,202 @@ test('project groups: sidebar/picker wiring, menus, drag, dialogs (v0.36.0)', ()
   assert.match(text, /useStore\(s => s\.projectGroups\) \|\| EMPTY_FOLDERS/)
   assert.match(text, /const renderProjectRoot = \(workspaces\) => \{/)
   assert.match(text, /typeof actions\.setProjectRootOpen === 'function'/, 'the Ungrouped block toggles via the store')
+})
+
+/**
+ * Explorer "Open as workspace" (v0.37.0): the host half registers an HKCU
+ * folder context-menu entry whose command appends the picked directory to a
+ * DSH_HOME inbox file and opens dsh://open; a watcher adopts every line
+ * through the SAME two services the GUI adopt flow rides. No client code.
+ */
+test('host half: explorer "open as workspace" wiring (v0.37.0)', () => {
+  const text = read('src/index.js')
+  // Windows-only gating, HKCU only (never HKLM, never elevation).
+  assert.match(text, /process\.platform === 'win32'/, 'everything stays gated to Windows')
+  assert.match(text, /HKEY_CURRENT_USER\\\\Software\\\\Classes\\\\Directory\\\\shell\\\\' \+ EXPLORER_MENU_KEY/)
+  assert.match(text, /DSH\.BetterWorkspace\.Open/)
+  assert.doesNotMatch(text, /HKEY_LOCAL_MACHINE|HKEY_CLASSES_ROOT/, 'HKCU only')
+  // The .reg file is written UTF-16LE with BOM so non-ASCII menu text imports
+  // cleanly; reg.exe import overwrites values (idempotent re-registration).
+  assert.match(text, /\\uFEFF' \+ reg, 'utf16le'/)
+  assert.match(text, /\['import', temp\]/, 'reg.exe import')
+  // Icon only from a real desktop process (electron execPath), never node.exe.
+  assert.match(text, /process\.versions\.electron \? process\.execPath : undefined/)
+  // Adoption rides the same pair the GUI uses: registry create-or-reuse +
+  // sessionController.create({ workspaceId }).
+  assert.match(text, /registry\.resolveByPath\(path\)/)
+  assert.match(text, /existing \|\| await registry\.create\(path\)/)
+  assert.match(text, /controller\.create\(\{ workspaceId: workspace\.id \}\)/)
+  // Exactly-once claim: rename the inbox away before reading; a rename that
+  // fails (writer holds the file) just retries on the next event.
+  assert.match(text, /fsp\.rename\(inboxPath, claim\)/)
+  assert.match(text, /EXPLORER_INBOX_NAME/)
+  assert.match(text, /process\.env\.DSH_HOME \|\| join\(homedir\(\), '\.dsh'\)/, 'DSH_HOME resolution')
+  // The shipped bridge script: one path line into the inbox + dsh:// focus.
+  const ps1 = read('scripts/open-in-dsh.ps1')
+  assert.match(ps1, /param\(/)
+  assert.match(ps1, /\[string\]\$Path/)
+  assert.match(ps1, /\[string\]\$Inbox/)
+  assert.match(ps1, /Add-Content -LiteralPath \$Inbox -Value \$line/)
+  assert.match(ps1, /dsh:\/\/open/)
+  const unreg = read('scripts/unregister-explorer-menu.ps1')
+  assert.match(unreg, /reg\.exe delete \$key \/f/)
+  // The plugin ships the scripts (npm files allowlist).
+  const pkg = read('package.json')
+  assert.match(pkg, /"files": \[[^\]]*"scripts"/s)
+})
+
+test('host half: explorer menu .reg builder escapes and shapes (v0.37.0)', async () => {
+  const plugin = await import('../src/index.js')
+  assert.equal(typeof plugin.buildExplorerMenuReg, 'function')
+  const reg = plugin.buildExplorerMenuReg({
+    menuText: 'Open in "DSH" \\ test',
+    iconPath: 'C:\\App\\DeepSeek Harness.exe',
+    command: 'powershell.exe -File "G:\\plug dir\\open.ps1" -Path "%1"',
+  })
+  assert.match(reg, /^Windows Registry Editor Version 5\.00/)
+  assert.match(reg, /\[HKEY_CURRENT_USER\\Software\\Classes\\Directory\\shell\\DSH\.BetterWorkspace\.Open\]/)
+  assert.match(reg, /\[HKEY_CURRENT_USER\\Software\\Classes\\Directory\\shell\\DSH\.BetterWorkspace\.Open\\command\]/)
+  // .reg escaping: backslashes double, embedded quotes escape.
+  assert.match(reg, /"Icon"="C:\\\\App\\\\DeepSeek Harness\.exe"/)
+  assert.match(reg, /Open in \\"DSH\\" \\\\ test/)
+  assert.match(reg, /-File \\"G:\\\\plug dir\\\\open\.ps1\\" -Path \\"%1\\"/)
+  const bare = plugin.buildExplorerMenuReg({ menuText: 'M', command: 'C' })
+  assert.doesNotMatch(bare, /"Icon"/, 'no Icon line is emitted without an icon path')
+})
+
+/**
+ * v0.37.1 field report: the v0.37.0 verb WORKED (registry + inbox + adoption
+ * all landed) but (a) a PowerShell console window flashed visibly, and (b)
+ * nothing visibly happened in the GUI — the new blank session is hidden by
+ * the official blank-rule and the host cannot switch the client's current
+ * session. Fixes: wscript hidden launcher + a settings-namespace token the
+ * client watches to expand the workspace and open the new session.
+ */
+test('host half: explorer verb routes through the hidden wscript launcher (v0.37.1)', () => {
+  const text = read('src/index.js')
+  // The registered command invokes the vbs wrapper, not powershell directly.
+  assert.match(text, /'wscript\.exe "' \+ launcherPath \+ '" "%1" "' \+ inboxPath \+ '"'/)
+  assert.match(text, /open-in-dsh\.vbs/, 'the vbs launcher path is resolved from the package')
+  assert.doesNotMatch(text, /const command = 'powershell\.exe -NoProfile/, 'no direct powershell verb remains')
+  const vbs = read('scripts/open-in-dsh.vbs')
+  assert.match(vbs, /WScript\.Arguments\(0\)/, 'picked directory forwards as arg 0')
+  assert.match(vbs, /WScript\.Arguments\(1\)/, 'inbox path forwards as arg 1')
+  assert.match(vbs, /, 0, False/, 'window style 0 = fully hidden, no console flash')
+  assert.match(vbs, /open-in-dsh\.ps1|\.ps1/, 'the ps1 stays the worker behind the vbs')
+  const ps1 = read('scripts/open-in-dsh.ps1')
+  assert.match(ps1, /Add-Content -LiteralPath \$Inbox -Value \$line/)
+})
+
+test('host half: adoption publishes the explorerOpen token for the client (v0.37.1)', () => {
+  const text = read('src/index.js')
+  // The token rides the settings namespace: settingsController.update merges
+  // ONE field into the stored user section, the configForms mirror re-derives,
+  // and the client form subscription fires. Volatile schema field, both eras.
+  assert.match(text, /ctx\.inject\(\['settingsController'\], \(sctx\)/)
+  assert.match(text, /controller\.update\('better-workspace', \{ explorerOpen: token \}\)/)
+  assert.match(text, /token: randomUUID\(\)/)
+  assert.match(text, /publishExplorerOpen\(workspace\.id, created && created\.sessionId\)/)
+  const configBlock = text.slice(text.indexOf('export const Config'), text.indexOf('export function valueOf'))
+  assert.match(configBlock, /explorerOpen: live\(Schema\.dict\(Schema\.any\(\)\)\.default\(\{\}\)\)/,
+    'row Config schema carries the transient field')
+  const legacyBlock = text.slice(text.indexOf("settings.register('better-workspace'"), text.indexOf('settings namespace registered'))
+  assert.match(legacyBlock, /explorerOpen: Schema\.dict\(Schema\.any\(\)\)\.default\(\{\}\)/,
+    'legacy register schema keeps the field too')
+})
+
+test('client half: explorerOpen token reveals the adopted session (v0.37.1)', () => {
+  const text = read('src/client.js')
+  // Module-level signal staged by the configForms subscription...
+  assert.match(text, /const explorerOpenSignal = \{ handled: null, pending: null \}/)
+  assert.match(text, /form\.subscribe\(watchExplorerOpen\)/)
+  assert.match(text, /typeof box\.get === 'function' \? box\.get\(\) : box/, 'Volatile-ref unwrapping')
+  assert.match(text, /explorerOpenSignal\.pending = \{\r?\n?\s*sessionId: token\.sessionId,/)
+  // ...consumed in BetterBrowser: force-expand the workspace, open the session.
+  assert.match(text, /if \(!list \|\| !list\.byId \|\| !list\.byId\[pendingOpen\.sessionId\]\) return/)
+  assert.match(text, /actions\.setSessionsExpanded\(String\(pendingOpen\.workspaceId\), true\)/)
+  assert.match(text, /if \(typeof open === 'function'\) open\(pendingOpen\.sessionId\)/)
+  assert.match(text, /Date\.now\(\) - pendingOpen\.at > 15000/, 'stale tokens expire')
+})
+
+/**
+ * v0.37.2 field report: fork a session twice, message one fork — the source
+ * AND the sibling fork both showed the "ongoing" spinner. Cause: forked
+ * sessions carry parentId (their fork source) on the wire, and
+ * subagentRunningCounts linked EVERY parentId into the lineage without the
+ * official origin === 'subagent' gate — a running fork lit its whole
+ * ancestor chain. Fix: only subagent-origin rows join the walk.
+ */
+test('client half: fork lineage never relays the running ring (v0.37.2)', () => {
+  const text = read('src/client.js')
+  const start = text.indexOf('const subagentRunningCounts = (byId) => {')
+  assert.ok(start !== -1, 'subagentRunningCounts not found')
+  const end = text.indexOf('/**', start)
+  assert.ok(end !== -1 && end > start, 'end marker not found')
+  const fn = new Function(text.slice(start, end) + '\nreturn subagentRunningCounts')()
+
+  // A running subagent lights its parent (official relay, unchanged).
+  let counts = fn({
+    parent: { id: 'parent' },
+    child: { id: 'child', origin: 'subagent', parentId: 'parent', running: true },
+  })
+  assert.equal(counts.get('parent'), 1, 'a running subagent relays to its parent')
+  assert.equal(counts.get('child'), 0)
+
+  // A running FORK (origin 'seeded' — parentId points at the fork source)
+  // must NOT light anything: not the source, not a sibling fork.
+  counts = fn({
+    source: { id: 'source' },
+    forkA: { id: 'forkA', origin: 'seeded', parentId: 'source' },
+    forkB: { id: 'forkB', origin: 'seeded', parentId: 'source', running: true },
+  })
+  assert.equal(counts.get('source'), 0, 'a running fork does not relay to its source')
+  assert.equal(counts.get('forkA'), 0, 'a running fork does not relay to a sibling fork')
+  assert.equal(counts.get('forkB'), 0)
+
+  // Origin-less summaries (pre-origin hosts) keep the legacy behavior only
+  // when they actually are subagents via the old spelling fallback... they
+  // are NOT linked anymore either — the origin gate is mandatory, and real
+  // subagents on those hosts are filtered client-side elsewhere.
+  counts = fn({
+    parent: { id: 'parent' },
+    child: { id: 'child', parentSessionId: 'parent', running: true },
+  })
+  assert.equal(counts.get('parent'), 0, 'origin-less rows never join the lineage')
+
+  // Structural guard: the origin gate must be the first filter.
+  assert.match(text.slice(start, end), /if \(!summary \|\| summary\.origin !== 'subagent'\) continue/)
+})
+
+/**
+ * v0.37.4: the workspace row menu gains "Show in Explorer". It must ride the
+ * OFFICIAL channel (session Remote namespace's openWorkspacePath with
+ * action 'reveal') — no shell strings, no path guessing — and must be hidden
+ * where the host does not serve that namespace.
+ */
+test('client half: workspace "Show in Explorer" rides the official reveal channel (v0.37.4)', () => {
+  const text = read('src/client.js')
+  // The face probes the Remote namespace and forwards EXACTLY the reveal verb.
+  assert.match(text, /const ns = remote && remote\.session/)
+  assert.match(text, /typeof ns\.openWorkspacePath === 'function' \? ns : null/)
+  assert.match(text, /await ns\.openWorkspacePath\(\{ path: target, action: 'reveal' \}\)/)
+  assert.match(text, /ctx\.inject\(\['remote', 'remote\.session'\]/, 'late arrival waits on a soft inject')
+  assert.match(text, /revealFaceOf: \(\) => revealFace/, 'stable getter (renderer caches inject results)')
+  // Menu entry: gated on the face, placed between rename and delete (the
+  // official order), labelled through the plugin dictionary.
+  assert.match(text, /\.\.\.\(revealFace \? \[\{ id: 'reveal', label: t\('menu\.revealInExplorer'\)/)
+  const menuBlock = text.slice(text.indexOf("if (ctx.kind === 'workspace') {"), text.indexOf("if (ctx.kind === 'pgroup')"))
+  assert.ok(menuBlock.indexOf("id: 'rename'") < menuBlock.indexOf("id: 'reveal'"), 'reveal follows rename')
+  assert.ok(menuBlock.indexOf("id: 'reveal'") < menuBlock.indexOf("id: 'delete'"), 'reveal precedes delete')
+  // Handler forwards payload.path (the workspace directory) and never throws.
+  assert.match(text, /payload && payload\.path \? String\(payload\.path\) : ''/)
+  assert.match(text, /if \(revealFace && targetPath !== ''\)/)
+  // No self-rolled shell: the plugin must never spawn explorer itself.
+  assert.doesNotMatch(text, /explorer\.exe|child_process|execFile/)
+  // Dictionary key exists in every locale (the aligned-key test also covers
+  // it; this pins the exact label so a bad merge cannot silently ship '??').
+  assert.match(text, /'menu\.revealInExplorer': '在资源管理器中打开'/)
+  assert.match(text, /'menu\.revealInExplorer': 'Show in Explorer'/)
+  assert.equal((text.match(/'menu\.revealInExplorer':/g) || []).length, 21, 'all 21 dictionaries carry the key')
 })
 

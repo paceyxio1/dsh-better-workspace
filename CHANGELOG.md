@@ -3,6 +3,56 @@
 > 倒序排列,新版本条目在最上面。条目格式:`## vX.Y.Z — YYYY-MM-DD` + 类型(feat / fix / docs / chore)+ 要点 + 相关链接。
 > 纪律见 AGENTS.md「变更记录纪律」:发版前先更新本文件并随版本提交;事故复盘、复现与真机验证记录也记在这里。
 
+## v0.37.4 — 2026-11-06
+
+**类型**:feat / 工作区右键「用资源管理器打开」。
+
+- **新菜单项**:工作区行右键菜单新增「在资源管理器中打开」(位于重命名与删除之间,与官方行菜单同序)。点击把该工作区的**目录路径**交给宿主原生文件管理器定位。
+- **走官方通道,不自拼命令**:复用官方 session Remote 命名空间的 `openWorkspacePath({ path, action: 'reveal' })`——宿主会经组合文件系统校验该路径再交给原生适配器(`action: 'reveal'` 才是文件管理器导航;省略 action 会变成「用关联程序打开」)。插件**不拼 shell 字符串、不猜路径**,冒烟有断言禁止出现 `explorer.exe`/`child_process`。
+- **迟到服务同样可用**:`remote` / `remote.session` 走与 agent-preset 面同款三段探测(属性链 → 严格 get → 软 inject 等待),并以**稳定 getter** `revealFaceOf` 透传给侧栏(渲染器会缓存 inject 结果,值透传会把首次渲染的 null 冻住)。宿主不服务该命名空间时**整项隐藏**——不承诺做不到的事。
+- **失败只记日志**:无桌面会话的宿主会自行拒绝,不弹模态打扰用户。
+- 词典:新增 `menu.revealInExplorer` × 21 门(zh「在资源管理器中打开」/ en「Show in Explorer」/ 其余按各语言习惯)。
+- 冒烟 73 → **74**:面向官方通道的结构断言(命名空间探测、reveal 动词、软 inject、稳定 getter)、菜单顺序(rename → reveal → delete)、handler 取 `payload.path`、21 门键数、禁用自拼 shell。
+
+## v0.37.3 — 2026-11-05
+
+**类型**:fix / 路径形状的标题被当成分组符(用户实测反馈:「有时候对话会突然多几层目录结构」,截图里出现 `bidjingjia` → `pages` → `cqjyjingjia` 三层假目录)。
+
+- **根因**:会话/工作区标题里的 `/` 是**刻意的分组语法**(v0.21 起两层树的核心),而自动命名会把这一轮碰过的**文件路径**回显进标题。路径用正斜杠书写时(`G:/…/bidjingjia/pages/cqjyjingjia`),`splitPlainSegs` 就把它按目录层级拆成一层一个分组——表现为对话行突然「长出」几层文件夹。backslash 路径不触发(不含 `/`),所以是「有时候」。
+- **修复**:`splitPlainSegs` 新增**路径形状保护**——命中 Windows 盘符前缀(含 `@C:/…` 引用形式)、UNC 前缀(`\\`)或混用分隔符时,整串作为**单个叶子**返回(与既有的 URL 尾巴保护同类:机器生成的形状不是用户写的「分组/名字」)。纯展示层判定,标题原样不动,**刷新即自愈**,无需改名或清缓存。
+- 保护刻意收窄:`前端/后端`、`a/b` 这类用户手写分组照旧切分;成对引号段的原样语义不变。
+- 冒烟 72 → **73**:路径标题六组断言(正斜杠盘符路径/backslash UNC/`@`引用/混用分隔符全部单叶;普通中文分组与引号段行为不变)+ 结构断言(路径判定必须先于 `://` 尾巴逻辑)。
+- 说明:早前「项目行上面突然多一层目录」(工作区层)是另一回事——磁盘层把子目录工作区挂到父目录工作区下,删掉父目录工作区即恢复;两者不必混淆。
+
+## v0.37.2 — 2026-10-23
+
+**类型**:fix / 分叉会话的运行状态误传导(用户实测反馈:「给当前会话创建分支后,给其中一个会话发消息,其他两个会话也显示加载中的图标」)。
+
+- **根因**:`subagentRunningCounts`(父行子代理运行环的血缘遍历)按 `parentId` 连边时**没有官方 `origin === 'subagent'` 门控**——而**分叉(fork)会话的 wire 摘要同样携带 `parentId`**(指向分叉源,宿主把 header 的 `parentSessionId` 映射为 `parentId`)。于是给某个 fork 发消息、它真在跑时,源会话和兄弟 fork 都被算成「有正在运行的后代」,父行/兄弟行亮起同一枚 ongoing 转圈。实证:绍兴阳光采购三个同名会话(`(源)`/`(1)`/`(2)`)中 `(2)` 的投影 `openStep` 非空(真运行),其余两个 `lastStepBoundary.kind === "end"` 根本不跑。
+- **修复**:血缘构建第一步即 `if (!summary || summary.origin !== 'subagent') continue`——与官方 `Rows.tsx`/`sessionVisible` 同一判定;真子代理的父行运行环照旧,分叉链不再互相点灯。
+- 冒烟 71 → **72**:eval `subagentRunningCounts` 四组断言(运行子代理→父行+1 不变;运行 fork→源/兄弟全 0;无 origin 行永不进血缘;origin 门控为第一条过滤)。
+- 已知限制:预 origin 字段的远古宿主上子代理运行环不显示(官方语义本身以 origin 判定,与官方对齐优先)。
+
+## v0.37.1 — 2026-10-23
+
+**类型**:fix / 资源管理器右键打开的可见性与弹窗(用户实测反馈:「弹出了一个 powershell 窗口,并没有在工作空间打开目录」)。
+
+- **先澄清事实**:v0.37.0 的采纳链路其实全程成功了——注册表、收件箱、工作区创建全部落地(工作区存储里实证:新建工作区置顶、blank 会话已建)。用户「没打开」的观感有两个真实成因,本条全修。
+- **修① 弹窗**:Explorer 以 SW_SHOWNORMAL 启动 verb 命令,`powershell.exe -WindowStyle Hidden` 仍会闪出控制台窗口。注册命令改为 `wscript.exe scripts/open-in-dsh.vbs "%1" "<inbox>"`——vbs 是 GUI 子系统宿主、`Shell.Run ..., 0` 完全无窗;ps1 退居工人(逻辑不变),菜单已当场重新注册(无需重启即生效)。
+- **修② 采纳结果不可见**:新建的 blank 会话被官方「blank 仅当前选中可见」规则隐藏,而宿主无法直接改写客户端的当前会话。新增**宿主→客户端信号**:采纳成功后经 `settingsController.update('better-workspace', { explorerOpen: { token, workspaceId, sessionId } })` 发布一次性令牌(Row Config 与 legacy register schema 同加 `explorerOpen` 瞬态字段防剥离);客户端在 configForms 订阅里解包(Volatile ref 兼容)暂存,`BetterBrowser` 每帧检查:会话快照出现该会话即强制展开工作区 + `open(sessionId)` 切到该会话(15s 过期、重试直到可见)。老宿主无 settingsController 时自动降级回 v0.37.0 的静默行为。
+- 冒烟 68 → **71**:wscript 启动器(参数转发/隐藏风格/ps1 仍为工人/无直接 powershell verb)、令牌发布(注入点/update 调用/两时代 schema)、客户端消费(订阅解包/展开+打开/过期)三组断言。
+- 验证:注册表命令已回读为 wscript 版本;vbs 启动器实跑写入收件箱成功;语法与全量冒烟绿。
+
+## v0.37.0 — 2026-10-23
+
+**类型**:feat / 资源管理器右键「作为工作区在 DeepSeek Harness 中打开」(用户提案,对标 ChatGPT 的 Explorer 菜单)。
+
+- **一键从资源管理器开工作区**:文件夹右键菜单新增「作为工作区在 DeepSeek Harness 中打开」(HKCU\Software\Classes\Directory\shell\DSH.BetterWorkspace.Open,无需管理员,带桌面端图标)。命令行调用 `scripts/open-in-dsh.ps1`:把目录路径追加为 `<DSH_HOME>\better-workspace-open-inbox.txt` 的一行,再打开 `dsh://open` 聚焦(未运行则拉起)桌面端——`dsh` 协议由桌面壳 `setAsDefaultProtocolClient` 注册,second-instance 聚焦窗口。
+- **宿主半收件箱监视器**:`src/index.js` 不再是无副作用占位——watch DSH_HOME 目录 + 1.5s 兜底轮询,每次 drain 先把 inbox **rename 成 `.claim-<pid>` 再读**(rename 在写入方持锁时失败、下个事件重试 ⇒ 恰好一次;桌面/web 两个宿主进程共享同一收件箱也安全:重放时 `resolveByPath`/`create` 按 canonical path 幂等复用、blank 会话复用)。逐行校验「绝对路径 + 是目录」后经 **GUI adopt 流程同款两服务**采纳:`workspaceRegistry.resolveByPath`(复用)→ `create`(新建置顶)→ `sessionController.create({ workspaceId })`(建新或复用 blank 会话并挂接)。Windows 限定;菜单随宿主每次启动幂等重注册,**故意不在 dispose 时删除**(它是拉起已关闭 DSH 的入口),`scripts/unregister-explorer-menu.ps1` 手动卸载。
+- **客户端零改动**:不进启动图、不动词典/样式/拖拽;新工作区经快照自然出现在树顶。
+- 冒烟 66 → **68**:wiring 断言(仅 win32 门控、仅 HKCU、UTF-16LE+BOM 的 .reg 写入、electron execPath 才有 Icon、rename 认领、GUI 同款双服务)+ `buildExplorerMenuReg` 纯函数 eval(转义/形状/无 Icon 分支)+ 桥接/卸载脚本与 npm files 白名单断言。
+- 已知限制(v1):宿主无法把新会话切为客户端「当前会话」(那是客户端 UI 态)——新 blank 会话出现在聚焦窗口的侧栏树里;菜单文案固定中文;`仅名称` 等视图状态不受影响。
+
 ## v0.36.2 — 2026-10-23
 
 **类型**:feat / 搜索全量会话 + 区头按钮重组(用户验收反馈三点)。

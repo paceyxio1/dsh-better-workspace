@@ -1,7 +1,7 @@
 {
   "name": "dsh-better-workspace",
-  "version": "0.36.2",
-  "description": "侧边栏工作区树:按官方磁盘目录嵌套(官方 workspace-tree 语义),可选按名称中的 / 分组(默认关闭,设置里开启);工作区可手动归入项目组(存储驱动、不改标题、可多级嵌套);新会话页的工作区选择器同树。Workspace tree for the DSH sidebar: disk-path nesting (official workspace-tree semantics), with optional \"/\"-name grouping (off by default); workspaces can be binned into manual project groups (store-driven, title-preserving, nestable); the same tree in the New Session workspace picker.",
+  "version": "0.37.4",
+  "description": "侧边栏工作区树:按官方磁盘目录嵌套(官方 workspace-tree 语义),可选按名称中的 / 分组(默认关闭,设置里开启);工作区可手动归入项目组(存储驱动、不改标题、可多级嵌套);新会话页的工作区选择器同树;资源管理器右键可把目录「作为工作区打开」(仅 Windows,宿主半收件箱+注册表,不改客户端)。Workspace tree for the DSH sidebar: disk-path nesting (official workspace-tree semantics), with optional \"/\"-name grouping (off by default); workspaces can be binned into manual project groups (store-driven, title-preserving, nestable); the same tree in the New Session workspace picker; Explorer right-click can open a folder as a workspace (Windows only: host-half inbox + registry, zero client changes).",
   "type": "module",
   "repository": {
     "type": "git",
@@ -45,7 +45,8 @@
     "README_EN.md",
     "LICENSE",
     "locale",
-    "icon.svg"
+    "icon.svg",
+    "scripts"
   ],
   "scripts": {
     "test": "node --test tests/smoke.mjs",

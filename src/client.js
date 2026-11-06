@@ -81,6 +81,7 @@ window.__ModuleLoader__.load({
       'schedule.active': '有活动定时任务',
       'menu.rename': '重命名',
       'menu.delete': '删除',
+      'menu.revealInExplorer': '在资源管理器中打开',
       'menu.fork': '分叉',
       'menu.archive': '归档',
       'menu.renameFolder': '重命名分组',
@@ -262,6 +263,7 @@ window.__ModuleLoader__.load({
       'schedule.active': 'Has active scheduled task',
       'menu.rename': 'Rename',
       'menu.delete': 'Delete',
+      'menu.revealInExplorer': 'Show in Explorer',
       'menu.fork': 'Fork',
       'menu.archive': 'Archive',
       'menu.renameFolder': 'Rename folder',
@@ -451,6 +453,7 @@ window.__ModuleLoader__.load({
         'schedule.active': 'توجد مهمة مجدولة نشطة',
         'menu.rename': 'إعادة التسمية',
         'menu.delete': 'حذف',
+        'menu.revealInExplorer': 'فتح في مستكشف الملفات',
         'menu.fork': 'تفريع',
         'menu.archive': 'أرشفة',
         'menu.renameFolder': 'إعادة تسمية المجلد',
@@ -632,6 +635,7 @@ window.__ModuleLoader__.load({
         'schedule.active': 'Aktive geplante Aufgabe',
         'menu.rename': 'Umbenennen',
         'menu.delete': 'Löschen',
+        'menu.revealInExplorer': 'Im Explorer anzeigen',
         'menu.fork': 'Abzweigen',
         'menu.archive': 'Archivieren',
         'menu.renameFolder': 'Ordner umbenennen',
@@ -813,6 +817,7 @@ window.__ModuleLoader__.load({
         'schedule.active': 'Tâche planifiée active',
         'menu.rename': 'Renommer',
         'menu.delete': 'Supprimer',
+        'menu.revealInExplorer': "Afficher dans l'explorateur",
         'menu.fork': 'Bifurquer',
         'menu.archive': 'Archiver',
         'menu.renameFolder': 'Renommer le dossier',
@@ -994,6 +999,7 @@ window.__ModuleLoader__.load({
         'schedule.active': 'सक्रिय निर्धारित कार्य मौजूद',
         'menu.rename': 'नाम बदलें',
         'menu.delete': 'हटाएँ',
+        'menu.revealInExplorer': 'फ़ाइल एक्सप्लोरर में दिखाएँ',
         'menu.fork': 'शाखा बनाएँ',
         'menu.archive': 'संग्रह करें',
         'menu.renameFolder': 'फ़ोल्डर का नाम बदलें',
@@ -1175,6 +1181,7 @@ window.__ModuleLoader__.load({
         'schedule.active': 'Ada tugas terjadwal yang aktif',
         'menu.rename': 'Ganti nama',
         'menu.delete': 'Hapus',
+        'menu.revealInExplorer': 'Tampilkan di Explorer',
         'menu.fork': 'Cabangkan',
         'menu.archive': 'Arsipkan',
         'menu.renameFolder': 'Ganti nama folder',
@@ -1356,6 +1363,7 @@ window.__ModuleLoader__.load({
         'schedule.active': 'Attività pianificata attiva',
         'menu.rename': 'Rinomina',
         'menu.delete': 'Elimina',
+        'menu.revealInExplorer': 'Mostra nella cartella',
         'menu.fork': 'Dirama',
         'menu.archive': 'Archivia',
         'menu.renameFolder': 'Rinomina cartella',
@@ -1537,6 +1545,7 @@ window.__ModuleLoader__.load({
         'schedule.active': '有効なスケジュールタスクあり',
         'menu.rename': '名前を変更',
         'menu.delete': '削除',
+        'menu.revealInExplorer': 'エクスプローラーで表示',
         'menu.fork': 'フォーク',
         'menu.archive': 'アーカイブ',
         'menu.renameFolder': 'フォルダー名を変更',
@@ -1718,6 +1727,7 @@ window.__ModuleLoader__.load({
         'schedule.active': '활성 예약 작업 있음',
         'menu.rename': '이름 바꾸기',
         'menu.delete': '삭제',
+        'menu.revealInExplorer': '탐색기에서 열기',
         'menu.fork': '포크',
         'menu.archive': '보관',
         'menu.renameFolder': '폴더 이름 바꾸기',
@@ -1899,6 +1909,7 @@ window.__ModuleLoader__.load({
         'schedule.active': 'Actieve geplande taak',
         'menu.rename': 'Naam wijzigen',
         'menu.delete': 'Verwijderen',
+        'menu.revealInExplorer': 'Weergeven in Verkenner',
         'menu.fork': 'Afsplitsen',
         'menu.archive': 'Archiveren',
         'menu.renameFolder': 'Mapnaam wijzigen',
@@ -2080,6 +2091,7 @@ window.__ModuleLoader__.load({
         'schedule.active': 'Aktywne zadanie zaplanowane',
         'menu.rename': 'Zmień nazwę',
         'menu.delete': 'Usuń',
+        'menu.revealInExplorer': 'Pokaż w Eksploratorze',
         'menu.fork': 'Rozgałęź',
         'menu.archive': 'Zarchiwizuj',
         'menu.renameFolder': 'Zmień nazwę folderu',
@@ -2261,6 +2273,7 @@ window.__ModuleLoader__.load({
         'schedule.active': 'Tarefa agendada ativa',
         'menu.rename': 'Renomear',
         'menu.delete': 'Excluir',
+        'menu.revealInExplorer': 'Mostrar na pasta',
         'menu.fork': 'Bifurcar',
         'menu.archive': 'Arquivar',
         'menu.renameFolder': 'Renomear pasta',
@@ -2442,6 +2455,7 @@ window.__ModuleLoader__.load({
         'schedule.active': 'Есть активная задача по расписанию',
         'menu.rename': 'Переименовать',
         'menu.delete': 'Удалить',
+        'menu.revealInExplorer': 'Показать в проводнике',
         'menu.fork': 'Ответвить',
         'menu.archive': 'В архив',
         'menu.renameFolder': 'Переименовать папку',
@@ -2623,6 +2637,7 @@ window.__ModuleLoader__.load({
         'schedule.active': 'Aktiv schemalagd uppgift',
         'menu.rename': 'Byt namn',
         'menu.delete': 'Ta bort',
+        'menu.revealInExplorer': 'Visa i Utforskaren',
         'menu.fork': 'Förgrena',
         'menu.archive': 'Arkivera',
         'menu.renameFolder': 'Byt namn på mapp',
@@ -2804,6 +2819,7 @@ window.__ModuleLoader__.load({
         'schedule.active': 'มีงานตั้งเวลาใช้งานอยู่',
         'menu.rename': 'เปลี่ยนชื่อ',
         'menu.delete': 'ลบ',
+        'menu.revealInExplorer': 'เปิดในตัวจัดการไฟล์',
         'menu.fork': 'แยกสาย',
         'menu.archive': 'เก็บถาวร',
         'menu.renameFolder': 'เปลี่ยนชื่อโฟลเดอร์',
@@ -2985,6 +3001,7 @@ window.__ModuleLoader__.load({
         'schedule.active': 'Etkin zamanlanmış görev var',
         'menu.rename': 'Yeniden adlandır',
         'menu.delete': 'Sil',
+        'menu.revealInExplorer': 'Dosya Gezgininde aç',
         'menu.fork': 'Çatalla',
         'menu.archive': 'Arşivle',
         'menu.renameFolder': 'Klasörü yeniden adlandır',
@@ -3166,6 +3183,7 @@ window.__ModuleLoader__.load({
         'schedule.active': 'Có tác vụ hẹn giờ đang hoạt động',
         'menu.rename': 'Đổi tên',
         'menu.delete': 'Xóa',
+        'menu.revealInExplorer': 'Hiển thị trong File Explorer',
         'menu.fork': 'Tách nhánh',
         'menu.archive': 'Lưu trữ',
         'menu.renameFolder': 'Đổi tên thư mục',
@@ -3347,6 +3365,7 @@ window.__ModuleLoader__.load({
         'schedule.active': '有進行緊嘅定時任務',
         'menu.rename': '重新命名',
         'menu.delete': '刪除',
+        'menu.revealInExplorer': '在資源管理員中開啟',
         'menu.fork': '分叉',
         'menu.archive': '封存',
         'menu.renameFolder': '重新命名分組',
@@ -3528,6 +3547,7 @@ window.__ModuleLoader__.load({
         'schedule.active': '有進行緊嘅定時任務',
         'menu.rename': '重新命名',
         'menu.delete': '刪除',
+        'menu.revealInExplorer': '在資源管理員中開啟',
         'menu.fork': '分叉',
         'menu.archive': '封存',
         'menu.renameFolder': '重新命名分組',
@@ -3709,6 +3729,7 @@ window.__ModuleLoader__.load({
         'schedule.active': '有進行中的排程工作',
         'menu.rename': '重新命名',
         'menu.delete': '刪除',
+        'menu.revealInExplorer': '在檔案總管中開啟',
         'menu.fork': '分支',
         'menu.archive': '封存',
         'menu.renameFolder': '重新命名群組',
@@ -3866,6 +3887,18 @@ window.__ModuleLoader__.load({
      */
     const splitPlainSegs = (text) => {
       const s = String(text || '')
+      // v0.37.3: PATH-SHAPED text is opaque. Auto-generated session titles
+      // echo the file path the turn touched, and splitting one shreds it into
+      // a folder per directory level ("…/bidjingjia/pages/cqjyjingjia" became
+      // three nested session groups — user report: "对话会突然多几层目录结构").
+      // Same class as the URL tail right below: a machine-shaped string is not
+      // a user-authored "group/name" title. Detection deliberately stays
+      // narrow — a Windows drive prefix anywhere (covers "@C:/…" references),
+      // a UNC prefix, or mixed separators — so plain "前端/后端" still splits.
+      if (/[A-Za-z]:[\\/]/.test(s) || s.startsWith('\\\\') || (s.includes('\\') && s.includes('/'))) {
+        const whole = s.trim()
+        return whole === '' ? [] : [whole]
+      }
       const schemeAt = s.indexOf('://')
       if (schemeAt === -1) return s.split('/').map(x => x.trim()).filter(Boolean)
       const cut = s.lastIndexOf('/', schemeAt)
@@ -4384,13 +4417,19 @@ window.__ModuleLoader__.load({
      * parent as parentId (the session controller maps parentSessionId to
      * parentId on the wire); the old parentSessionId spelling is kept as a
      * fallback for profiles serving the pre-rename shape.
+     * v0.37.2: ONLY origin === 'subagent' rows may join the lineage —
+     * forked sessions also carry parentId (the fork source), and without
+     * the origin gate a running fork lit its entire ancestor chain with the
+     * "ongoing" spinner (user report: fork one session, message one fork,
+     * the source AND the sibling fork both showed the loading ring).
      */
     const subagentRunningCounts = (byId) => {
       const children = new Map()
       for (const id of Object.keys(byId || {})) {
         const summary = byId[id]
-        const parentId = summary && (summary.parentId || summary.parentSessionId)
-        if (!summary || !parentId) continue
+        if (!summary || summary.origin !== 'subagent') continue
+        const parentId = summary.parentId || summary.parentSessionId
+        if (!parentId) continue
         let list = children.get(parentId)
         if (!list) { list = []; children.set(parentId, list) }
         list.push(summary)
@@ -5558,6 +5597,16 @@ window.__ModuleLoader__.load({
     // the only world where CROSS-DEVICE sync makes sense) or 'configForms'
     // (dsh >= 0.1.7, per-profile patch persistence). null = browser-local.
     let prefsScopeVia = null
+    // v0.37.1: host->client signal for the Explorer "Open as workspace" menu.
+    // After the host watcher adopts an inbox line (workspace + session
+    // created), it publishes { token, workspaceId, sessionId } through the
+    // 'better-workspace' settings namespace (settingsController.update — the
+    // same document the configForms mirror derives from, so the client form
+    // subscription below fires). The subscribe callback stages the newest
+    // token here; BetterBrowser consumes it once the session snapshot
+    // contains the new session. Module-level on purpose: the subscription
+    // lives in apply(), the consumption in the component.
+    const explorerOpenSignal = { handled: null, pending: null }
     const HOST_SNAP_UNAVAILABLE = { status: 'unavailable', value: undefined }
     const hostPrefsOf = (snap) => (snap && snap.status === 'ready' && snap.value && typeof snap.value === 'object'
       ? snap.value
@@ -7758,6 +7807,7 @@ window.__ModuleLoader__.load({
         shippedBrowserFace, scheduleSeatReader, seatEntriesReader,
         officialT,
         presetFaceOf,
+        revealFaceOf,
         t,
       } = props
       // Issue #13: local reads and writes go through OUR store instance, never
@@ -7776,6 +7826,10 @@ window.__ModuleLoader__.load({
       // Every consumer below keeps reading this local, so a late-arriving
       // agent-preset service is picked up by the next render's menu build.
       const presetFace = typeof presetFaceOf === 'function' ? presetFaceOf() : null
+      // v0.37.4: "Show in Explorer" rides the official session Remote
+      // namespace (see apply); resolved per render for the same late-arrival
+      // reason as the preset face above.
+      const revealFace = typeof revealFaceOf === 'function' ? revealFaceOf() : null
 
       if (typeof useWorkspaces !== 'function' || typeof useSessions !== 'function') {
         console.error('[dsh-better-workspace] standard snapshot hooks missing; browser renders nothing')
@@ -7798,6 +7852,27 @@ window.__ModuleLoader__.load({
       // simply never see pinned rows or pin actions.
       const pinnedSessionIds = useWorkspaces(s => s.pinnedSessionIds) || []
       const list = useSessions(s => s)
+      // v0.37.1: reveal a session adopted through the Explorer "Open as
+      // workspace" menu. The host watcher publishes { token, workspaceId,
+      // sessionId } into the settings namespace after adopting; the
+      // configForms subscription in apply() stages it in explorerOpenSignal
+      // (module-level ref — no React state on purpose), and here — where the
+      // session snapshot, the view-store actions and the injected open() are
+      // all in scope — the workspace is force-expanded and the new session
+      // becomes current. No deps array: the retry-until-visible loop rides on
+      // the snapshot ticks that follow the adoption itself, and a 15s expiry
+      // drops tokens whose session never materializes.
+      React.useEffect(() => {
+        const pendingOpen = explorerOpenSignal.pending
+        if (!pendingOpen) return
+        if (Date.now() - pendingOpen.at > 15000) { explorerOpenSignal.pending = null; return }
+        if (!list || !list.byId || !list.byId[pendingOpen.sessionId]) return
+        explorerOpenSignal.pending = null
+        if (pendingOpen.workspaceId && actions && typeof actions.setSessionsExpanded === 'function') {
+          actions.setSessionsExpanded(String(pendingOpen.workspaceId), true)
+        }
+        if (typeof open === 'function') open(pendingOpen.sessionId)
+      })
       // Session UI status, BOTH eras: dsh 0.1.7 replaced the pending-only
       // hook with the unified status map (running / pendingInteraction /
       // completionUnread). Prefer it when bound; the legacy hook stays the
@@ -9806,6 +9881,10 @@ window.__ModuleLoader__.load({
           ]
           return [
             { id: 'rename', label: ot ? ot('rename') : t('menu.rename'), icon: icon('IconEditOutline16', 16) },
+            // v0.37.4: official file-manager hop (session.openWorkspacePath
+            // with action 'reveal'). Hidden where the host does not serve the
+            // namespace — never promise what the host cannot do.
+            ...(revealFace ? [{ id: 'reveal', label: t('menu.revealInExplorer'), icon: icon('IconFolderOpenOutline16', 16) }] : []),
             { id: 'delete', label: ot ? ot('delete.workspace') : t('menu.delete'), icon: icon('IconTrashOutline16', 16), danger: true },
             { type: 'separator', id: 'bw-sep' },
             ...wsGroupItems,
@@ -9883,6 +9962,23 @@ window.__ModuleLoader__.load({
         else if (kind === 'folder' && id === 'delete-folder') setDialog({ kind: 'folder-delete', path: payload.path, scope: payload.scope, name: payload.name })
         else if (kind === 'sgroup' && id === 'delete-sgroup') setDialog({ kind: 'sgroup-delete', target: payload })
         else if (kind === 'workspace' && id === 'rename') setDialog({ kind: 'ws-rename', workspace: payload })
+        else if (kind === 'workspace' && id === 'reveal') {
+          // v0.37.4: hand the workspace directory to the Host's native file
+          // manager through the official channel (no shell strings of our
+          // own, no path guessing — the Host validates it). Failures are
+          // logged, not surfaced as a modal: a host without a desktop session
+          // simply refuses, and that is not an error the user must dismiss.
+          const targetPath = payload && payload.path ? String(payload.path) : ''
+          if (revealFace && targetPath !== '') {
+            void Promise.resolve(revealFace.reveal(targetPath)).then((result) => {
+              if (result && result.ok === false) {
+                console.warn('[dsh-better-workspace] reveal failed:', result.error)
+              }
+            }, (error) => {
+              console.warn('[dsh-better-workspace] reveal failed:', error)
+            })
+          }
+        }
         else if (kind === 'workspace' && id === 'delete') setDialog({ kind: 'ws-delete', workspace: payload })
         else if (kind === 'workspace' && id === 'ws-preset' && presetFace) {
           // Freeze the target NOW (the dialog outlives the menu ctx): the
@@ -10689,6 +10785,66 @@ window.__ModuleLoader__.load({
         }
       }
 
+      // v0.37.4: "Show in Explorer" for a workspace row. The OFFICIAL channel
+      // is the session Remote namespace's openWorkspacePath — the host
+      // verifies the path through the composed filesystem and hands it to the
+      // native adapter; `action: 'reveal'` means file-manager navigation
+      // (omitting it would open the file-type association instead). Same
+      // late-arrival discipline as the preset face above: probe the property
+      // chain, fall back to the strict get, then WAIT on a soft inject so a
+      // host that mounts the namespace later still grows the menu entry — and
+      // a host without it simply never shows the entry (honest absence).
+      let revealFace = null
+      const revealNsOf = (remote) => {
+        const ns = remote && remote.session
+        return ns && typeof ns.openWorkspacePath === 'function' ? ns : null
+      }
+      const buildRevealFace = (ns) => ({
+        // Resolves { ok: true } or { ok: false, error } — the caller only
+        // logs a failure; a missing native adapter is not a user-facing
+        // emergency (the host refuses with its own code).
+        reveal: async (path) => {
+          const target = String(path || '')
+          if (target === '') return { ok: false, error: 'no path' }
+          try {
+            const result = await ns.openWorkspacePath({ path: target, action: 'reveal' })
+            if (result && result.ok === false) {
+              const message = result.error && result.error.message
+                ? result.error.message
+                : String(result.error && result.error.code || 'reveal refused')
+              return { ok: false, error: message }
+            }
+            return { ok: true }
+          } catch (error) {
+            return { ok: false, error: error instanceof Error ? error.message : String(error) }
+          }
+        },
+      })
+      try {
+        let sessionNs = null
+        try { sessionNs = revealNsOf(ctx.remote) } catch { /* property chain */ }
+        if (!sessionNs) {
+          try { sessionNs = revealNsOf(ctx.get('remote')) } catch { /* provider pends */ }
+        }
+        if (sessionNs) revealFace = buildRevealFace(sessionNs)
+      } catch (revealProbeError) {
+        console.warn('[dsh-better-workspace] reveal face unavailable', revealProbeError)
+      }
+      if (!revealFace && ctx && typeof ctx.inject === 'function') {
+        try {
+          ctx.inject(['remote', 'remote.session'], (fctx) => {
+            try {
+              const ns = fctx && fctx['remote.session']
+              if (ns && typeof ns.openWorkspacePath === 'function') revealFace = buildRevealFace(ns)
+            } catch (lateRevealError) {
+              console.warn('[dsh-better-workspace] reveal late face failed', lateRevealError)
+            }
+          })
+        } catch (revealInjectError) {
+          console.warn('[dsh-better-workspace] reveal soft inject failed', revealInjectError)
+        }
+      }
+
       if (ctx.locale && typeof ctx.locale.register === 'function') {
         ctx.effect(() => {
           try {
@@ -10751,6 +10907,11 @@ window.__ModuleLoader__.load({
         // closure live, so every render and every menu build re-asks; hosts
         // without the service keep returning null, which simply hides the row.
         presetFaceOf: () => presetFace,
+        // v0.37.4: the "Show in Explorer" face (official session Remote
+        // namespace). Same stable-getter discipline as presetFaceOf — the
+        // renderer caches inject results, so a value would freeze the null
+        // from the first render and permanently hide the menu entry.
+        revealFaceOf: () => revealFace,
         // Issue #13: the PRIVATE store face — a stable getter like presetFaceOf
         // (the slot renderer caches inject results; keep the same discipline
         // even though this face never changes).
@@ -10937,6 +11098,33 @@ window.__ModuleLoader__.load({
               if (forms && typeof forms.get === 'function') {
                 prefsScopeRef = forms.get('better-workspace')
                 prefsScopeVia = 'configForms'
+                // v0.37.1: watch the host-published explorerOpen token (the
+                // Explorer "Open as workspace" adoption signal). Live fields
+                // may arrive as Volatile refs, so unwrap before comparing.
+                const form = prefsScopeRef
+                if (form && typeof form.subscribe === 'function' && typeof form.getSnapshot === 'function') {
+                  const watchExplorerOpen = () => {
+                    try {
+                      const snap = form.getSnapshot()
+                      const value = snap && snap.value
+                      const box = value && value.explorerOpen
+                      const token = box && (typeof box.get === 'function' ? box.get() : box)
+                      if (token && typeof token === 'object' && token.token
+                        && token.token !== explorerOpenSignal.handled) {
+                        explorerOpenSignal.handled = token.token
+                        explorerOpenSignal.pending = {
+                          sessionId: token.sessionId,
+                          workspaceId: token.workspaceId,
+                          at: Date.now(),
+                        }
+                      }
+                    } catch (error) {
+                      console.warn('[dsh-better-workspace] explorerOpen watch failed', error)
+                    }
+                  }
+                  watchExplorerOpen()
+                  form.subscribe(watchExplorerOpen)
+                }
               }
             } catch (error) {
               console.warn('[dsh-better-workspace] configForms acquisition failed', error)
