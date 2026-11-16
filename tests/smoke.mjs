@@ -2087,8 +2087,9 @@ test('customize dialog honors the Modal height contract (v0.27.1, issue #10)', (
   assert.ok(seg.includes("contentClassName: 'bw-custom-scroll'"),
     'CustomizeDialog must pass contentClassName to ui.Modal')
   // No accidental spread: exactly the CSS declarations + the one call site.
-  assert.equal((text.match(/bw-custom-dialog/g) || []).length, 3,
-    'bw-custom-dialog must appear exactly 3 times (css ×2 + className ×1)')
+  // v0.37.8 adds a third css occurrence (the 480px body-width override).
+  assert.equal((text.match(/bw-custom-dialog/g) || []).length, 4,
+    'bw-custom-dialog must appear exactly 4 times (css ×3 + className ×1)')
   assert.equal((text.match(/bw-custom-scroll/g) || []).length, 2,
     'bw-custom-scroll must appear exactly 2 times (css ×1 + contentClassName ×1)')
 })

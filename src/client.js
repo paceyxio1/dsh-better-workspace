@@ -5217,6 +5217,11 @@ window.__ModuleLoader__.load({
       // issue #10: Modal 高度契约 — 卡片按 Modal 的 padding box 限高,超高内容滚 contentClassName 区
       // (官方 RiskConfirmation 同款范式;.dialog 为 overflow:hidden,不限高则上下被裁)
       '.bw-custom-dialog{max-height:100%}',
+      // v0.37.8: the per-state pulse rows (label + auto + 6 presets + picker)
+      // need more width than the generic 380px modal body offers — without
+      // this each row wraps onto a second line. Other modals (errors) keep
+      // the narrow shape.
+      '.bw-custom-dialog .bw-modal-body{max-width:480px}',
       '.bw-custom-scroll{min-height:0;overflow-y:auto;overscroll-behavior:contain}',
       '@supports (height:100dvh){.bw-custom-dialog{max-height:calc(100dvh - 48px)}}',
       '.bw-field{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--dsw-alias-label-secondary,#b8b8b8)}',
