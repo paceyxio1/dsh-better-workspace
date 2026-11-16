@@ -596,6 +596,47 @@ test('outline: label keeps a bleed, meta column stays unstroked (0.10.1)', () =>
 })
 
 /**
+ * Status-glow pick (v0.37.5): the Customize dialog gains a per-row breathing
+ * color for the rows that relay hidden status lights. Auto (no `pulse` key)
+ * keeps the official per-state colors; a pick pins the color regardless of
+ * state. The pick rides the styling entry, is hex-validated, and must reach
+ * PulseGlow explicitly — the span's own inline --bw-pulse-color would
+ * otherwise shadow any row-level override.
+ */
+test('customize: status glow pick rides the styling entry and reaches icon + dot breathing (v0.37.5)', () => {
+  const text = read('src/client.js')
+  // The pick is offered exactly for the rows that can breathe (workspace /
+  // folder / project-group icons, session-group dots) — never for sessions.
+  assert.match(text, /const allowPulse = kind === 'folder' \|\| kind === 'workspace' \|\| kind === 'pgroup' \|\| kind === 'sgroup'/,
+    'the dialog gates the pick to the breathing kinds')
+  assert.equal((text.match(/allowPulse \? E\('div', \{ className: 'bw-field' \}/g) || []).length, 1,
+    'exactly one pulse field, inside AppearanceControls (allowPulse default falsy keeps the settings card clean)')
+  // rowStyleOf emits the variable only for a hex-valid pick (auto:N tokens
+  // and garbage must not reach CSS).
+  assert.match(text, /typeof entry\.pulse === 'string' && colorToRgb\(entry\.pulse\)\) style\['--bw-pulse-color'\] = entry\.pulse/,
+    'rowStyleOf emits the pick as a CSS variable behind hex validation')
+  // PulseGlow honors an explicit override; official state colors stay the
+  // fallback, and every breathing row forwards its pick.
+  assert.match(text, /function PulseGlow\(\{ state, color, children \}\)/, 'PulseGlow takes the explicit color')
+  assert.match(text, /color \|\| PULSE_COLORS\[state\] \|\| PULSE_COLORS\.ongoing/, 'state colors remain the fallback')
+  assert.equal((text.match(/color: pulseColor \}/g) || []).length, 2, 'folder + workspace rows forward the pick')
+  assert.match(text, /PulseGlow, \{ state: pulse, color: custStyle && custStyle\['--bw-pulse-color'\] \}/,
+    'session-group dots take the pick too')
+  // Dialog wiring: seeding from the raw entry, surviving unrelated patches,
+  // and Auto committing as an ABSENT key (empty pick must not store '').
+  assert.match(text, /pulse: \(seed && typeof seed\.pulse === 'string' && colorToRgb\(seed\.pulse\)\) \? seed\.pulse : ''/,
+    'the draft seeds the pick from the raw styling entry')
+  assert.match(text, /pulse: typeof prev\.pulse === 'string' \? prev\.pulse : ''/,
+    'the reducer carries the pick across patches of unrelated fields')
+  assert.match(text, /\.\.\.\(allowPulse \? \{ pulse: draft\.pulse \|\| undefined \} : \{\}\)/,
+    'Auto commits as an absent key, not an empty string')
+  // Presets are plain hex (the color input inherits them verbatim).
+  const presets = new Function('return ' + /const PULSE_PRESETS = (\[[^\]]*\])/.exec(text)[1])()
+  assert.ok(presets.length >= 6, 'the preset row ships the official colors plus distinct hues')
+  for (const preset of presets) assert.match(preset, /^#[0-9a-f]{6}$/, 'presets are plain hex colors')
+})
+
+/**
  * Icon compatibility (0.10.2): dsh 0.1.6-alpha.1 replaced part of the
  * primitives icon set (IconSendOutline16 -> IconPaperPlaneOutline14 and
  * friends), so a persisted custom icon naming a retired glyph must resolve to a
