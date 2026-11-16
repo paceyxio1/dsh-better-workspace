@@ -3,6 +3,15 @@
 > 倒序排列,新版本条目在最上面。条目格式:`## vX.Y.Z — YYYY-MM-DD` + 类型(feat / fix / docs / chore)+ 要点 + 相关链接。
 > 纪律见 AGENTS.md「变更记录纪律」:发版前先更新本文件并随版本提交;事故复盘、复现与真机验证记录也记在这里。
 
+## v0.37.9 — 2026-11-16
+
+**类型**:fix / v0.37.8 加宽无效的真根因(用户反馈:「重启以后没有变化啊」)。
+
+- **溯源**:从安装包 `app.asar` 解出官方 ui-primitives Modal 的编译 CSS——**官方 dialog 外壳自身带 `width:min(380px,100%)`**(`._dialog_14mp3_33`)。我们挂在 Modal `className` 上的自定义类与官方 `_dialog_` 落在**同一个元素**上;而 v0.37.8 把宽度覆盖写在了**内层 body**(`.bw-modal-body`)上,被外壳的 380px 卡死,自然毫无效果——`.bw-modal-body{max-width:380px}` 从来就不是约束,官方外壳才是。
+- **修复**:宽度覆盖上移到 dialog 层——`.bw-custom-dialog{max-height:100%;width:min(560px,100%)}`(同特异性,插件样式表挂在宿主样式表之后,级联顺序取胜——与 v0.27.1 高度覆盖同款机制);body 的通用 380 上限在宽对话框内解除(`max-width:none`),外壳宽度成为唯一事实源。560px 下逐状态呼吸色三行单行排布,窄窗口回落 100%。
+- **取证方法**(记档):asar 文件头布局 `[u32=4][u32 pickleSize][u32 jsonLen][u32 jsonLen-4][json][files]`,JSON 起始 offset 16、文件区 base = 8 + pickleSize;CSS modules 类名 hash 化,先从导出表(`Modal:wy`/`modalSelector:my`)定位组件,再按 hash 类名(`_dialog_14mp3_33`)反查 .css 资产。
+- 冒烟:Modal 契约测试的宽度断言改锁 dialog 层覆盖串(防回归到 body 层无效写法)。
+
 ## v0.37.8 — 2026-11-16
 
 **类型**:fix / Customize 对话框加宽(用户反馈:「这个设置框太窄了」)。

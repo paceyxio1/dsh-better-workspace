@@ -2072,8 +2072,8 @@ test('customize dialog honors the Modal height contract (v0.27.1, issue #10)', (
   // reset/done unreachable below ~1074px). The official contract caps growth
   // against the Modal padding box (max-height:100%) and scrolls the content
   // region (contentClassName), exactly like the in-tree RiskConfirmation.
-  assert.ok(text.includes("'.bw-custom-dialog{max-height:100%}'"),
-    'the card needs the max-height cap')
+  assert.ok(text.includes("'.bw-custom-dialog{max-height:100%;width:min(560px,100%)}'"),
+    'the card needs the max-height cap AND the dialog-level width override (the official Modal frame ships width:min(380px,100%) — v0.37.8 proved a body-level override does nothing)')
   assert.ok(text.includes("'.bw-custom-scroll{min-height:0;overflow-y:auto;overscroll-behavior:contain}'"),
     'the content region needs its own scroll + overscroll containment')
   assert.ok(text.includes("@supports (height:100dvh){.bw-custom-dialog{max-height:calc(100dvh - 48px)}}"),

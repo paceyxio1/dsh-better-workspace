@@ -5216,14 +5216,19 @@ window.__ModuleLoader__.load({
       '.bw-modal-body{display:flex;flex-direction:column;gap:10px;min-width:300px;max-width:380px;box-sizing:border-box}',
       // issue #10: Modal 高度契约 — 卡片按 Modal 的 padding box 限高,超高内容滚 contentClassName 区
       // (官方 RiskConfirmation 同款范式;.dialog 为 overflow:hidden,不限高则上下被裁)
-      '.bw-custom-dialog{max-height:100%}',
-      // v0.37.8: the per-state pulse rows (label + auto + 6 presets + picker)
-      // need more width than the generic 380px modal body offers — without
-      // this each row wraps onto a second line. Other modals (errors) keep
-      // the narrow shape.
-      '.bw-custom-dialog .bw-modal-body{max-width:480px}',
+      // v0.37.9: the OFFICIAL dialog frame itself ships width:min(380px,100%)
+      // (ui-primitives Modal CSS) — that shell cap is why v0.37.8's body-level
+      // override did nothing. Our custom dialog class lands on the SAME
+      // element as the official _dialog_ class (de(Fn.dialog, className)), so
+      // a same-specificity width override here wins on cascade order (plugin
+      // styles attach after the host stylesheet). 560px fits the per-state
+      // pulse rows on one line; narrow windows fall back to 100%.
+      '.bw-custom-dialog{max-height:100%;width:min(560px,100%)}',
       '.bw-custom-scroll{min-height:0;overflow-y:auto;overscroll-behavior:contain}',
       '@supports (height:100dvh){.bw-custom-dialog{max-height:calc(100dvh - 48px)}}',
+      // The generic body cap (380px) must not re-clamp inside the widened
+      // dialog — the shell width above is the single source of truth.
+      '.bw-custom-dialog .bw-modal-body{max-width:none}',
       '.bw-field{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--dsw-alias-label-secondary,#b8b8b8)}',
       '.bw-appearance{display:flex;flex-direction:column;gap:10px}',
       '.bw-appearance-box{margin-top:8px;padding:10px 12px;border:1px solid var(--dsw-alias-border-l1,rgba(127,127,127,.22));border-radius:8px;background:var(--dsw-alias-bg-layer-2,rgba(127,127,127,.06))}',
