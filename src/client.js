@@ -172,7 +172,11 @@ window.__ModuleLoader__.load({
       'custom.strokeColor.auto': '自动',
       'custom.pulse': '状态呼吸色',
       'custom.pulse.auto': '跟随状态',
-      'custom.pulse.hint': '被收起的会话有完成或等待操作时,工作区 / 分组行的图标会以该颜色呼吸;默认跟随官方状态色(完成绿 / 运行蓝 / 待交互琥珀)。',
+      'custom.pulse.warning': '待审批',
+      'custom.pulse.ongoing': '运行中',
+      'custom.pulse.done': '已完成',
+      'custom.pulse.recurse': '应用到子目录',
+      'custom.pulse.hint': '折叠的会话有状态灯时,工作区 / 分组行按状态呼吸;每个状态可单独设色,未设置的状态跟随官方色;勾选「应用到子目录」后,分组下面的子分组与工作区沿用同一设置。',
       'custom.weak': '弱',
       'custom.medium': '中',
       'custom.strong': '强',
@@ -357,7 +361,11 @@ window.__ModuleLoader__.load({
       'custom.strokeColor.auto': 'Auto',
       'custom.pulse': 'Status glow color',
       'custom.pulse.auto': 'Follow status',
-      'custom.pulse.hint': 'When a collapsed workspace holds sessions that finished or wait for input, its icon breathes in this color; by default it follows the official status colors (done green / running blue / pending amber).',
+      'custom.pulse.warning': 'Pending approval',
+      'custom.pulse.ongoing': 'Running',
+      'custom.pulse.done': 'Done',
+      'custom.pulse.recurse': 'Apply to subfolders',
+      'custom.pulse.hint': 'When a collapsed workspace holds sessions with a status, its icon breathes per state; color each state separately — unset states follow the official colors. "Apply to subfolders" extends the settings to the subfolders and workspaces below.',
       'custom.weak': 'Subtle',
       'custom.medium': 'Medium',
       'custom.strong': 'Strong',
@@ -550,7 +558,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': 'تلقائي',
         'custom.pulse': 'لون نبض الحالة',
         'custom.pulse.auto': 'حسب الحالة',
-        'custom.pulse.hint': 'عندما تحتوي مساحة عمل مطوية على جلسات منتهية أو بانتظار إدخال، يتنفّس رمزها بهذا اللون؛ افتراضياً يتبع ألوان الحالة الرسمية (مكتمل أخضر / قيد التشغيل أزرق / بانتظار كهرماني).',
+        'custom.pulse.warning': 'بانتظار الموافقة',
+        'custom.pulse.ongoing': 'قيد التشغيل',
+        'custom.pulse.done': 'مكتمل',
+        'custom.pulse.recurse': 'تطبيق على المجلدات الفرعية',
+        'custom.pulse.hint': 'عندما تحتوي مساحة عمل مطوية على جلسات ذات حالة، يتنفّس رمزها حسب الحالة؛ يمكن تلوين كل حالة على حدة والحالات غير المحددة تتبع الألوان الرسمية؛ «تطبيق على المجلدات الفرعية» يمدد الإعدادات إلى المجلدات الفرعية ومساحات العمل تحتها.',
         'custom.weak': 'ضعيف',
         'custom.medium': 'متوسط',
         'custom.strong': 'قوي',
@@ -735,7 +747,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': 'Automatisch',
         'custom.pulse': 'Status-Pulsfarbe',
         'custom.pulse.auto': 'Nach Status',
-        'custom.pulse.hint': 'Enthält ein eingeklappter Arbeitsbereich Sitzungen, die fertig sind oder auf Eingabe warten, atmet sein Symbol in dieser Farbe; standardmäßig folgt es den offiziellen Statusfarben (fertig grün / läuft blau / wartet bernstein).',
+        'custom.pulse.warning': 'Wartet auf Freigabe',
+        'custom.pulse.ongoing': 'Läuft',
+        'custom.pulse.done': 'Fertig',
+        'custom.pulse.recurse': 'Auf Unterordner anwenden',
+        'custom.pulse.hint': 'Atmet das Symbol eines eingeklappten Arbeitsbereichs je nach Status, lässt sich jeder Status einzeln färben — nicht gesetzte folgen den offiziellen Farben. „Auf Unterordner anwenden“ erstreckt die Einstellungen auf die Unterordner und Arbeitsbereiche darunter.',
         'custom.weak': 'Schwach',
         'custom.medium': 'Mittel',
         'custom.strong': 'Stark',
@@ -920,7 +936,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': 'Auto',
         'custom.pulse': "Couleur du voyant d'état",
         'custom.pulse.auto': "Selon l'état",
-        'custom.pulse.hint': "Quand un espace de travail replié contient des sessions terminées ou en attente, son icône respire dans cette couleur; par défaut elle suit les couleurs d'état officielles (terminé vert / en cours bleu / en attente ambre).",
+        'custom.pulse.warning': "En attente d'approbation",
+        'custom.pulse.ongoing': 'En cours',
+        'custom.pulse.done': 'Terminé',
+        'custom.pulse.recurse': 'Appliquer aux sous-dossiers',
+        'custom.pulse.hint': "Quand un espace de travail replié contient des sessions avec un état, son icône respire selon l'état; chaque état se colore séparément — les états non définis suivent les couleurs officielles. « Appliquer aux sous-dossiers » étend les réglages aux sous-dossiers et espaces de travail en dessous.",
         'custom.weak': 'Faible',
         'custom.medium': 'Moyen',
         'custom.strong': 'Fort',
@@ -1105,7 +1125,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': 'स्वतः',
         'custom.pulse': 'स्थिति चमक रंग',
         'custom.pulse.auto': 'स्थिति के अनुसार',
-        'custom.pulse.hint': 'जब समेटा हुआ कार्यक्षेत्र पूर्ण या इनपुट की प्रतीक्षा करने वाले सत्र रखता है, तो उसका चिह्न इस रंग में साँस लेता है; डिफ़ॉल्ट रूप से यह आधिकारिक स्थिति रंगों का अनुसरण करता है (पूर्ण हरी / चल रही नीली / प्रतीक्षारत अंबर)।',
+        'custom.pulse.warning': 'प्रतीक्षारत',
+        'custom.pulse.ongoing': 'चल रहा है',
+        'custom.pulse.done': 'पूर्ण',
+        'custom.pulse.recurse': 'उपफ़ोल्डरों पर लागू करें',
+        'custom.pulse.hint': 'जब समेटे कार्यक्षेत्र में स्थिति वाले सत्र हों, तो उसका चिह्न स्थिति के अनुसार साँस लेता है; हर स्थिति का रंग अलग सेट करें — अनसेट स्थितियाँ आधिकारिक रंगों का अनुसरण करती हैं। "उपफ़ोल्डरों पर लागू करें" सेटिंग को नीचे के उपफ़ोल्डरों और कार्यक्षेत्रों तक फैलाता है।',
         'custom.weak': 'हल्का',
         'custom.medium': 'मध्यम',
         'custom.strong': 'तीव्र',
@@ -1290,7 +1314,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': 'Otomatis',
         'custom.pulse': 'Warna napas status',
         'custom.pulse.auto': 'Ikuti status',
-        'custom.pulse.hint': 'Saat ruang kerja terlipat memuat sesi yang selesai atau menunggu masukan, ikonnya bernapas dengan warna ini; secara bawaan mengikuti warna status resmi (selesai hijau / berjalan biru / menunggu kuning).',
+        'custom.pulse.warning': 'Menunggu persetujuan',
+        'custom.pulse.ongoing': 'Berjalan',
+        'custom.pulse.done': 'Selesai',
+        'custom.pulse.recurse': 'Terapkan ke subfolder',
+        'custom.pulse.hint': 'Saat ruang kerja terlipat memuat sesi dengan status, ikonnya bernapas per status; warnai tiap status secara terpisah — status yang tidak diisi mengikuti warna resmi. "Terapkan ke subfolder" menerapkan pengaturan ke subfolder dan ruang kerja di bawahnya.',
         'custom.weak': 'Lemah',
         'custom.medium': 'Sedang',
         'custom.strong': 'Kuat',
@@ -1475,7 +1503,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': 'Auto',
         'custom.pulse': 'Colore del respiro di stato',
         'custom.pulse.auto': 'Segui lo stato',
-        'custom.pulse.hint': "Quando un'area di lavoro compressa contiene sessioni completate o in attesa, la sua icona respira in questo colore; per impostazione predefinita segue i colori di stato ufficiali (completato verde / in esecuzione blu / in attesa ambra).",
+        'custom.pulse.warning': 'In attesa di approvazione',
+        'custom.pulse.ongoing': 'In esecuzione',
+        'custom.pulse.done': 'Completato',
+        'custom.pulse.recurse': 'Applica alle sottocartelle',
+        'custom.pulse.hint': "Quando un'area di lavoro compressa contiene sessioni con uno stato, la sua icona respira per stato; ogni stato si colora separatamente — gli stati non impostati seguono i colori ufficiali. «Applica alle sottocartelle» estende le impostazioni alle sottocartelle e alle aree di lavoro sottostanti.",
         'custom.weak': 'Debole',
         'custom.medium': 'Medio',
         'custom.strong': 'Forte',
@@ -1660,7 +1692,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': '自動',
         'custom.pulse': 'ステータス呼吸色',
         'custom.pulse.auto': 'ステータスに従う',
-        'custom.pulse.hint': '折りたたまれたワークスペースに完了または操作待ちのセッションがあるとき,アイコンがこの色で明滅します;既定では公式のステータス色(完了緑 / 実行中青 / 操作待ち琥珀)に従います。',
+        'custom.pulse.warning': '承認待ち',
+        'custom.pulse.ongoing': '実行中',
+        'custom.pulse.done': '完了',
+        'custom.pulse.recurse': 'サブフォルダーへ適用',
+        'custom.pulse.hint': '折りたたまれたワークスペースに状態を持つセッションがあるとき,アイコンは状態ごとに明滅します;状態ごとに個別に色を設定でき,未設定の状態は公式の色に従います。「サブフォルダーへ適用」で下のサブフォルダーとワークスペースにも同じ設定が広がります。',
         'custom.weak': '弱',
         'custom.medium': '中',
         'custom.strong': '強',
@@ -1845,7 +1881,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': '자동',
         'custom.pulse': '상태 호흡 색',
         'custom.pulse.auto': '상태 따르기',
-        'custom.pulse.hint': '접힌 워크스페이스에 완료되었거나 입력을 기다리는 세션이 있으면 아이콘이 이 색으로 호흡합니다; 기본값은 공식 상태 색(완료 초록 / 실행 파랑 / 대기 호박색)을 따릅니다.',
+        'custom.pulse.warning': '승인 대기 중',
+        'custom.pulse.ongoing': '실행 중',
+        'custom.pulse.done': '완료',
+        'custom.pulse.recurse': '하위 폴더에 적용',
+        'custom.pulse.hint': '접힌 워크스페이스에 상태가 있는 세션이 있으면 아이콘이 상태별로 호흡합니다; 상태별로 색을 따로 지정할 수 있고, 지정하지 않은 상태는 공식 색을 따릅니다. 「하위 폴더에 적용」을 선택하면 아래 하위 폴더와 워크스페이스에도 같은 설정이 적용됩니다.',
         'custom.weak': '약',
         'custom.medium': '중간',
         'custom.strong': '강',
@@ -2030,7 +2070,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': 'Automatisch',
         'custom.pulse': 'Statusademkleur',
         'custom.pulse.auto': 'Volg status',
-        'custom.pulse.hint': 'Als een ingeklapte werkruimte sessies bevat die klaar zijn of op invoer wachten, ademt het pictogram in deze kleur; standaard volgt het de officiële statuskleuren (klaar groen / actief blauw / wachtend amber).',
+        'custom.pulse.warning': 'Wacht op goedkeuring',
+        'custom.pulse.ongoing': 'Actief',
+        'custom.pulse.done': 'Klaar',
+        'custom.pulse.recurse': 'Toepassen op submappen',
+        'custom.pulse.hint': 'Ademt het pictogram van een ingeklapte werkruimte per status, dan kan elke status apart gekleurd worden — niet ingestelde statussen volgen de officiële kleuren. „Toepassen op submappen“ zet de instellingen ook op de submappen en werkruimten eronder.',
         'custom.weak': 'Zwak',
         'custom.medium': 'Medium',
         'custom.strong': 'Sterk',
@@ -2215,7 +2259,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': 'Automatycznie',
         'custom.pulse': 'Kolor pulsu stanu',
         'custom.pulse.auto': 'Według stanu',
-        'custom.pulse.hint': 'Gdy zwinięty obszar roboczy zawiera sesje ukończone lub oczekujące na dane wejściowe, jego ikona oddycha tym kolorem; domyślnie stosuje oficjalne kolory stanu (ukończono zielony / trwa niebieski / czeka bursztynowy).',
+        'custom.pulse.warning': 'Czeka na zatwierdzenie',
+        'custom.pulse.ongoing': 'Trwa',
+        'custom.pulse.done': 'Ukończono',
+        'custom.pulse.recurse': 'Zastosuj do podfolderów',
+        'custom.pulse.hint': 'Gdy zwinięty obszar roboczy zawiera sesje ze stanem, jego ikona oddycha według stanu; każdy stan można kolorować osobno — nieustawione stosują kolory oficjalne. „Zastosuj do podfolderów“ rozszerza ustawienia na podfoldery i obszary robocze poniżej.',
         'custom.weak': 'Słaby',
         'custom.medium': 'Średni',
         'custom.strong': 'Silny',
@@ -2400,7 +2448,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': 'Auto',
         'custom.pulse': 'Cor da respiração de status',
         'custom.pulse.auto': 'Seguir status',
-        'custom.pulse.hint': 'Quando um espaço de trabalho recolhido tem sessões concluídas ou aguardando entrada, o ícone dele respira nesta cor; por padrão segue as cores oficiais de status (concluído verde / em execução azul / aguardando âmbar).',
+        'custom.pulse.warning': 'Aguardando aprovação',
+        'custom.pulse.ongoing': 'Em execução',
+        'custom.pulse.done': 'Concluído',
+        'custom.pulse.recurse': 'Aplicar às subpastas',
+        'custom.pulse.hint': 'Quando um espaço de trabalho recolhido tem sessões com status, o ícone dele respira por status; cada status pode ter cor própria — os não definidos seguem as cores oficiais. "Aplicar às subpastas" estende as configurações às subpastas e espaços de trabalho abaixo.',
         'custom.weak': 'Fraco',
         'custom.medium': 'Médio',
         'custom.strong': 'Forte',
@@ -2585,7 +2637,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': 'Авто',
         'custom.pulse': 'Цвет пульсации состояния',
         'custom.pulse.auto': 'По состоянию',
-        'custom.pulse.hint': 'Когда свёрнутая рабочая область содержит завершённые или ожидающие ввода сессии, её значок пульсирует этим цветом; по умолчанию используются официальные цвета состояния (завершено — зелёный / выполняется — синий / ожидает — янтарный).',
+        'custom.pulse.warning': 'Ожидает подтверждения',
+        'custom.pulse.ongoing': 'Выполняется',
+        'custom.pulse.done': 'Завершено',
+        'custom.pulse.recurse': 'Применить к подпапкам',
+        'custom.pulse.hint': 'Когда у свёрнутой рабочей области есть сессии с состоянием, значок пульсирует по состоянию; каждое состояние окрашивается отдельно — не заданные следуют официальным цветам. «Применить к подпапкам» распространяет настройки на подпапки и рабочие области ниже.',
         'custom.weak': 'Слабо',
         'custom.medium': 'Средне',
         'custom.strong': 'Сильно',
@@ -2770,7 +2826,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': 'Auto',
         'custom.pulse': 'Statusandningsfärg',
         'custom.pulse.auto': 'Följ status',
-        'custom.pulse.hint': 'När en ihopfälld arbetsyta innehåller sessioner som är klara eller väntar på indata, andas ikonen i denna färg; som standard följs de officiella statusfärgerna (klar grön / körs blå / väntar bärnsten).',
+        'custom.pulse.warning': 'Väntar på godkännande',
+        'custom.pulse.ongoing': 'Körs',
+        'custom.pulse.done': 'Klar',
+        'custom.pulse.recurse': 'Tillämpa på undermappar',
+        'custom.pulse.hint': 'Andas ikonen för en ihopfälld arbetsyta per status, kan varje status färgas separat — oinställda statusar följer de officiella färgerna. „Tillämpa på undermappar“ utökar inställningarna till undermapparna och arbetsytor nedanför.',
         'custom.weak': 'Svag',
         'custom.medium': 'Medium',
         'custom.strong': 'Stark',
@@ -2955,7 +3015,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': 'อัตโนมัติ',
         'custom.pulse': 'สีหายใจตามสถานะ',
         'custom.pulse.auto': 'ตามสถานะ',
-        'custom.pulse.hint': 'เมื่อพื้นที่ทำงานที่ย่ออยู่มีเซสชันที่เสร็จแล้วหรือกำลังรอการตอบสนอง ไอคอนจะหายใจเป็นสีนี้; ค่าเริ่มต้นตามสีสถานะทางการ (เสร็จแล้วเขียว / กำลังทำงานน้ำเงิน / รอตอบสนองอำพัน)',
+        'custom.pulse.warning': 'รอการอนุมัติ',
+        'custom.pulse.ongoing': 'กำลังทำงาน',
+        'custom.pulse.done': 'เสร็จแล้ว',
+        'custom.pulse.recurse': 'ใช้กับโฟลเดอร์ย่อย',
+        'custom.pulse.hint': 'เมื่อพื้นที่ทำงานที่ย่ออยู่มีเซสชันที่มีสถานะ ไอคอนจะหายใจแยกตามสถานะ; ตั้งสีแต่ละสถานะได้แยกกัน — สถานะที่ไม่ได้ตั้งจะตามสีทางการ; "ใช้กับโฟลเดอร์ย่อย" ขยายการตั้งค่าไปยังโฟลเดอร์ย่อยและพื้นที่ทำงานด้านล่าง',
         'custom.weak': 'อ่อน',
         'custom.medium': 'ปานกลาง',
         'custom.strong': 'แรง',
@@ -3140,7 +3204,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': 'Otomatik',
         'custom.pulse': 'Durum nefes rengi',
         'custom.pulse.auto': 'Durumu izle',
-        'custom.pulse.hint': 'Katlanmış bir çalışma alanı tamamlanmış veya giriş bekleyen oturumlar içerdiğinde simgesi bu renkte nefes alır; varsayılan olarak resmi durum renklerini izler (tamamlandı yeşil / çalışıyor mavi / bekliyor amber).',
+        'custom.pulse.warning': 'Onay bekliyor',
+        'custom.pulse.ongoing': 'Çalışıyor',
+        'custom.pulse.done': 'Tamamlandı',
+        'custom.pulse.recurse': 'Alt klasörlere uygula',
+        'custom.pulse.hint': 'Katlanmış bir çalışma alanı durumu olan oturumlar içerdiğinde simgesi duruma göre nefes alır; her durum ayrı renklendirilebilir — ayarlanmayanlar resmi renkleri izler. "Alt klasörlere uygula" ayarları altındaki alt klasörlere ve çalışma alanlarına genişletir.',
         'custom.weak': 'Zayıf',
         'custom.medium': 'Orta',
         'custom.strong': 'Güçlü',
@@ -3325,7 +3393,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': 'Tự động',
         'custom.pulse': 'Màu thở trạng thái',
         'custom.pulse.auto': 'Theo trạng thái',
-        'custom.pulse.hint': 'Khi một không gian làm việc đang thu gọn có phiên đã hoàn thành hoặc đang chờ nhập, biểu tượng của nó thở bằng màu này; mặc định theo màu trạng thái chính thức (xong xanh lá / đang chạy xanh dương / đang chờ hổ phách).',
+        'custom.pulse.warning': 'Đang chờ phê duyệt',
+        'custom.pulse.ongoing': 'Đang chạy',
+        'custom.pulse.done': 'Đã hoàn thành',
+        'custom.pulse.recurse': 'Áp dụng cho thư mục con',
+        'custom.pulse.hint': 'Khi một không gian làm việc thu gọn có phiên mang trạng thái, biểu tượng của nó thở theo từng trạng thái; mỗi trạng thái tô màu riêng — trạng thái chưa đặt theo màu chính thức. "Áp dụng cho thư mục con" mở rộng thiết lập xuống các thư mục con và không gian làm việc bên dưới.',
         'custom.weak': 'Nhẹ',
         'custom.medium': 'Vừa',
         'custom.strong': 'Mạnh',
@@ -3510,7 +3582,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': '自動',
         'custom.pulse': '狀態呼吸色',
         'custom.pulse.auto': '跟隨狀態',
-        'custom.pulse.hint': '被收起嘅工作區入面有對話完成或者等待操作嗰陣,容器行嘅圖示會以呢個顏色呼吸;預設跟隨官方狀態色(完成綠 / 運行藍 / 待互動琥珀)。',
+        'custom.pulse.warning': '待批准',
+        'custom.pulse.ongoing': '運行中',
+        'custom.pulse.done': '已完成',
+        'custom.pulse.recurse': '應用到子目錄',
+        'custom.pulse.hint': '被收起嘅工作區入面有帶狀態嘅對話嗰陣,容器行嘅圖示會按狀態呼吸;每個狀態可以單獨設定顏色,無設定嘅狀態跟隨官方色;剔咗「應用到子目錄」之後,分組下面嘅子分組同工作區都會沿用同一設定。',
         'custom.weak': '弱',
         'custom.medium': '中',
         'custom.strong': '強',
@@ -3695,7 +3771,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': '自動',
         'custom.pulse': '狀態呼吸色',
         'custom.pulse.auto': '跟隨狀態',
-        'custom.pulse.hint': '被收起嘅工作區入面有對話完成或者等待操作嗰陣,容器行嘅圖示會以呢個顏色呼吸;預設跟隨官方狀態色(完成綠 / 運行藍 / 待互動琥珀)。',
+        'custom.pulse.warning': '待批准',
+        'custom.pulse.ongoing': '運行中',
+        'custom.pulse.done': '已完成',
+        'custom.pulse.recurse': '應用到子目錄',
+        'custom.pulse.hint': '被收起嘅工作區入面有帶狀態嘅對話嗰陣,容器行嘅圖示會按狀態呼吸;每個狀態可以單獨設定顏色,無設定嘅狀態跟隨官方色;剔咗「應用到子目錄」之後,分組下面嘅子分組同工作區都會沿用同一設定。',
         'custom.weak': '弱',
         'custom.medium': '中',
         'custom.strong': '強',
@@ -3880,7 +3960,11 @@ window.__ModuleLoader__.load({
         'custom.strokeColor.auto': '自動',
         'custom.pulse': '狀態呼吸色',
         'custom.pulse.auto': '跟隨狀態',
-        'custom.pulse.hint': '被收合的工作區裡有工作階段完成或等待操作時,容器列的圖示會以該顏色呼吸;預設跟隨官方狀態色(完成綠 / 執行藍 / 待互動琥珀)。',
+        'custom.pulse.warning': '待核准',
+        'custom.pulse.ongoing': '執行中',
+        'custom.pulse.done': '已完成',
+        'custom.pulse.recurse': '套用到子目錄',
+        'custom.pulse.hint': '被收合的工作區裡有帶狀態的工作階段時,容器列的圖示會按狀態呼吸;每個狀態可個別設定顏色,未設定的狀態跟隨官方色;勾選「套用到子目錄」後,群組下面的子群組與工作區都會沿用同一設定。',
         'custom.weak': '弱',
         'custom.medium': '中',
         'custom.strong': '強',
@@ -5154,6 +5238,15 @@ window.__ModuleLoader__.load({
       '.bw-preview-icon{flex:none;display:grid;place-items:center;width:20px;height:20px;color:var(--dsw-alias-label-primary,#e6e6e6)}',
       '.bw-preview-icon svg{width:18px;height:18px}',
       '.bw-preview-label{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:18px;padding:3px;margin:-3px}',
+      // v0.37.6 per-state pulse rows + recurse checkbox + preview dots.
+      '.bw-pulse-row{display:flex;align-items:center;gap:8px}',
+      '.bw-pulse-row + .bw-pulse-row{margin-top:6px}',
+      '.bw-pulse-state{flex:none;width:70px;font-size:12px;color:var(--dsw-alias-label-secondary,#b8b8b8)}',
+      '.bw-pulse-row .bw-dialog-input-row{flex:1;flex-wrap:wrap}',
+      '.bw-pulse-recurse{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;color:var(--dsw-alias-label-secondary,#b8b8b8);cursor:pointer;user-select:none}',
+      '.bw-pulse-recurse input{accent-color:var(--dsw-alias-brand-primary,#5b8def);margin:0}',
+      '.bw-preview-pulses{flex:none;display:inline-flex;gap:6px;align-items:center;margin-left:2px}',
+      '.bw-preview-pulse{width:10px;height:10px;border-radius:50%;background:var(--bw-pulse-color,#5b8def)}',
       '.bw-pulse{animation:bw-breathe 1.8s ease-in-out infinite}',
       '@keyframes bw-breathe{0%,100%{filter:drop-shadow(0 0 1px var(--bw-pulse-color));opacity:.55}50%{filter:drop-shadow(0 0 6px var(--bw-pulse-color));opacity:1}}',
       '.bw-pulse-text{animation:bw-breathe-text 1.8s ease-in-out infinite}',
@@ -6355,9 +6448,10 @@ window.__ModuleLoader__.load({
     function FolderRow({ node, depth, expanded, onToggle, onContextMenu, dropHalf, dropInto, dragEvents, custStyle, iconMode, pulse, active, dataRowKey, t }) {
       const total = countWorkspaces(node)
       const iconEl = iconOf(iconMode, expanded)
-      // v0.37.5: a Customize status-glow pick rides in custStyle as
-      // --bw-pulse-color and wins over the official state color.
-      const pulseColor = pulse ? ((custStyle && custStyle['--bw-pulse-color']) || PULSE_COLORS[pulse] || PULSE_COLORS.ongoing) : null
+      // v0.37.6: the per-state pick rides in custStyle as --bw-pulse-<state>;
+      // a state the row (or its recurse ancestor) left unset falls back to
+      // the official color.
+      const pulseColor = pulse ? ((custStyle && custStyle['--bw-pulse-' + pulse]) || PULSE_COLORS[pulse] || PULSE_COLORS.ongoing) : null
       // Hidden status dots breathe on the icon; with the icon hidden (mode
       // "none" or a missing primitive) the official StateDot stands in.
       const iconChild = pulse
@@ -6389,8 +6483,8 @@ window.__ModuleLoader__.load({
 
     function WorkspaceRow({ workspace, depth, count, sessionsOpen, onToggle, onStart, onContextMenu, currentInside, menuOpen, dropHalf, dropInto, dragEvents, custStyle, iconMode, pulse, newSessionLabel, newSessionAria, hoverBody, dataRowKey, t }) {
       const iconEl = iconOf(iconMode, sessionsOpen)
-      // v0.37.5: same status-glow pick as FolderRow (see the note there).
-      const pulseColor = pulse ? ((custStyle && custStyle['--bw-pulse-color']) || PULSE_COLORS[pulse] || PULSE_COLORS.ongoing) : null
+      // v0.37.6: same per-state pick as FolderRow (see the note there).
+      const pulseColor = pulse ? ((custStyle && custStyle['--bw-pulse-' + pulse]) || PULSE_COLORS[pulse] || PULSE_COLORS.ongoing) : null
       const iconChild = pulse
         ? E(PulseGlow, { state: pulse, color: pulseColor }, iconEl || (typeof ui.StateDot === 'function' ? E(ui.StateDot, { state: pulse, size: 10 }) : null))
         : iconEl
@@ -6459,6 +6553,57 @@ window.__ModuleLoader__.load({
     // v0.37.5 Customize picker presets: the three official state colors first,
     // then three distinct hues. The free color input covers everything else.
     const PULSE_PRESETS = ['#3fb950', '#d29922', '#5b8def', '#e5534b', '#a371f7', '#f778ba']
+    const PULSE_STATES = ['warning', 'ongoing', 'done']
+    // v0.37.6: a pick is PER-STATE now — { warning?, ongoing?, done?, recurse }
+    // with hex-validated values; unset states follow the official colors. The
+    // v0.37.5 shape (a single hex string pinning every state) still reads.
+    // `recurse` extends the pick to the row's descendants; it only means
+    // something on rows that HAVE descendants (folder / project-group).
+    const pulsePickOf = (entry) => {
+      const raw = entry && entry.pulse
+      const out = {}
+      if (typeof raw === 'string') {
+        if (!colorToRgb(raw)) return null
+        out.warning = raw
+        out.ongoing = raw
+        out.done = raw
+      } else if (raw && typeof raw === 'object') {
+        for (const state of PULSE_STATES) {
+          if (typeof raw[state] === 'string' && colorToRgb(raw[state])) out[state] = raw[state]
+        }
+        if (raw.recurse === true) out.recurse = true
+      } else {
+        return null
+      }
+      return PULSE_STATES.some((state) => out[state]) || out.recurse ? out : null
+    }
+    // Dialog draft shape: every field present, invalid values blanked.
+    const normalizePulseDraft = (raw) => {
+      const pick = pulsePickOf({ pulse: raw }) || {}
+      return {
+        warning: pick.warning || '',
+        ongoing: pick.ongoing || '',
+        done: pick.done || '',
+        recurse: pick.recurse === true,
+      }
+    }
+    // "Unchanged" comparison for the commit-as-null decision.
+    const samePulseDraft = (a, b) => {
+      const x = a && typeof a === 'object' ? a : {}
+      const y = b && typeof b === 'object' ? b : {}
+      return PULSE_STATES.every((state) => (x[state] || '') === (y[state] || '')) && !!x.recurse === !!y.recurse
+    }
+    // Commit shape: absent keys ARE "follow status"; an empty pick commits as
+    // undefined so the whole key disappears from the styling entry.
+    const pulseEntryFromDraft = (draft) => {
+      const src = draft && typeof draft === 'object' ? draft : {}
+      const out = {}
+      for (const state of PULSE_STATES) {
+        if (typeof src[state] === 'string' && colorToRgb(src[state])) out[state] = src[state]
+      }
+      if (src.recurse === true) out.recurse = true
+      return PULSE_STATES.some((state) => out[state]) || out.recurse ? out : undefined
+    }
     const pulseRank = (state) => (state ? (PULSE_RANK[state] || 0) : 0)
 
     // `color` (v0.37.5): a row's Customize "status glow" pick. The span's own
@@ -6706,7 +6851,7 @@ window.__ModuleLoader__.load({
         // Session groups have no icon slot: a collapsed group with hidden
         // status relays through a breathing official StateDot instead —
         // colored by the row's Customize status-glow pick when one exists.
-        pulse ? E(PulseGlow, { state: pulse, color: custStyle && custStyle['--bw-pulse-color'] }, typeof ui.StateDot === 'function' ? E(ui.StateDot, { state: pulse, size: 10 }) : null) : null,
+        pulse ? E(PulseGlow, { state: pulse, color: custStyle && custStyle['--bw-pulse-' + pulse] }, typeof ui.StateDot === 'function' ? E(ui.StateDot, { state: pulse, size: 10 }) : null) : null,
         E('span', { className: 'bw-row-label' }, name),
         count > 0 ? E('span', { className: 'bw-row-count' }, String(count)) : null,
       )
@@ -7008,7 +7153,7 @@ window.__ModuleLoader__.load({
      * derives the contrasting pole from the effective font color, so a palette
      * flip keeps working without a re-render.
      */
-    function AppearanceControls({ value, onChange, allowIcon, allowPulse, t }) {
+    function AppearanceControls({ value, onChange, allowIcon, allowPulse, allowRecurse, t }) {
       const appearance = readAppearance(value)
       // Subscribe to the theme flip: a row may carry an `auto:N` token, and the
       // controls must show/preview the colour that token paints right now.
@@ -7024,10 +7169,12 @@ window.__ModuleLoader__.load({
       const strokeWidth = appearance.strokeWidth
       const strokeColor = appearance.strokeColor
       const iconMode = value && value.icon ? value.icon : 'solid'
-      // v0.37.5 status-glow pick: lives OUTSIDE readAppearance (it is a
-      // per-row override, never part of the default appearance), so it is
-      // read from the raw value and validated here for the color input.
-      const pulse = value && typeof value.pulse === 'string' && colorToRgb(value.pulse) ? value.pulse : ''
+      // v0.37.6 per-state status-glow pick: lives OUTSIDE readAppearance (it
+      // is a per-row override, never part of the default appearance). Draft
+      // shape: { warning, ongoing, done, recurse } with '' = follow status.
+      const rawPulse = value && value.pulse && typeof value.pulse === 'object' ? value.pulse : {}
+      const pulseOf = (state) => (typeof rawPulse[state] === 'string' && colorToRgb(rawPulse[state]) ? rawPulse[state] : '')
+      const patchPulseState = (state, next) => patch({ pulse: { ...rawPulse, [state]: next } })
       // The glyph this choice actually resolves to on THIS host: a value saved
       // before the host renamed its icon set still highlights a real cell.
       const activeGlyph = resolveIconName(iconMode)
@@ -7192,34 +7339,46 @@ window.__ModuleLoader__.load({
             }, mode === 'none' ? E('span', { className: 'bw-icon-none' }) : iconOf(mode, false))),
           ),
         ) : null,
-        // v0.37.5: the color the row's icon (or session-group dot) breathes in
-        // when collapsed members are done / waiting. Auto keeps the official
-        // per-state colors; a pick pins the color regardless of state.
+        // v0.37.6: PER-STATE breathing colors for the rows that relay hidden
+        // status lights. Each state colors independently; "Follow status"
+        // keeps the official color for that state; the recurse checkbox (only
+        // rows that have descendants) extends the whole pick to the subtree.
         allowPulse ? E('div', { className: 'bw-field' },
           t('custom.pulse'),
-          E('div', { className: 'bw-dialog-input-row' },
-            E('button', {
-              type: 'button',
-              className: cls('bw-swatch', 'bw-swatch-wide', pulse === '' && 'bw-swatch-active'),
-              title: t('custom.pulse.auto'),
-              onClick: () => patch({ pulse: '' }),
-            }, t('custom.pulse.auto')),
-            PULSE_PRESETS.map((preset) => E('button', {
-              key: preset,
-              type: 'button',
-              className: cls('bw-swatch', pulse === preset && 'bw-swatch-active'),
-              style: { background: preset },
-              'aria-label': preset,
-              title: preset,
-              onClick: () => patch({ pulse: preset }),
-            })),
+          PULSE_STATES.map((state) => E('div', { className: 'bw-pulse-row', key: state },
+            E('span', { className: 'bw-pulse-state' }, t('custom.pulse.' + state)),
+            E('div', { className: 'bw-dialog-input-row' },
+              E('button', {
+                type: 'button',
+                className: cls('bw-swatch', 'bw-swatch-wide', pulseOf(state) === '' && 'bw-swatch-active'),
+                title: t('custom.pulse.auto'),
+                onClick: () => patchPulseState(state, ''),
+              }, t('custom.pulse.auto')),
+              PULSE_PRESETS.map((preset) => E('button', {
+                key: preset,
+                type: 'button',
+                className: cls('bw-swatch', pulseOf(state) === preset && 'bw-swatch-active'),
+                style: { background: preset },
+                'aria-label': preset,
+                title: preset,
+                onClick: () => patchPulseState(state, preset),
+              })),
+              E('input', {
+                type: 'color',
+                className: 'bw-color-input',
+                value: pulseOf(state) || PULSE_COLORS[state],
+                onChange: (e) => patchPulseState(state, e.target.value),
+              }),
+            ),
+          )),
+          allowRecurse ? E('label', { className: 'bw-pulse-recurse' },
             E('input', {
-              type: 'color',
-              className: 'bw-color-input',
-              value: pulse || '#3fb950',
-              onChange: (e) => patch({ pulse: e.target.value }),
+              type: 'checkbox',
+              checked: rawPulse.recurse === true,
+              onChange: (e) => patch({ pulse: { ...rawPulse, recurse: e.target.checked } }),
             }),
-          ),
+            t('custom.pulse.recurse'),
+          ) : null,
           E('div', { className: 'bw-hint' }, t('custom.pulse.hint')),
         ) : null,
         E('div', { className: 'bw-field' },
@@ -7234,12 +7393,18 @@ window.__ModuleLoader__.load({
               ...(previewStroke || null),
             },
           },
-            // A pinned status-glow color previews as the real breathing glow.
-            allowIcon ? E('span', {
-              className: cls('bw-preview-icon', pulse && 'bw-pulse'),
-              style: pulse ? { '--bw-pulse-color': pulse } : undefined,
-            }, iconOf(iconMode, true)) : null,
+            allowIcon ? E('span', { className: 'bw-preview-icon' }, iconOf(iconMode, true)) : null,
             E('span', { className: 'bw-preview-label' }, t('custom.preview.sample')),
+            // v0.37.6: one breathing dot per state, each in its effective
+            // color (the pick or the official fallback) — the exact glow the
+            // row's icon shows for that state.
+            allowPulse ? E('span', { className: 'bw-preview-pulses' },
+              PULSE_STATES.map((state) => E('span', {
+                key: state,
+                className: 'bw-preview-pulse bw-pulse',
+                style: { '--bw-pulse-color': pulseOf(state) || PULSE_COLORS[state] },
+              })),
+            ) : null,
           ),
         ),
       )
@@ -7262,8 +7427,10 @@ window.__ModuleLoader__.load({
       // status lights — workspace/folder/pgroup icons and session-group dots.
       // Session rows keep the official lamp and get no pick.
       const allowPulse = kind === 'folder' || kind === 'workspace' || kind === 'pgroup' || kind === 'sgroup'
+      // Recurse only means something on rows that have descendants.
+      const allowRecurse = kind === 'folder' || kind === 'pgroup'
       const fallback = readAppearance(defaults)
-      const fallbackPulse = defaults && typeof defaults.pulse === 'string' && colorToRgb(defaults.pulse) ? defaults.pulse : ''
+      const fallbackPulse = normalizePulseDraft(defaults && defaults.pulse)
       const [draft, setDraft] = React.useState(DEFAULT_APPEARANCE)
       // The seed reads the CURRENT initial through a ref, and the effect keys
       // on the edited row (seedKey) instead of the initial object: the owner
@@ -7280,13 +7447,13 @@ window.__ModuleLoader__.load({
         setDraft({
           ...base,
           icon: (seed && seed.icon) || 'solid',
-          pulse: (seed && typeof seed.pulse === 'string' && colorToRgb(seed.pulse)) ? seed.pulse : '',
+          pulse: normalizePulseDraft(seed && seed.pulse),
         })
       }, [open, seedKey])
       if (!open) return null
       const unchanged = APPEARANCE_FIELDS.every((field) => draft[field] === fallback[field])
         && (!allowIcon || (draft.icon || 'solid') === 'solid')
-        && (!allowPulse || (draft.pulse || '') === fallbackPulse)
+        && (!allowPulse || samePulseDraft(draft.pulse, fallbackPulse))
       const commit = () => {
         const entry = {
           color: draft.color,
@@ -7296,8 +7463,10 @@ window.__ModuleLoader__.load({
           stroke: draft.stroke,
           strokeWidth: draft.strokeWidth,
           ...(allowIcon ? { icon: draft.icon || 'solid' } : {}),
-          // An empty pick stays absent: the key disappearing IS "Auto".
-          ...(allowPulse ? { pulse: draft.pulse || undefined } : {}),
+          // "Follow status" everywhere commits as an ABSENT key: the key
+          // disappearing IS the auto behavior (pulseEntryFromDraft returns
+          // undefined when every state is unset).
+          ...(allowPulse ? { pulse: pulseEntryFromDraft(draft.pulse) } : {}),
         }
         onChange(unchanged ? null : entry)
         onClose()
@@ -7322,11 +7491,12 @@ window.__ModuleLoader__.load({
             // field readAppearance drops, never overrides a fresh pick
             // (issue #9: the old spelling made the icon grid a no-op).
             // The same holds for pulse: readAppearance drops it, so the
-            // reducer must carry the previous pick forward across patches
-            // of unrelated fields (color/glow/...) or it would reset.
-            onChange: (patch) => setDraft((prev) => ({ ...readAppearance(prev), pulse: typeof prev.pulse === 'string' ? prev.pulse : '', ...patch, icon: patch.icon || prev.icon || 'solid' })),
+            // reducer must carry the previous pick object forward across
+            // patches of unrelated fields (color/glow/...) or it would reset.
+            onChange: (patch) => setDraft((prev) => ({ ...readAppearance(prev), pulse: prev.pulse && typeof prev.pulse === 'object' ? prev.pulse : { warning: '', ongoing: '', done: '', recurse: false }, ...patch, icon: patch.icon || prev.icon || 'solid' })),
             allowIcon,
             allowPulse,
+            allowRecurse,
             t,
           }),
         ),
@@ -8544,7 +8714,7 @@ window.__ModuleLoader__.load({
       // field by this row's own entry.
       const defaultAppearance = readAppearance(prefsMap.appearance)
       const appearanceOf = (key) => mergeAppearance(defaultAppearance, styleEntry(key))
-      const rowStyleOf = (key) => {
+      const rowStyleOf = (key, inheritedPulse) => {
         const appearance = appearanceOf(key)
         // `auto:N` tokens resolve against the LIVE theme here, which is what makes
         // a theme flip re-colour every auto-assigned row. `autoDarkTheme` is the
@@ -8563,12 +8733,17 @@ window.__ModuleLoader__.load({
         if (shadows.length > 0) style.textShadow = shadows.join(',')
         const stroke = strokeStyleOf(appearance)
         if (stroke) Object.assign(style, stroke)
-        // v0.37.5 status-glow pick: a row entry may pin the breathing color
-        // (icon pulse + breathing label glow); hex-only via colorToRgb, so an
-        // `auto:N` token or garbage never reaches the CSS variable. Rows that
-        // do not breathe simply never read the variable.
+        // v0.37.6 status-glow pick, PER STATE: the row entry's own pick wins,
+        // any state it leaves unset falls through to the inherited pick (a
+        // recurse-marked ancestor). Each state lands in its own CSS variable;
+        // hex-only via colorToRgb, so `auto:N` tokens and garbage never reach
+        // the CSS. Rows that do not breathe simply never read the variables.
         const entry = styleEntry(key)
-        if (entry && typeof entry.pulse === 'string' && colorToRgb(entry.pulse)) style['--bw-pulse-color'] = entry.pulse
+        const pick = pulsePickOf(entry)
+        for (const state of PULSE_STATES) {
+          const color = (pick && pick[state]) || (inheritedPulse && inheritedPulse[state])
+          if (color) style['--bw-pulse-' + state] = color
+        }
         return Object.keys(style).length > 0 ? style : null
       }
       const keyOf = (kind, payload) => {
@@ -9628,7 +9803,7 @@ window.__ModuleLoader__.load({
        * offered only here. Rows that cannot be binned carry `__bwNoPg` in
        * their ctx payload and a '' drag pg.
        */
-      const renderWorkspaceEntry = (entry, depth, pulse, allowPg = true) => {
+      const renderWorkspaceEntry = (entry, depth, pulse, allowPg = true, inheritedPulse) => {
         const { workspace } = entry
         if (!workspaceVisible(workspace)) return []
         const count = countSessionTree(buildSessionTree(sessionsOf(workspace), sessionSlash, sessFolders, workspace.workspaceId))
@@ -9653,7 +9828,7 @@ window.__ModuleLoader__.load({
           dropHalf: wsDropHalf(workspace.workspaceId),
           dropInto: wsRootDropActive(workspace.workspaceId),
           dragEvents: workspaceDragEvents(workspace, allowPg),
-          custStyle: rowStyleOf('workspace:' + workspace.workspaceId),
+          custStyle: rowStyleOf('workspace:' + workspace.workspaceId, inheritedPulse),
           iconMode: (styleEntry('workspace:' + workspace.workspaceId) || {}).icon || 'solid',
           // Shipped sidebar parity: the row's new-session affordance names the
           // current binding (Tooltip shortcutKeys upstream, native title here).
@@ -9667,7 +9842,9 @@ window.__ModuleLoader__.load({
         // fact; the sessions still belong to this row. Search views are
         // flattened, so sub levels never render there.
         if (workspace.sub && !searching && sessionsOpenOf(workspace.workspaceId)) {
-          rows.push(...renderLevelRows(workspace.sub, depth + 1))
+          // Workspace rows have no recurse checkbox of their own — the pick
+          // inherited from a recurse-marked ancestor flows through unchanged.
+          rows.push(...renderLevelRows(workspace.sub, depth + 1, inheritedPulse))
         }
         rows.push(...renderSessionTree(workspace, depth + 1))
         return rows
@@ -9693,17 +9870,17 @@ window.__ModuleLoader__.load({
       const currentWsPath = currentId
         ? ((items || []).find((w) => (w.sessionIds || []).includes(currentId)) || {}).path
         : undefined
-      const renderLevelRows = (level, depth) => {
+      const renderLevelRows = (level, depth, inheritedPulse) => {
         const rows = []
         // A disk-sub level: every workspace here is disk-nested under its
         // parent — never project-group assignable (allowPg=false).
-        for (const folder of level.folders) rows.push(...renderPlainFolder(folder, depth, false))
-        for (const workspace of level.workspaces) rows.push(...renderWorkspaceEntry({ workspace }, depth, wsPulseOf(workspace), false))
+        for (const folder of level.folders) rows.push(...renderPlainFolder(folder, depth, false, inheritedPulse))
+        for (const workspace of level.workspaces) rows.push(...renderWorkspaceEntry({ workspace }, depth, wsPulseOf(workspace), false, inheritedPulse))
         return rows
       }
 
-      const renderPlainFolder = (node, depth, allowPg = true) => {
-        if (node.kind === 'ws') return renderWorkspaceEntry({ workspace: node.workspace }, depth, wsPulseOf(node.workspace), allowPg)
+      const renderPlainFolder = (node, depth, allowPg = true, inheritedPulse) => {
+        if (node.kind === 'ws') return renderWorkspaceEntry({ workspace: node.workspace }, depth, wsPulseOf(node.workspace), allowPg, inheritedPulse)
         // Project-group bin (v0.36.0): same folder shape, store-driven
         // membership. Identity keys live in the 'pgroup:' namespace so a
         // same-named name folder at the root never shares expansion, styling
@@ -9715,6 +9892,11 @@ window.__ModuleLoader__.load({
           const idPath = node.idPath || ('pg//' + node.path)
           const expanded = searching || folderExpanded(idPath)
           const total = countWorkspaces(node)
+          // v0.37.6 recurse: this bin's own pick styles the row; when marked
+          // recurse the subtree adopts it, otherwise the inherited pick (from
+          // the nearest recurse-marked ancestor) flows through.
+          const ownPulse = pulsePickOf(styleEntry('pgroup:' + node.path))
+          const childPulse = ownPulse && ownPulse.recurse ? ownPulse : inheritedPulse
           const rows = [E(FolderRow, {
             key: 'pg-' + idPath,
             node,
@@ -9725,15 +9907,15 @@ window.__ModuleLoader__.load({
             dropHalf: pgDropHalf(idPath),
             dropInto: pgDropInto(idPath),
             dragEvents: pgFolderDropEvents(idPath, node.path),
-            custStyle: rowStyleOf('pgroup:' + node.path),
+            custStyle: rowStyleOf('pgroup:' + node.path, inheritedPulse),
             iconMode: (styleEntry('pgroup:' + node.path) || {}).icon || 'solid',
             pulse: expanded ? null : folderPulseOf(node),
             active: subHasCurrent(node),
             t,
           })]
           if (expanded) {
-            for (const child of node.folders) rows.push(...renderPlainFolder(child, depth + 1, true))
-            for (const workspace of node.workspaces) rows.push(...renderWorkspaceEntry({ workspace }, depth + 1, wsPulseOf(workspace), true))
+            for (const child of node.folders) rows.push(...renderPlainFolder(child, depth + 1, true, childPulse))
+            for (const workspace of node.workspaces) rows.push(...renderWorkspaceEntry({ workspace }, depth + 1, wsPulseOf(workspace), true, childPulse))
           }
           return rows
         }
@@ -9744,6 +9926,9 @@ window.__ModuleLoader__.load({
         // disk levels; path stays the semantic key (rename prefix logic).
         const idPath = node.idPath || node.path
         const expanded = searching || folderExpanded(idPath)
+        // v0.37.6 recurse (same rule as the pg branch above).
+        const ownPulse = pulsePickOf(styleEntry('folder:' + idPath))
+        const childPulse = ownPulse && ownPulse.recurse ? ownPulse : inheritedPulse
         const rows = [E(FolderRow, {
           key: 'f-' + idPath,
           node,
@@ -9753,15 +9938,15 @@ window.__ModuleLoader__.load({
           onContextMenu: (e) => openCtx('folder', { path: node.path, name: node.name, idPath, scope: node.scope, empty: countWorkspaces(node) === 0 }, e),
           dropInto: wsDropInto(idPath),
           dragEvents: folderDropEvents(idPath),
-          custStyle: rowStyleOf('folder:' + idPath),
+          custStyle: rowStyleOf('folder:' + idPath, inheritedPulse),
           iconMode: (styleEntry('folder:' + idPath) || {}).icon || 'solid',
           pulse: expanded ? null : folderPulseOf(node),
           active: pathHoldsCurrent(currentWsPath, node.path),
           t,
         })]
         if (expanded) {
-          for (const child of node.folders) rows.push(...renderPlainFolder(child, depth + 1, allowPg))
-          for (const workspace of node.workspaces) rows.push(...renderWorkspaceEntry({ workspace }, depth + 1, wsPulseOf(workspace), allowPg))
+          for (const child of node.folders) rows.push(...renderPlainFolder(child, depth + 1, allowPg, childPulse))
+          for (const workspace of node.workspaces) rows.push(...renderWorkspaceEntry({ workspace }, depth + 1, wsPulseOf(workspace), allowPg, childPulse))
         }
         return rows
       }

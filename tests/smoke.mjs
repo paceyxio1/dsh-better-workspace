@@ -596,44 +596,107 @@ test('outline: label keeps a bleed, meta column stays unstroked (0.10.1)', () =>
 })
 
 /**
- * Status-glow pick (v0.37.5): the Customize dialog gains a per-row breathing
- * color for the rows that relay hidden status lights. Auto (no `pulse` key)
- * keeps the official per-state colors; a pick pins the color regardless of
- * state. The pick rides the styling entry, is hex-validated, and must reach
- * PulseGlow explicitly — the span's own inline --bw-pulse-color would
- * otherwise shadow any row-level override.
+ * Status-glow pick (v0.37.5, reworked in v0.37.6): the Customize dialog gains
+ * a per-row breathing color for the rows that relay hidden status lights —
+ * PER STATE since v0.37.6, with "apply to subfolders" recursion. Auto (no
+ * key / unset state) keeps the official per-state colors. The pick rides the
+ * styling entry as `pulse`, is hex-validated, and must reach PulseGlow
+ * explicitly — the span's own inline --bw-pulse-color would otherwise shadow
+ * any row-level override.
  */
-test('customize: status glow pick rides the styling entry and reaches icon + dot breathing (v0.37.5)', () => {
+test('customize: pulse pick helpers normalize legacy strings, per-state objects and drafts (v0.37.6)', () => {
   const text = read('src/client.js')
-  // The pick is offered exactly for the rows that can breathe (workspace /
-  // folder / project-group icons, session-group dots) — never for sessions.
-  assert.match(text, /const allowPulse = kind === 'folder' \|\| kind === 'workspace' \|\| kind === 'pgroup' \|\| kind === 'sgroup'/,
-    'the dialog gates the pick to the breathing kinds')
-  assert.equal((text.match(/allowPulse \? E\('div', \{ className: 'bw-field' \}/g) || []).length, 1,
-    'exactly one pulse field, inside AppearanceControls (allowPulse default falsy keeps the settings card clean)')
-  // rowStyleOf emits the variable only for a hex-valid pick (auto:N tokens
-  // and garbage must not reach CSS).
-  assert.match(text, /typeof entry\.pulse === 'string' && colorToRgb\(entry\.pulse\)\) style\['--bw-pulse-color'\] = entry\.pulse/,
-    'rowStyleOf emits the pick as a CSS variable behind hex validation')
-  // PulseGlow honors an explicit override; official state colors stay the
-  // fallback, and every breathing row forwards its pick.
-  assert.match(text, /function PulseGlow\(\{ state, color, children \}\)/, 'PulseGlow takes the explicit color')
-  assert.match(text, /color \|\| PULSE_COLORS\[state\] \|\| PULSE_COLORS\.ongoing/, 'state colors remain the fallback')
-  assert.equal((text.match(/color: pulseColor \}/g) || []).length, 2, 'folder + workspace rows forward the pick')
-  assert.match(text, /PulseGlow, \{ state: pulse, color: custStyle && custStyle\['--bw-pulse-color'\] \}/,
-    'session-group dots take the pick too')
-  // Dialog wiring: seeding from the raw entry, surviving unrelated patches,
-  // and Auto committing as an ABSENT key (empty pick must not store '').
-  assert.match(text, /pulse: \(seed && typeof seed\.pulse === 'string' && colorToRgb\(seed\.pulse\)\) \? seed\.pulse : ''/,
-    'the draft seeds the pick from the raw styling entry')
-  assert.match(text, /pulse: typeof prev\.pulse === 'string' \? prev\.pulse : ''/,
-    'the reducer carries the pick across patches of unrelated fields')
-  assert.match(text, /\.\.\.\(allowPulse \? \{ pulse: draft\.pulse \|\| undefined \} : \{\}\)/,
-    'Auto commits as an absent key, not an empty string')
-  // Presets are plain hex (the color input inherits them verbatim).
+  const helpers = ['const colorToRgb =', 'const rgbToHex =']
+  const colorStart = text.indexOf(helpers[0])
+  const colorEnd = text.indexOf("const strokeStyleOf", colorStart)
+  const pulseStart = text.indexOf('const PULSE_STATES =')
+  const pulseEnd = text.indexOf('const pulseRank =')
+  assert.ok(colorStart !== -1 && colorEnd !== -1 && pulseStart !== -1 && pulseEnd !== -1, 'pulse helpers not found')
+  const loaded = new Function(
+    'PULSE_PRESETS',
+    text.slice(colorStart, colorEnd) + '\n' + text.slice(pulseStart, pulseEnd) +
+    '\nreturn { pulsePickOf, normalizePulseDraft, pulseEntryFromDraft, samePulseDraft }',
+  )(['#3fb950'])
+  const { pulsePickOf, normalizePulseDraft, pulseEntryFromDraft, samePulseDraft } = loaded
+  // v0.37.5 legacy single-string picks pin ALL THREE states.
+  assert.deepEqual(
+    pulsePickOf({ pulse: '#ff0000' }),
+    { warning: '#ff0000', ongoing: '#ff0000', done: '#ff0000' },
+    'a legacy string pick pins every state',
+  )
+  // Per-state objects validate field by field; garbage and auto:N drop out.
+  assert.deepEqual(
+    pulsePickOf({ pulse: { done: '#00ff00', warning: 'nope', ongoing: 'auto:3', recurse: true } }),
+    { done: '#00ff00', recurse: true },
+    'invalid state values are dropped, recurse is kept',
+  )
+  assert.equal(pulsePickOf({ pulse: {} }), null, 'an empty object is no pick')
+  assert.equal(pulsePickOf({}), null)
+  assert.equal(pulsePickOf({ pulse: 42 }), null)
+  assert.equal(pulsePickOf({ pulse: { warning: '#ff0000' } }).warning, '#ff0000')
+  // Draft round trip: full shape in, commit shape out; all-follow = absent.
+  assert.deepEqual(
+    normalizePulseDraft({ done: '#00ff00', recurse: true }),
+    { warning: '', ongoing: '', done: '#00ff00', recurse: true },
+  )
+  assert.deepEqual(pulseEntryFromDraft(normalizePulseDraft('#ff0000')), {
+    warning: '#ff0000', ongoing: '#ff0000', done: '#ff0000',
+  }, 'recurse=false must not be stored')
+  assert.equal(pulseEntryFromDraft(normalizePulseDraft({})), undefined, 'all-follow commits as an ABSENT key')
+  assert.deepEqual(pulseEntryFromDraft(normalizePulseDraft({ recurse: true })), { recurse: true },
+    'recurse alone persists the checkbox (no visual effect until a state color exists)')
+  assert.equal(samePulseDraft({ warning: '#111111' }, {}), false)
+  assert.equal(samePulseDraft({ recurse: true }, { recurse: true }), true)
+  assert.equal(samePulseDraft(normalizePulseDraft('#123456'), normalizePulseDraft('#123456')), true)
+  // Presets are plain hex (the color inputs inherit them verbatim).
   const presets = new Function('return ' + /const PULSE_PRESETS = (\[[^\]]*\])/.exec(text)[1])()
   assert.ok(presets.length >= 6, 'the preset row ships the official colors plus distinct hues')
   for (const preset of presets) assert.match(preset, /^#[0-9a-f]{6}$/, 'presets are plain hex colors')
+})
+
+test('customize: per-state pulse rides the render chain with recurse threading (v0.37.6)', () => {
+  const text = read('src/client.js')
+  // The pick is offered exactly for the rows that can breathe (workspace /
+  // folder / project-group icons, session-group dots) — never for sessions;
+  // the recurse checkbox only where descendants exist.
+  assert.match(text, /const allowPulse = kind === 'folder' \|\| kind === 'workspace' \|\| kind === 'pgroup' \|\| kind === 'sgroup'/,
+    'the dialog gates the pick to the breathing kinds')
+  assert.match(text, /const allowRecurse = kind === 'folder' \|\| kind === 'pgroup'/,
+    'recurse only means something on rows with descendants')
+  assert.equal((text.match(/allowPulse \? E\('div', \{ className: 'bw-field' \}/g) || []).length, 1,
+    'exactly one pulse field, inside AppearanceControls (allowPulse default falsy keeps the settings card clean)')
+  assert.match(text, /allowRecurse \? E\('label', \{ className: 'bw-pulse-recurse' \}/,
+    'the recurse checkbox rides its own labeled row')
+  // rowStyleOf emits one variable per state: the row's own pick first, the
+  // inherited pick (recurse ancestor) as the per-state fallback.
+  assert.match(text, /const color = \(pick && pick\[state\]\) \|\| \(inheritedPulse && inheritedPulse\[state\]\)/,
+    'own pick wins per state, inherited fills the rest')
+  assert.match(text, /style\['--bw-pulse-' \+ state\] = color/, 'rowStyleOf emits --bw-pulse-<state>')
+  // PulseGlow honors an explicit override; official state colors stay the
+  // fallback; every breathing row reads its state variable.
+  assert.match(text, /function PulseGlow\(\{ state, color, children \}\)/, 'PulseGlow takes the explicit color')
+  assert.match(text, /color \|\| PULSE_COLORS\[state\] \|\| PULSE_COLORS\.ongoing/, 'state colors remain the fallback')
+  assert.equal((text.match(/custStyle\['--bw-pulse-' \+ pulse\]/g) || []).length, 3,
+    'folder + workspace rows resolve their state color, session-group dots read it directly')
+  // Recurse threading: both folder branches (name group + project-group bin)
+  // hand the subtree to the recurse-marked pick, everything else passes the
+  // inherited pick through; disk-sub levels under a workspace inherit too.
+  assert.equal((text.match(/const childPulse = ownPulse && ownPulse\.recurse \? ownPulse : inheritedPulse/g) || []).length, 2,
+    'both folder branches compute the subtree pick')
+  assert.match(text, /renderPlainFolder\(child, depth \+ 1, allowPg, childPulse\)/)
+  assert.match(text, /renderWorkspaceEntry\(\{ workspace \}, depth \+ 1, wsPulseOf\(workspace\), allowPg, childPulse\)/)
+  assert.match(text, /renderLevelRows\(workspace\.sub, depth \+ 1, inheritedPulse\)/,
+    'a workspace passes the inherited pick to its disk-sub level')
+  // Dialog wiring: seeding normalizes (legacy strings included), the reducer
+  // carries the pick object forward, "follow status everywhere" commits absent.
+  assert.match(text, /pulse: normalizePulseDraft\(seed && seed\.pulse\)/,
+    'the draft seeds through the normalizer (legacy strings included)')
+  assert.match(text, /pulse: prev\.pulse && typeof prev\.pulse === 'object' \? prev\.pulse : \{ warning: '', ongoing: '', done: '', recurse: false \}/,
+    'the reducer carries the pick object across patches of unrelated fields')
+  assert.match(text, /\.\.\.\(allowPulse \? \{ pulse: pulseEntryFromDraft\(draft\.pulse\) \} : \{\}\)/,
+    'the commit runs through pulseEntryFromDraft (absent key = auto)')
+  // Preview: one breathing dot per state in its effective color.
+  assert.match(text, /className: 'bw-preview-pulse bw-pulse'/, 'the preview breathes one dot per state')
 })
 
 /**
@@ -1855,7 +1918,7 @@ test('auto style: the row renderer subscribes to the theme flip (v0.25.0 P1 guar
   const text = read('src/client.js')
   const browserStart = text.indexOf('function BetterBrowser(props) {')
   assert.ok(browserStart !== -1, 'BetterBrowser not found')
-  const rowStyleStart = text.indexOf('const rowStyleOf = (key) => {', browserStart)
+  const rowStyleStart = text.indexOf('const rowStyleOf = (key, inheritedPulse) => {', browserStart)
   assert.ok(rowStyleStart > browserStart, 'rowStyleOf not found inside BetterBrowser')
   assert.match(text.slice(browserStart, rowStyleStart), /const autoDarkTheme = useAutoThemeDark\(\)/,
     'BetterBrowser must subscribe to the theme flip (useAutoThemeDark), or a switch never repaints the rows')
@@ -2320,9 +2383,9 @@ test('project groups: sidebar/picker wiring, menus, drag, dialogs (v0.36.0)', ()
   // namespace (styling/expansion live apart from a same-named name folder).
   assert.match(text, /if \(node\.pg\) \{/, 'renderPlainFolder branches on the pg flag')
   assert.match(text, /key: 'pg-' \+ idPath/, 'pg rows carry their own React key')
-  assert.match(text, /rowStyleOf\('pgroup:' \+ node\.path\)/, 'pg styling rides the pgroup namespace')
+  assert.match(text, /rowStyleOf\('pgroup:' \+ node\.path, inheritedPulse\)/, 'pg styling rides the pgroup namespace')
   assert.match(text, /openCtx\('pgroup', \{ path: node\.path/, 'pg rows open the pgroup ctx menu')
-  assert.match(text, /const renderWorkspaceEntry = \(entry, depth, pulse, allowPg = true\)/,
+  assert.match(text, /const renderWorkspaceEntry = \(entry, depth, pulse, allowPg = true, inheritedPulse\)/,
     'row rendering threads the root-level flag')
   assert.match(text, /\{ \.\.\.workspace, __bwNoPg: true \}/,
     'disk-nested rows must not offer project-group entries')
