@@ -5248,9 +5248,14 @@ window.__ModuleLoader__.load({
       '.bw-preview-pulses{flex:none;display:inline-flex;gap:6px;align-items:center;margin-left:2px}',
       '.bw-preview-pulse{width:10px;height:10px;border-radius:50%;background:var(--bw-pulse-color,#5b8def)}',
       '.bw-pulse{animation:bw-breathe 1.8s ease-in-out infinite}',
-      '@keyframes bw-breathe{0%,100%{filter:drop-shadow(0 0 1px var(--bw-pulse-color));opacity:.55}50%{filter:drop-shadow(0 0 6px var(--bw-pulse-color));opacity:1}}',
+      // v0.37.7: the single 6px blur layer spread its energy too thin on a
+      // 16px glyph — the peak read pale. Three stacked same-color shadows
+      // now: a tight 2px layer keeps the core SATURATED (drop-shadow layers
+      // composite additively), 7px widens the halo, 14px throws the outer
+      // glow. The 0% trough stays a faint 1px+3px rest state.
+      '@keyframes bw-breathe{0%,100%{filter:drop-shadow(0 0 1px var(--bw-pulse-color)) drop-shadow(0 0 3px var(--bw-pulse-color));opacity:.6}50%{filter:drop-shadow(0 0 2px var(--bw-pulse-color)) drop-shadow(0 0 7px var(--bw-pulse-color)) drop-shadow(0 0 14px var(--bw-pulse-color));opacity:1}}',
       '.bw-pulse-text{animation:bw-breathe-text 1.8s ease-in-out infinite}',
-      '@keyframes bw-breathe-text{0%,100%{text-shadow:0 0 1px var(--bw-pulse-color);opacity:.65}50%{text-shadow:0 0 7px var(--bw-pulse-color);opacity:1}}',
+      '@keyframes bw-breathe-text{0%,100%{text-shadow:0 0 1px var(--bw-pulse-color);opacity:.65}50%{text-shadow:0 0 2px var(--bw-pulse-color),0 0 8px var(--bw-pulse-color),0 0 15px var(--bw-pulse-color);opacity:1}}',
       '.bw-sync-modes{display:flex;gap:6px;margin-top:8px}',
       '.bw-sync-mode{flex:1;padding:5px 10px;border-radius:6px;border:1px solid var(--dsw-alias-border-l2,rgba(127,127,127,.3));background:transparent;color:var(--dsw-alias-label-secondary,#b8b8b8);cursor:pointer;font-size:12px}',
       '.bw-sync-mode-on{border-color:var(--dsw-alias-brand-primary,#5b8def);color:var(--dsw-alias-label-primary,#e6e6e6);background:var(--dsw-alias-bg-layer-2,rgba(127,127,127,.12))}',
