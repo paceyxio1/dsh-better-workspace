@@ -5258,6 +5258,12 @@ window.__ModuleLoader__.load({
       '.bw-preview-pulses{flex:none;display:inline-flex;gap:6px;align-items:center;margin-left:2px}',
       '.bw-preview-pulse{width:10px;height:10px;border-radius:50%;background:var(--bw-pulse-color,#5b8def)}',
       '.bw-pulse{animation:bw-breathe 1.8s ease-in-out infinite}',
+      // v0.37.10: the session-row running backdrop — a faint solid disc that
+      // swells and fades in sync with the drop-shadow breathing. Runs both
+      // animations on one timeline; the disc is themed off --bw-pulse-color
+      // via color-mix, so a Customize pick would tint it too.
+      '.bw-pulse-backdrop{display:grid;place-items:center;width:16px;height:16px;border-radius:50%;animation:bw-breathe 1.8s ease-in-out infinite,bw-backdrop 1.8s ease-in-out infinite}',
+      '@keyframes bw-backdrop{0%,100%{background:transparent}50%{background:color-mix(in srgb,var(--bw-pulse-color) 22%,transparent)}}',
       // v0.37.7: the single 6px blur layer spread its energy too thin on a
       // 16px glyph — the peak read pale. Three stacked same-color shadows
       // now: a tight 2px layer keeps the core SATURATED (drop-shadow layers
@@ -6624,9 +6630,14 @@ window.__ModuleLoader__.load({
     // `color` (v0.37.5): a row's Customize "status glow" pick. The span's own
     // inline var would shadow any row-level override, so the pick must arrive
     // here explicitly — absent, the official state color applies.
-    function PulseGlow({ state, color, children }) {
+    // `backdrop` (v0.37.10): adds a faint SOLID disc behind the children that
+    // swells and fades with the same period. A drop-shadow halo alone is
+    // nearly invisible on a light theme's white background (the session-row
+    // running spinner is a thin ring — its halo vanished), a real tinted disc
+    // reads on both themes without touching the row background.
+    function PulseGlow({ state, color, backdrop, children }) {
       return E('span', {
-        className: 'bw-pulse',
+        className: cls('bw-pulse', backdrop && 'bw-pulse-backdrop'),
         style: { '--bw-pulse-color': color || PULSE_COLORS[state] || PULSE_COLORS.ongoing },
       }, children)
     }
@@ -6810,8 +6821,11 @@ window.__ModuleLoader__.load({
               // Running breathes blue ON the session row only (never relays);
               // the settings toggle covers this breathing too. The dot takes
               // its official size (14px spinner / 10px lamp), inside the
-              // fixed 16px leading cell.
-              ? E(PulseGlow, { state: 'ongoing' }, E(ui.StateDot, { state: status.state }))
+              // fixed 16px leading cell. v0.37.10: the breathing carries a
+              // faint solid disc — the bare drop-shadow halo on the thin
+              // ring was invisible on a light theme, and users could not
+              // find their running sessions in a long list.
+              ? E(PulseGlow, { state: 'ongoing', backdrop: true }, E(ui.StateDot, { state: status.state }))
               : E(ui.StateDot, { state: status.state }))
             : (markNode || E('span', { className: 'bw-dot' })),
         ),

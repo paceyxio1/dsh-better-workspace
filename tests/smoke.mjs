@@ -674,7 +674,7 @@ test('customize: per-state pulse rides the render chain with recurse threading (
   assert.match(text, /style\['--bw-pulse-' \+ state\] = color/, 'rowStyleOf emits --bw-pulse-<state>')
   // PulseGlow honors an explicit override; official state colors stay the
   // fallback; every breathing row reads its state variable.
-  assert.match(text, /function PulseGlow\(\{ state, color, children \}\)/, 'PulseGlow takes the explicit color')
+  assert.match(text, /function PulseGlow\(\{ state, color, backdrop, children \}\)/, 'PulseGlow takes the explicit color')
   assert.match(text, /color \|\| PULSE_COLORS\[state\] \|\| PULSE_COLORS\.ongoing/, 'state colors remain the fallback')
   assert.equal((text.match(/custStyle\['--bw-pulse-' \+ pulse\]/g) || []).length, 3,
     'folder + workspace rows resolve their state color, session-group dots read it directly')
@@ -697,6 +697,30 @@ test('customize: per-state pulse rides the render chain with recurse threading (
     'the commit runs through pulseEntryFromDraft (absent key = auto)')
   // Preview: one breathing dot per state in its effective color.
   assert.match(text, /className: 'bw-preview-pulse bw-pulse'/, 'the preview breathes one dot per state')
+})
+
+/**
+ * Session-row running breathing (v0.37.10): the row already wrapped the
+ * official spinner in a drop-shadow pulse, but a halo on the thin ring was
+ * invisible on a light theme's white background — users could not find their
+ * running sessions in a long list. The breathing now carries a faint SOLID
+ * disc (color-mix off --bw-pulse-color) that swells and fades on the same
+ * timeline; the row background itself is never touched, so hover/current
+ * highlights stay intact and the official spinner keeps its slot.
+ */
+test('session rows: running breathing carries a visible solid backdrop (v0.37.10)', () => {
+  const text = read('src/client.js')
+  assert.match(text, /E\(PulseGlow, \{ state: 'ongoing', backdrop: true \}, E\(ui\.StateDot, \{ state: status\.state \}\)\)/,
+    'the session-row running breathing wraps the official StateDot with the backdrop disc')
+  assert.match(text, /function PulseGlow\(\{ state, color, backdrop, children \}\)/,
+    'PulseGlow takes the backdrop flag')
+  assert.match(text, /backdrop && 'bw-pulse-backdrop'/, 'the flag lands as an extra class')
+  // The disc is fixed to the leading cell, rides --bw-pulse-color, and runs
+  // on the same 1.8s timeline as the drop-shadow breathing.
+  assert.match(text, /\.bw-pulse-backdrop\{[^}]*display:grid;place-items:center;width:16px;height:16px;border-radius:50%[^}]*animation:bw-breathe 1\.8s ease-in-out infinite,bw-backdrop 1\.8s ease-in-out infinite\}/,
+    'the backdrop disc breathes on the shared timeline')
+  assert.match(text, /@keyframes bw-backdrop\{0%,100%\{background:transparent\}50%\{background:color-mix\(in srgb,var\(--bw-pulse-color\) 22%,transparent\)\}\}/,
+    'the disc swells from transparent to a 22% tint of the state color')
 })
 
 /**
