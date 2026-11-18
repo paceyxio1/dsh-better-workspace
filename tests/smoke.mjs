@@ -724,6 +724,30 @@ test('session rows: running breathing carries a visible solid backdrop (v0.37.10
 })
 
 /**
+ * Running relays outward (v0.37.11): the old rule kept running ON the session
+ * row only ("the user found the ongoing relay noisy") — relayStateOf filtered
+ * 'ongoing' out of every collapsed-container aggregation, so a folded
+ * workspace never breathed blue while it hid running sessions. The user
+ * retired that decision on 2026-11-18 ("就和已完成/待审批一样的效果"): the
+ * subtree aggregation now reads the row state directly, running holds its
+ * official priority slot (pending > running > done), and the settings-card
+ * hint — which always listed 运行蓝 among the relayed colors — finally
+ * matches the implementation across all 21 dictionaries.
+ */
+test('status relay: running bubbles outward exactly like done/pending (v0.37.11)', () => {
+  const text = read('src/client.js')
+  assert.doesNotMatch(text, /return s === 'ongoing' \? null : s/,
+    'the ongoing relay filter must stay deleted')
+  assert.doesNotMatch(text, /const relayStateOf = \(row\)/,
+    'the relayStateOf helper must not come back')
+  assert.match(text, /const s = sessionStateOf\(row\)\n {10}if \(pulseRank\(s\) > pulseRank\(best\)\) best = s/,
+    'the session-subtree aggregation reads the row state directly')
+  // Priority order unchanged: a pending interaction still outranks running.
+  assert.match(text, /const PULSE_RANK = \{ warning: 3, ongoing: 2, done: 1 \}/,
+    'official status priority stays pending > running > done')
+})
+
+/**
  * Icon compatibility (0.10.2): dsh 0.1.6-alpha.1 replaced part of the
  * primitives icon set (IconSendOutline16 -> IconPaperPlaneOutline14 and
  * friends), so a persisted custom icon naming a retired glyph must resolve to a

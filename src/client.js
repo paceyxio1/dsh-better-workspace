@@ -6642,13 +6642,16 @@ window.__ModuleLoader__.load({
       }, children)
     }
 
-    // RUNNING deliberately stays on the session row itself (its official ring
-    // breathes blue there) and does NOT bubble outward — the user found the
-    // ongoing relay noisy. Only pending-amber and done-green propagate.
-    const relayStateOf = (row) => {
-      const s = sessionStateOf(row)
-      return s === 'ongoing' ? null : s
-    }
+    // v0.37.11: RUNNING now bubbles outward exactly like pending-amber and
+    // done-green — a collapsed workspace whose hidden sessions are running
+    // breathes blue on its icon (same drop-shadow treatment, same priority
+    // slot: pending > running > done). The old "running never relays" filter
+    // (relayStateOf) is retired: the user retired the decision on 2026-11-18
+    // ("这个我不记得我说过,你帮忙加一下吧,就和已完成/待审批一样的效果") — the
+    // running ring already breathes ON the session row, and with the
+    // v0.37.10 backdrop disc it is no longer the noisy blur it once was.
+    // The settings-card hint always promised 运行蓝 in the relay list; the
+    // implementation finally matches the copy.
 
     // Official title marquee (Rows.tsx useTitleMarquee): on hover an
     // overflowing title scrolls at the shipped constant speed so the hidden
@@ -8935,7 +8938,7 @@ window.__ModuleLoader__.load({
           if (pulseRank(s) > pulseRank(best)) best = s
         }
         for (const row of sessionNode.sessions || []) {
-          const s = relayStateOf(row)
+          const s = sessionStateOf(row)
           if (pulseRank(s) > pulseRank(best)) best = s
         }
         return best
